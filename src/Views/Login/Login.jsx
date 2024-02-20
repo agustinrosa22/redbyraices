@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { login } from '../../Redux/Actions/actions';
 import style from './Login.module.css';
+import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
-  const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [error, setError] = useState('');
+  const dispatch = useDispatch();
+  const error = useSelector(state => state.error); // Obtiene el error del estado global
+
   const [formData, setFormData] = useState({
     mail: '',
     password: ''
@@ -19,28 +20,9 @@ const Login = () => {
 
   const onSubmit = async e => {
     e.preventDefault();
-    try {
-      const res = await axios.post('/login', {
-        mail,
-        password
-      });
-
-      if (res.data.access) {
-        console.log('Login exitoso');
-        navigate('/home');
-      } else if (res.message === "Credenciales inválidas") {
-        console.log('Credenciales inválidas');
-        setError('Credenciales inválidas');
-      } else if (res.status === 404) {
-        console.log('Usuario no encontrado');
-        setError('Usuario no encontrado');
-      } else {
-        console.log('Error interno del servidor');
-        setError('Error interno del servidor');
-      }
-    } catch (err) {
-      console.error('Error interno del servidor:', err);
-      setError('Error interno del servidor');
+    const success = await dispatch(login({ mail, password }));
+    if (success) {
+      navigate('/home');
     }
   };
 
