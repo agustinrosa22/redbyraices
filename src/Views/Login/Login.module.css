@@ -48,6 +48,7 @@
 
 .formGroup {
   margin-bottom: 20px;
+  display: flex;
 }
 
 .error {
@@ -73,6 +74,17 @@ label {
   box-sizing: border-box; /* Incluye borde y relleno en el ancho especificado */
   margin: 0;
 }
+
+.passwordGroup {
+    display: flex;
+  }
+  
+  .passwordIcon {
+    display: flex;
+    align-items: center;
+    padding: 0 16px;
+    cursor: pointer;
+  }
 
 .buttonSubmit {
   width: 100%; /* Ancho del botón igual al del contenedor del formulario */

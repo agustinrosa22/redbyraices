@@ -4,6 +4,7 @@ import { login } from '../../Redux/Actions/actions';
 import style from './Login.module.css';
 import { useNavigate } from 'react-router-dom';
 import titulo from '../../Assets/tituloNuevo.png'
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
 
 const Login = () => {
   const navigate = useNavigate();
@@ -12,12 +13,17 @@ const Login = () => {
 
   const [formData, setFormData] = useState({
     mail: '',
-    password: ''
+    password: '',
+    showPassword: false
   });
 
-  const { mail, password } = formData;
+  const { mail, password, showPassword } = formData;
 
   const onChange = e => setFormData({ ...formData, [e.target.name]: e.target.value });
+
+  const togglePasswordVisibility = () => {
+    setFormData({ ...formData, showPassword: !showPassword });
+  };
 
   const onSubmit = async e => {
     e.preventDefault();
@@ -40,7 +46,7 @@ const Login = () => {
 
           <label>Email:</label>
         <div className={style.formGroup}>
-          <input
+          <input clasname={style.inputForm}
             type="email"
             name="mail"
             value={mail}
@@ -50,15 +56,22 @@ const Login = () => {
             />
         </div>
           <label>Contraseña:</label>
-        <div className={style.formGroup}>
-          <input
-            type="password"
+        <div className={style.passwordGroup}>
+          <input clasname={style.inputForm}
+             type={showPassword ? "text" : "password"} 
             name="password"
             value={password}
             onChange={onChange}
             required
             className={style.inputForm}
             />
+             <div className={style.passwordIcon} onClick={togglePasswordVisibility}>
+             {showPassword ? (
+                <FaEyeSlash onClick={togglePasswordVisibility} /> // Icono de ojo cerrado si showPassword es true
+              ) : (
+                <FaEye onClick={togglePasswordVisibility} /> // Icono de ojo abierto si showPassword es false
+              )}
+        </div>
         </div>
         <button  className={style.buttonSubmit} type="submit">Login</button>
       </form>
