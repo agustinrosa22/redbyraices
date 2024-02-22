@@ -17,12 +17,13 @@
 }
 
 .img {
-    top: 0;
-    width: 90%;
-    height: auto; 
-    justify-content: center;
-    align-items:center;
-    margin-bottom: 15%;
+  display: block; /* Asegura que la imagen se comporte como un bloque */
+  margin-left: auto; /* Centra la imagen horizontalmente */
+  margin-right: auto; /* Centra la imagen horizontalmente */
+  width: 20%; /* Ancho de la imagen */
+  height: auto; /* Altura automática para mantener la relación de aspecto */
+  margin-bottom: 5%; /* Espacio entre la imagen y el contenido debajo */
+  margin-top: 0%; /* Espacio entre la imagen y el contenido arriba */
   }
 
 .card {

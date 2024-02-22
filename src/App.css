@@ -1,4 +1,35 @@
+/* App.css */
+
 .App {
-  /* text-align: center; */
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
 }
 
+.content {
+  display: flex;
+  flex: 1;
+  overflow: hidden; /* Evita que el contenido se vea tapado por la Sidebar */
+}
+
+.main {
+  flex: 1;
+  padding: 20px;
+  overflow-y: auto; /* Agrega una barra de desplazamiento vertical si el contenido es demasiado largo */
+}
+
+.NavBar {
+  /* Estilos de la barra de navegación */
+}
+
+.Sidebar {
+  /* Estilos de la barra lateral */
+  width: 250px; /* Ancho de la Sidebar */
+  background-color: #f0f0f0; /* Color de fondo de la Sidebar */
+  overflow-y: auto; /* Agrega una barra de desplazamiento vertical si la Sidebar es demasiado larga */
+}
+
+.Home {
+  /* Estilos del contenido de la página Home */
+  margin-left: 50%; /* Ajusta el margen izquierdo para dejar espacio para la Sidebar */
+}

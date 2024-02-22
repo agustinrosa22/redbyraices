@@ -1,0 +1,4 @@
+.container {
+    padding: 20px; /* Ajusta el padding del contenido principal */
+    margin-left: 0px; /* Ajusta el margen izquierdo para evitar solapamientos con la Sidebar */
+  }
