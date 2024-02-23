@@ -1,9 +1,10 @@
 // Redux Reducer
 
-import { LOGIN_SUCCESS, LOGIN_FAIL } from './Actions/actionTypes';
+import { LOGIN_SUCCESS, LOGIN_FAIL, GET_USER_SUCCESS, GET_USER_FAIL } from './Actions/actionTypes';
 
 const initialState = {
   user: null,
+  userDetails: null,
   error: null
 };
 
@@ -21,6 +22,18 @@ const rootReducer = (state = initialState, action) => {
         user: null,
         error: action.payload
       };
+      case GET_USER_SUCCESS:
+        return {
+          ...state,
+          userDetails: action.payload,
+          error: null
+        };
+      case GET_USER_FAIL:
+        return {
+          ...state,
+          userDetails: null,
+          error: action.payload
+        };
     default:
       return state;
   }
