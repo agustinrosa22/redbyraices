@@ -17,6 +17,8 @@ export const login = ({ mail, password }) => async dispatch => {
         userId: userId
       }
     });
+    localStorage.setItem('user', JSON.stringify(user));
+    console.log('Usuario guardado en localStorage:', user); 
     // Ahora puedes llamar a la acción getUser con el userId
     dispatch(getUser(userId));
     return true;
@@ -39,7 +41,7 @@ export const getUser = userId => async dispatch => {
     }
     
     const response = await axios.get(`http://localhost:3001/seller/${userId}`);
-    console.log('Detalles del usuario:', response.data);
+    console.log('Detalles del usuario obtenidos del backend:', response.data);
     dispatch({
       type: GET_USER_SUCCESS,
       payload: response.data // Ajustar la respuesta según tu backend

@@ -20,14 +20,29 @@ const Sidebar = () => {
   const user = useSelector(state => state.user); // Declarar la variable user y obtener los detalles del usuario del estado global
 
   useEffect(() => {
-    if (userId) {
-      dispatch(getUser(userId)); // Llama a la acción para obtener los detalles del usuario al cargar el componente
+    const storedUser = localStorage.getItem('user');
+    if (storedUser) {
+      const user = JSON.parse(storedUser);
+      dispatch({
+        type: 'LOGIN_SUCCESS',
+        payload: {
+          user: user,
+          userId: user.id
+        }
+      });
+    } else {
+      // Si no hay información de usuario en el localStorage, intenta obtenerla del estado global
+      if (userId) {
+        dispatch(getUser(userId));
+      }
     }
   }, [dispatch, userId]);
 
   const toggleSidebar = () => {
     setIsExpanded(!isExpanded);
   };
+
+  console.log('User:', user);
 
   return (
     <div className={`${style.sidebar} ${isExpanded ? style.expanded : ''}`}>

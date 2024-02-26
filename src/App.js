@@ -1,5 +1,8 @@
 // App.js
 import './App.css';
+import React, { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { getUser } from './Redux/Actions/actions';
 import Login from './Views/Login/Login';
 import { Routes, Route, useLocation } from 'react-router-dom';  
 import Home from './Views/Home/Home';
@@ -8,7 +11,18 @@ import Sidebar from './Components/SideBar/SideBar';
 
 function App() {
   const location = useLocation();
+  const dispatch = useDispatch();
 
+  useEffect(() => {
+    // Recupera la información del usuario del localStorage al cargar la aplicación
+    const storedUser = localStorage.getItem('user');
+    if (storedUser) {
+      // Si hay información de usuario almacenada, analízala y establece en el estado global de Redux
+      const user = JSON.parse(storedUser);
+      dispatch(getUser(user.id));
+    }
+  }, [dispatch]);
+  
   return (
     <div className="App">
       {location.pathname !== "/" && <NavBar />}
