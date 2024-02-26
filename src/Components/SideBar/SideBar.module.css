@@ -54,3 +54,27 @@
     transform: rotate(180deg);
   }
   
+  .icon{
+    width: 25px;
+    padding: 10px;
+  }
+
+  .user-details {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+  }
+  
+  .user-details img {
+    width: 40px; /* Tamaño de la foto del usuario */
+    height: 40px;
+    border-radius: 50%; /* Hace que la foto sea circular */
+    margin-right: 10px;
+  }
+  
+  .user-details p {
+    font-size: 14px; /* Tamaño de la fuente para los detalles del usuario */
+    margin: 0;
+    padding: 2px;
+
+  }
