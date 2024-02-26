@@ -12,6 +12,7 @@ import calendar from '../../Assets/calendario.png';
 import lupa from '../../Assets/busqueda-de-lupa.png';
 import spanner from '../../Assets/llave-inglesa.png';
 import report from '../../Assets/comentario.png';
+import title from '../../Assets/titulo.png'
 
 const Sidebar = () => {
   const [isExpanded, setIsExpanded] = useState(false);
@@ -42,14 +43,21 @@ const Sidebar = () => {
     setIsExpanded(!isExpanded);
   };
 
-  console.log('User:', user);
+  const handleMouseEnter = () => {
+    setIsExpanded(true);
+  };
+
+  const handleMouseLeave = () => {
+    setIsExpanded(false);
+  };
+  // console.log('User:', user);
 
   return (
-    <div className={`${style.sidebar} ${isExpanded ? style.expanded : ''}`}>
-    <div className={style['sidebar-toggle']} onClick={toggleSidebar}>
-      {isExpanded ? '<' : '>'}
-    </div>
+    <div className={`${style.sidebar} ${isExpanded ? style.expanded : ''}`}
+    onMouseEnter={handleMouseEnter}
+    onMouseLeave={handleMouseLeave}>
     <ul className={style['sidebar-menu']}>
+      <img className={style.title} src={title} alt="" />
       <li>
         <img src={home} alt="Home" className={style.icon} />
         Propiedades

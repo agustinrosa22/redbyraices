@@ -1,20 +1,24 @@
 /* SideBar.module.css */
 
 .sidebar {
-    width: 250px;
-    height: 100%;
-    background-color: #f0f0f0;
-    position: sticky;
-    top: 0;
-    left: 0;
-    overflow-y: auto; /* Agrega una barra de desplazamiento vertical si es necesario */
-    z-index: 1000; /* Asegura que esté por encima de otros elementos */
-    transition: transform 0.3s ease;
-  }
-  
-  .sidebar.expanded {
-    transform: translateX(0); /* Muestra la barra lateral completamente */
-  }
+  width: 250px; /* Ancho inicial de la barra lateral */
+  height: 100%;
+  background-color: #ffffff;
+  position: sticky;
+  top: 0;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto; /* Agrega una barra de desplazamiento vertical si es necesario */
+  z-index: 1000; /* Asegura que esté por encima de otros elementos */
+  overflow-x: hidden;
+  transition: width 0.3s ease; /* Agrega transición para la animación */
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* .sidebar.expanded {
+  width: 250px; /* Ancho expandido de la barra lateral */
+ 
   
   .sidebar-toggle {
     font-size: 20px;
@@ -29,6 +33,10 @@
   .sidebar-menu {
     list-style-type: none;
     padding: 0;
+    width: 100%;
+    flex-grow: 1; /* Hacer que el menú ocupe todo el espacio disponible en la barra lateral */
+  overflow-y: auto; /* Agregar una barra de desplazamiento vertical si es necesario */
+  max-height: 100%;
   }
   
   .sidebar-menu li {
@@ -76,5 +84,17 @@
     font-size: 14px; /* Tamaño de la fuente para los detalles del usuario */
     margin: 0;
     padding: 2px;
-
   }
+
+  .title{
+    width: 100px;
+    display: flex;
+    text-align: center;
+    align-items: center;
+    justify-content: center; 
+    margin: auto;
+    margin-top: -10%;
+    z-index: 3;
+  }
+
+ 

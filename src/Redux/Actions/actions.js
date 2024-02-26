@@ -18,7 +18,7 @@ export const login = ({ mail, password }) => async dispatch => {
       }
     });
     localStorage.setItem('user', JSON.stringify(user));
-    console.log('Usuario guardado en localStorage:', user); 
+    // console.log('Usuario guardado en localStorage:', user); 
     // Ahora puedes llamar a la acción getUser con el userId
     dispatch(getUser(userId));
     return true;
@@ -35,13 +35,13 @@ export const login = ({ mail, password }) => async dispatch => {
 
 export const getUser = userId => async dispatch => {
   try {
-    console.log('ID del usuario antes de obtener los detalles:', userId);
+    // console.log('ID del usuario antes de obtener los detalles:', userId);
     if (!userId) {
       throw new Error('El ID del usuario no está definido');
     }
     
     const response = await axios.get(`http://localhost:3001/seller/${userId}`);
-    console.log('Detalles del usuario obtenidos del backend:', response.data);
+    // console.log('Detalles del usuario obtenidos del backend:', response.data);
     dispatch({
       type: GET_USER_SUCCESS,
       payload: response.data // Ajustar la respuesta según tu backend
