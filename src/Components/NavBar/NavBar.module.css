@@ -48,3 +48,10 @@
   border: 1px solid black; /* Agrega un borde alrededor de la imagen */
   }
   
+  .title {
+    margin-right: auto; /* Empuja la imagen del título hacia la izquierda */
+    width: 80px;
+    margin-top: -1%;
+    margin-left: 1%;
+    text-align: left;
+  }

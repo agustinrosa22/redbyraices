@@ -57,7 +57,7 @@ const Sidebar = () => {
     onMouseEnter={handleMouseEnter}
     onMouseLeave={handleMouseLeave}>
     <ul className={style['sidebar-menu']}>
-      <img className={style.title} src={title} alt="" />
+      {/* <img className={style.title} src={title} alt="" /> */}
       <li>
         <img src={home} alt="Home" className={style.icon} />
         Propiedades

@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import style from './NavBar.module.css';
 import campaign from '../../Assets/campana.png'
 import refresh from '../../Assets/recargar.png'
+import title from '../../Assets/titulo.png'
 
 const NavBar = () => {
   const handleRefresh = () => {
@@ -12,6 +13,7 @@ const NavBar = () => {
 
   return (
     <div className={style.navbar}>
+      <img className={style.title} src={title} alt="" />
       <button className={style.notificationButton}>
         <img className={style.icon} src={campaign} alt="" />
       </button>
