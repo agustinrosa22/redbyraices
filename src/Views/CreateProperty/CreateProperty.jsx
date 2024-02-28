@@ -33,6 +33,7 @@ const CreateProperty = () => {
     isFinished: false,
     isUnderDevelopment: false,
     sellerId: userId,
+    userId: 0,
   });
 
   const handleChange = (e) => {
