@@ -1,19 +1,26 @@
 // NavBar.jsx
 import React from 'react';
+import { Link } from 'react-router-dom';
 import style from './NavBar.module.css';
+import campaign from '../../Assets/campana.png'
+import refresh from '../../Assets/recargar.png'
 
 const NavBar = () => {
+  const handleRefresh = () => {
+    window.location.reload(); // Recarga la página
+  };
+
   return (
     <div className={style.navbar}>
       <button className={style.notificationButton}>
-        <span className={style.icon}>🔔</span> {/* Icono de campana */}
+        <img className={style.icon} src={campaign} alt="" />
       </button>
-      <button className={style.refreshButton}>
-        <span className={style.icon}>🔄</span> {/* Icono de refresh */}
+      <button className={style.refreshButton} onClick={handleRefresh}>
+        <img className={style.icon} src={refresh} alt="" />
       </button>
-      <button className={style.createButton}>
+      <Link to="/create" className={style.createButton}>
         CREAR NUEVA {/* Texto del botón */}
-      </button>
+      </Link>
     </div>
   );
 };

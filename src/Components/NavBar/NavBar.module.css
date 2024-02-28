@@ -3,19 +3,35 @@
     display: flex;
     justify-content: flex-end;
     align-items: center;
-    padding: 10px;
-    background-color: #333;
+    padding: 25px;
+    background-color: #ffffff;
+    border-bottom: 1px solid black;
   }
   
-  .notificationButton,
-  .refreshButton,
-  .createButton {
+  .notificationButton{
     background-color: transparent;
     border: none;
-    color: white;
     cursor: pointer;
     font-size: 16px;
     margin-right: 10px;
+  }
+  .refreshButton{
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    margin-right: 10px;
+  }
+  .createButton {
+    padding: 15px;
+    background-color: rgb(0, 204, 255);
+    border: none;
+    border-radius: 20px;
+    color: rgb(255, 255, 255);
+    cursor: pointer;
+    font-size: 16px;
+    margin-right: 10px;
+    text-decoration: none;
   }
   
   .notificationButton:hover,
@@ -25,6 +41,10 @@
   }
   
   .icon {
+    padding: 5px;
+    width: 25px;
     margin-right: 5px;
+    border-radius: 50%; /* Hace que el borde sea redondeado para que la imagen se vea como un círculo */
+  border: 1px solid black; /* Agrega un borde alrededor de la imagen */
   }
   
