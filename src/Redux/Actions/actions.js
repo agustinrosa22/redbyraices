@@ -59,7 +59,7 @@ export const getUser = userId => async dispatch => {
 export const createProperty = (propertyData, userId) => async (dispatch) => {
   try {
     // Incluye el userId como parte de los datos de la propiedad
-    const dataWithUserId = { ...propertyData, sellerId: userId };
+    const dataWithUserId = { ...propertyData,};
 
     const response = await axios.post('http://localhost:3001/property', dataWithUserId);
     dispatch({

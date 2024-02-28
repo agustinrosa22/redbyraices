@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { createProperty } from '../../Redux/Actions/actions';
 import style from './CreateProperty.module.css'
@@ -7,7 +7,7 @@ import style from './CreateProperty.module.css'
 const CreateProperty = () => {
   const dispatch = useDispatch();
   const userId = useSelector(state => state.userId);
-  console.log("userId:", userId);
+  // console.log("userId:", userId);
 
   const [formData, setFormData] = useState({
     propertyType: '',
@@ -44,6 +44,7 @@ const CreateProperty = () => {
     e.preventDefault();
     dispatch(createProperty(formData));
     // Resetear el formulario o realizar otras acciones necesarias después de enviar los datos
+    //  console.log("Form Data:", formData);
   };
 
   return (
