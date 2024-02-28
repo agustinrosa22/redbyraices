@@ -1,6 +1,6 @@
 // actions.js
 import axios from 'axios';
-import { LOGIN_SUCCESS, LOGIN_FAIL, GET_USER_SUCCESS, GET_USER_FAIL } from './actionTypes';
+import { LOGIN_SUCCESS, LOGIN_FAIL, GET_USER_SUCCESS, GET_USER_FAIL, CREATE_PROPERTY_SUCCESS, CREATE_PROPERTY_FAIL } from './actionTypes';
 
 export const login = ({ mail, password }) => async dispatch => {
   try {
@@ -18,6 +18,7 @@ export const login = ({ mail, password }) => async dispatch => {
       }
     });
     localStorage.setItem('user', JSON.stringify(user));
+    localStorage.setItem('userId', userId);
     // console.log('Usuario guardado en localStorage:', user); 
     // Ahora puedes llamar a la acción getUser con el userId
     dispatch(getUser(userId));
@@ -52,5 +53,27 @@ export const getUser = userId => async dispatch => {
       type: GET_USER_FAIL,
       payload: 'Error al obtener los detalles del usuario' // Otra posibilidad: error.response.data.message
     });
+  }
+};
+
+export const createProperty = (propertyData, userId) => async (dispatch) => {
+  try {
+    // Incluye el userId como parte de los datos de la propiedad
+    const dataWithUserId = { ...propertyData, sellerId: userId };
+
+    const response = await axios.post('http://localhost:3001/property', dataWithUserId);
+    dispatch({
+      type: CREATE_PROPERTY_SUCCESS,
+      payload: response.data,
+    });
+    console.log('Propiedad creada:', response.data);
+    // Manejar cualquier lógica adicional después de crear la propiedad
+  } catch (error) {
+    console.error('Error al crear la propiedad:', error);
+    dispatch({
+      type: CREATE_PROPERTY_FAIL,
+      payload: 'Error al crear la propiedad',
+    });
+    // Manejar errores
   }
 };

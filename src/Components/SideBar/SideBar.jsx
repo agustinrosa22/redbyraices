@@ -18,6 +18,7 @@ const Sidebar = () => {
   const [isExpanded, setIsExpanded] = useState(false);
   const dispatch = useDispatch();
   const userId = useSelector(state => state.userId);
+
   const user = useSelector(state => state.user); // Declarar la variable user y obtener los detalles del usuario del estado global
 
   useEffect(() => {
@@ -51,6 +52,7 @@ const Sidebar = () => {
     setIsExpanded(false);
   };
   // console.log('User:', user);
+  
 
   return (
     <div className={`${style.sidebar} ${isExpanded ? style.expanded : ''}`}
