@@ -1,6 +1,6 @@
 // actions.js
 import axios from 'axios';
-import { LOGIN_SUCCESS, LOGIN_FAIL, GET_USER_SUCCESS, GET_USER_FAIL, CREATE_PROPERTY_SUCCESS, CREATE_PROPERTY_FAIL } from './actionTypes';
+import { LOGIN_SUCCESS, LOGIN_FAIL, GET_USER_SUCCESS, GET_USER_FAIL, CREATE_PROPERTY_SUCCESS, CREATE_PROPERTY_FAIL, GET_ALL_USERS_SUCCESS, GET_ALL_USERS_FAIL } from './actionTypes';
 
 export const login = ({ mail, password }) => async dispatch => {
   try {
@@ -75,5 +75,23 @@ export const createProperty = (propertyData, userId) => async (dispatch) => {
       payload: 'Error al crear la propiedad',
     });
     // Manejar errores
+  }
+};
+
+export const getAllUsers = () => async (dispatch) => {
+  try {
+    const response = await axios.get('http://localhost:3001/users');
+    dispatch({
+      type: GET_ALL_USERS_SUCCESS,
+      payload: response.data.data,
+    });
+    return response.data.data;
+  } catch (error) {
+    console.error('Error al obtener los usuarios:', error);
+    dispatch({
+      type:  GET_ALL_USERS_FAIL,
+      payload: 'Error al obtener los usuarios',
+    });
+    return null;
   }
 };

@@ -1,11 +1,20 @@
 // Redux Reducer
 
-import { LOGIN_SUCCESS, LOGIN_FAIL, GET_USER_SUCCESS, GET_USER_FAIL, CREATE_PROPERTY_SUCCESS, CREATE_PROPERTY_FAIL } from './Actions/actionTypes';
+import {  LOGIN_SUCCESS, 
+          LOGIN_FAIL,  
+          GET_USER_SUCCESS, 
+          GET_USER_FAIL, 
+          CREATE_PROPERTY_SUCCESS, 
+          CREATE_PROPERTY_FAIL, 
+          GET_ALL_USERS_SUCCESS, 
+          GET_ALL_USERS_FAIL,
+         } from './Actions/actionTypes';
 
 const initialState = {
   user: null,
   userId: null,
   userDetails: null,
+  users: [],
   error: null,
   propertyCreationError: null,
 };
@@ -46,6 +55,17 @@ const rootReducer = (state = initialState, action) => {
         return {
         ...state,
         propertyCreationError: action.payload,
+      };
+      case GET_ALL_USERS_SUCCESS:
+      return {
+        ...state,
+        users: action.payload,
+        error: null,
+      };
+    case GET_ALL_USERS_FAIL:
+      return {
+        ...state,
+        error: action.payload,
       };
     default:
       return state;

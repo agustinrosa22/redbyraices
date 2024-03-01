@@ -1,28 +1,44 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { createProperty } from '../../Redux/Actions/actions';
+import { getAllUsers } from '../../Redux/Actions/actions';
 import style from './CreateProperty.module.css'
 
 
 const CreateProperty = () => {
   const dispatch = useDispatch();
-  const userId = useSelector(state => state.userId);
-  // console.log("userId:", userId);
+  const sellerId = useSelector(state => state.userId);
+  const users = useSelector(state => state.users);
+  const [selectedUser, setSelectedUser] = useState(null);
+  // console.log("userId:", sellerId);
 
   const [formData, setFormData] = useState({
     propertyType: '',
     photo: '',
     videoLink: '',
+    currency: 'USD',
     price: '',
+    currencyExpenses: 'USD',
     expenses: '',
     totalSquareMeters: '',
     coveredSquareMeters: '',
+    
     age: '',
+    commissionSellerType: '%',
+    commissionBuyerType: '%',
     sellerCommission: '',
     buyerCommission: '',
     availableDate: '',
     expirationDate: '',
     location: '',
+    street: '',
+    number: '',
+    country: '',
+    province: '',
+    departments: '',
+    locality: '',
+    neighborhood: '',
+    privateNeighborhood: '',
     surface: '',
     title: '',
     description: '',
@@ -32,30 +48,174 @@ const CreateProperty = () => {
     isForRent: false,
     isFinished: false,
     isUnderDevelopment: false,
-    sellerId: userId,
-    userId: 0,
+    sellerId: sellerId,
+    userId: "",
   });
+ 
+  useEffect(() => {
+    dispatch(getAllUsers());
+  }, [dispatch]);
+
+  const handleUserSelect = (user) => {
+    setSelectedUser(user);
+    setFormData({ ...formData, userId: user.id });
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
+    console.log("Datos del formulario actualizados:", { ...formData, [name]: value });
   };
+
+  const handleSaleButtonClick = () => {
+    setFormData({
+      ...formData,
+      isForSale: true,
+      isForRent: false,
+    });
+  };
+  
+  const handleRentButtonClick = () => {
+    setFormData({
+      ...formData,
+      isForSale: false,
+      isForRent: true,
+    });
+  };
+
+  const handleChangePropertyType = (e) => {
+    const { value } = e.target;
+    setFormData({ ...formData, propertyType: value });
+  };
+
 
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(createProperty(formData));
     // Resetear el formulario o realizar otras acciones necesarias después de enviar los datos
-    //  console.log("Form Data:", formData);
+     console.log("Form Data:", formData);
   };
 
   return (
     <form className={style.form} onSubmit={handleSubmit}>
          <div className={style.formGroup}>
-    <label>
-      Property Type:
-      <input type="text" name="propertyType" value={formData.propertyType} onChange={handleChange} />
-    </label>
+         <div className={style.userList}>
+        <h2>Clientes</h2>
+        {users.map(user => (
+          <div
+            key={user.id}
+            className={`${style.userCard} ${selectedUser && selectedUser.id === user.id ? style.selected : ''}`}
+            onClick={() => handleUserSelect(user)}
+          >
+            <h3 className={style.Username}>{user.name} {user.last_name}</h3>
+            <p className={style.Userinfo}>{user.mail}</p>
+            <p className={style.Userinfo}>{user.phone_number}</p>
+            {/* Agrega más detalles del usuario según sea necesario */}
+          </div>
+        ))}
+      </div>
+      <h2>Tipo de operación</h2>
+      <div>
+          <button
+            type="button"
+            onClick={handleSaleButtonClick}
+            className={`${style.operationButton} ${formData.isForSale ? style.selected : ''}`}
+          >
+            Venta
+          </button>
+          <button
+            type="button"
+            onClick={handleRentButtonClick}
+            className={`${style.operationButton} ${formData.isForRent ? style.selected : ''}`}
+          >
+            Alquiler
+          </button>
+        </div>
+        <h2>Tipo de propiedad</h2>
+        <select className={style.propertyTypeDropdown} onChange={handleChangePropertyType}>
+          <option value="departamento">Departamento</option>
+          <option value="casa">Casa</option>
+          <option value="ph">PH</option>
+          <option value="local">Local</option>
+          <option value="terrenos y lotes">Terrenos y lotes</option>
+          <option value="campos y chacras">Campos y chacras</option>
+          <option value="fondo de comercio">Fondo de comercio</option>
+          <option value="cochera">Cochera</option>
+          <option value="oficina">Oficina</option>
+          <option value="galpon">Galpón</option>
+          <option value="quinta">Quinta</option>
+          <option value="otros">Otros</option>
+        </select>
     </div>
+    <div className={style.formGroup}>
+ 
+      </div>
+  <div className={style.formGroup}>
+    <h2>Precio</h2>
+  <select id="currency" name="currency" value={formData.currency} onChange={handleChange}>
+    <option value="USD">USD</option>
+    <option value="ARG">ARG</option>
+  </select>
+      <input type="number" name="price" value={formData.price} onChange={handleChange} />
+    </div>
+    <div className={style.formGroup}>
+          <h2>Expensas</h2>
+      <select id="currencyExpenses" name="currencyExpenses" value={formData.currencyExpenses} onChange={handleChange}>
+    <option value="USD">USD</option>
+    <option value="ARG">ARG</option>
+  </select>
+      <input type="number" name="expenses" value={formData.expenses} onChange={handleChange} />
+    </div>
+    <div className={style.formGroup}>
+
+      <h2>Comision del Vendedor</h2>
+      <select id="commissionSellerType" name="commissionSellerType" value={formData.commissionSellerType} onChange={handleChange}>
+    <option value="%">%</option>
+    <option value="Fijo">Fijo</option>
+  </select>
+      <input type="number" name="sellerCommission" value={formData.sellerCommission} onChange={handleChange} />
+ </div>
+
+ <div className={style.formGroup}>
+   
+      <h2>Comision del Comprador</h2>
+      <select id="commissionBuyerType" name="commissionBuyerType" value={formData.commissionBuyerType} onChange={handleChange}>
+    <option value="%">%</option>
+    <option value="Fijo">Fijo</option>
+  </select>
+      <input type="number" name="buyerCommission" value={formData.buyerCommission} onChange={handleChange} />
+
+    </div>
+    <div className={style.formGroup}></div>
+    <h2>Fecha disponible</h2>
+      <input type="date" name="availableDate" value={formData.availableDate} onChange={handleChange} />
+    
+ <div className={style.formGroup}>
+          <h2>fecha de vencimiento</h2>
+      <input type="date" name="expirationDate" value={formData.expirationDate} onChange={handleChange} />
+ </div>
+
+ <div className={style.formGroup}>
+
+     <h2>Ubicacion</h2>
+     <h3>Calle</h3>
+      <input type="text" name="street" value={formData.street} onChange={handleChange} />
+      <h3>Numeracion</h3>
+      <input type="text" name="number" value={formData.number} onChange={handleChange} />
+      <h3>Pais</h3>
+      <input type="text" name="country" value={formData.country} onChange={handleChange} />
+      <h3>Provincia</h3>
+      <input type="text" name="province" value={formData.province} onChange={handleChange} />
+      <h3>Departamento</h3>
+      <input type="text" name="departments" value={formData.departments} onChange={handleChange} />
+      <h3>Localidad</h3>
+      <input type="text" name="locality" value={formData.locality} onChange={handleChange} />
+      <h3>Barrio</h3>
+      <input type="text" name="neighborhood" value={formData.neighborhood} onChange={handleChange} />
+      <h3>Barrio privado</h3>
+      <input type="text" name="privateNeighborhood" value={formData.privateNeighborhood} onChange={handleChange} />
+    
+ </div>
     <div className={style.formGroup}>
     <label>
       Photo:
@@ -69,20 +229,8 @@ const CreateProperty = () => {
       <input type="text" name="videoLink" value={formData.videoLink} onChange={handleChange} />
     </label>
     </div>
-    <div className={style.formGroup}>
-
-    <label>
-      Price:
-      <input type="text" name="price" value={formData.price} onChange={handleChange} />
-    </label>
-    </div>
-    <div className={style.formGroup}>
-
-    <label>
-      Expenses:
-      <input type="text" name="expenses" value={formData.expenses} onChange={handleChange} />
-    </label>
-    </div>
+    
+    
     <div className={style.formGroup}>
 
     <label>
@@ -101,37 +249,8 @@ const CreateProperty = () => {
       Age:
       <input type="text" name="age" value={formData.age} onChange={handleChange} />
     </label>
- <div className={style.formGroup}>
-
-    <label>
-      Seller Commission:
-      <input type="text" name="sellerCommission" value={formData.sellerCommission} onChange={handleChange} />
-    </label>
- </div>
- <div className={style.formGroup}></div>
-    <label>
-      Buyer Commission:
-      <input type="text" name="buyerCommission" value={formData.buyerCommission} onChange={handleChange} />
-    </label>
- <div className={style.formGroup}></div>
-    <label>
-      Available Date:
-      <input type="text" name="availableDate" value={formData.availableDate} onChange={handleChange} />
-    </label>
- <div className={style.formGroup}>
-
-    <label>
-      Expiration Date:
-      <input type="text" name="expirationDate" value={formData.expirationDate} onChange={handleChange} />
-    </label>
- </div>
- <div className={style.formGroup}>
-
-    <label>
-      Location:
-      <input type="text" name="location" value={formData.location} onChange={handleChange} />
-    </label>
- </div>
+ 
+ 
  <div className={style.formGroup}>
 
     <label>
@@ -165,34 +284,6 @@ const CreateProperty = () => {
     <label>
       Documentation:
       <input type="text" name="documentation" value={formData.documentation} onChange={handleChange} />
-    </label>
- </div>
- <div className={style.formGroup}>
-
-    <label>
-      Is For Sale:
-      <input type="checkbox" name="isForSale" checked={formData.isForSale} onChange={handleChange} />
-    </label>
- </div>
- <div className={style.formGroup}>
-
-    <label>
-      Is For Rent:
-      <input type="checkbox" name="isForRent" checked={formData.isForRent} onChange={handleChange} />
-    </label>
- </div>
- <div className={style.formGroup}>
-
-    <label>
-      Is Finished:
-      <input type="checkbox" name="isFinished" checked={formData.isFinished} onChange={handleChange} />
-    </label>
- </div>
- <div className={style.formGroup}>
-
-    <label>
-      Is Under Development:
-      <input type="checkbox" name="isUnderDevelopment" checked={formData.isUnderDevelopment} onChange={handleChange} />
     </label>
  </div>
     <button type="submit">Submit</button>
