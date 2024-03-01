@@ -22,7 +22,9 @@ const CreateProperty = () => {
     expenses: '',
     totalSquareMeters: '',
     coveredSquareMeters: '',
-    
+    semiCoveredSquareMeters: '',
+    uncovered: '',
+    land: '',
     age: '',
     commissionSellerType: '%',
     commissionBuyerType: '%',
@@ -39,7 +41,11 @@ const CreateProperty = () => {
     locality: '',
     neighborhood: '',
     privateNeighborhood: '',
-    surface: '',
+    environments: '',
+    rooms: '',
+    bathrooms: '',
+    toilettes: '',
+    garages: '',
     title: '',
     description: '',
     floorPlans: '',
@@ -48,6 +54,15 @@ const CreateProperty = () => {
     isForRent: false,
     isFinished: false,
     isUnderDevelopment: false,
+    exclusiveContract: false,
+    cartel: false,
+    financing: false,
+    suitableCredit: false,
+    commercialSuitable: false,
+    professionalSuitable: false,
+    suitableForReducedMobility: false,
+    pozo: false,
+    CountryOrPrivateNeighborhood: false,
     sellerId: sellerId,
     userId: "",
   });
@@ -63,8 +78,25 @@ const CreateProperty = () => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
-    console.log("Datos del formulario actualizados:", { ...formData, [name]: value });
+    let updatedFormData = { ...formData, [name]: value };
+  
+    // Verificar si se están modificando los campos de metros cuadrados
+    if (name === "coveredSquareMeters" || name === "semiCoveredSquareMeters" || name === "uncovered" || name === "land") {
+      // Calcular el total de metros cuadrados
+      const totalSquareMeters = calculateTotalSquareMeters(updatedFormData);
+      updatedFormData = { ...updatedFormData, totalSquareMeters };
+    }
+  
+    setFormData(updatedFormData);
+    console.log("Datos del formulario actualizados:", updatedFormData);
+  };
+
+  const calculateTotalSquareMeters = (data) => {
+    const { coveredSquareMeters, semiCoveredSquareMeters, uncovered } = data;
+    const total = parseFloat(coveredSquareMeters || 0) +
+                  parseFloat(semiCoveredSquareMeters || 0) +
+                  parseFloat(uncovered || 0) 
+    return total;
   };
 
   const handleSaleButtonClick = () => {
@@ -216,6 +248,65 @@ const CreateProperty = () => {
       <input type="text" name="privateNeighborhood" value={formData.privateNeighborhood} onChange={handleChange} />
     
  </div>
+
+ <div className={style.formGroup}>
+   <h2>Hambientes</h2>
+      <input type="number" name="environments" value={formData.environments} onChange={handleChange} />
+    </div>
+
+    <div className={style.formGroup}>
+   <h2>Dormitorios</h2>
+      <input type="number" name="rooms" value={formData.rooms} onChange={handleChange} />
+    </div>
+
+    <div className={style.formGroup}>
+   <h2>Baños</h2>
+      <input type="number" name="bathrooms" value={formData.bathrooms} onChange={handleChange} />
+    </div>
+
+    <div className={style.formGroup}>
+   <h2>Toilettes</h2>
+      <input type="number" name="toilettes" value={formData.toilettes} onChange={handleChange} />
+    </div>
+
+    <div className={style.formGroup}>
+   <h2>Cocheras</h2>
+      <input type="number" name="garages" value={formData.garages} onChange={handleChange} />
+    </div>
+
+    <div className={style.formGroup}>
+  <h2>Superficie</h2>
+  <label>
+    Cubierto (m²):
+    <input type="number" name="coveredSquareMeters" value={formData.coveredSquareMeters} onChange={handleChange} />
+  </label>
+</div>
+
+<div className={style.formGroup}>
+  <label>
+    Semicubierto (m²):
+    <input type="number" name="semiCoveredSquareMeters" value={formData.semiCoveredSquareMeters} onChange={handleChange} />
+  </label>
+</div>
+
+<div className={style.formGroup}>
+  <label>
+    Descubierto (m²):
+    <input type="number" name="uncovered" value={formData.uncovered} onChange={handleChange} />
+  </label>
+</div>
+
+<div className={style.formGroup}>
+  <label>
+    Terreno (m²):
+    <input type="number" name="land" value={formData.land} onChange={handleChange} />
+  </label>
+</div>
+
+<div className={style.formGroup}>
+  <h2>Total (m²): {formData.totalSquareMeters}</h2>
+</div>
+
     <div className={style.formGroup}>
     <label>
       Photo:
@@ -229,22 +320,6 @@ const CreateProperty = () => {
       <input type="text" name="videoLink" value={formData.videoLink} onChange={handleChange} />
     </label>
     </div>
-    
-    
-    <div className={style.formGroup}>
-
-    <label>
-      Total Square Meters:
-      <input type="text" name="totalSquareMeters" value={formData.totalSquareMeters} onChange={handleChange} />
-    </label>
-    </div>
-     <div className={style.formGroup}>
-
-    <label>
-      Covered Square Meters:
-      <input type="text" name="coveredSquareMeters" value={formData.coveredSquareMeters} onChange={handleChange} />
-    </label>
-     </div>
     <label>
       Age:
       <input type="text" name="age" value={formData.age} onChange={handleChange} />
