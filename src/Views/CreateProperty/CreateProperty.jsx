@@ -46,6 +46,76 @@ const CreateProperty = () => {
     bathrooms: '',
     toilettes: '',
     garages: '',
+    amenities: {
+      aireAcondicionado:false,
+      portonAutomatico: false,
+      gimnasio:false,
+      losaRadiante:false,
+      chimenea:false,
+      hidromasaje:false,
+      seguridad:false,
+      pileta:false,
+      caldera:false,
+      businessCenter:false,
+      areaCine:false,
+      cisterna: false,
+      laundry:false,
+      estacionamientoVisitas: false,
+      ascensor:false,
+      salonUsosMultiples: false,
+      areaDeJuegosInfantiles: false,
+      canchaTenis:false,
+      recepcion:false,
+      areasVerdes:false,
+      valetParking:false,
+      canchaBasquetbol:false,
+      canchaFutbol: false,
+      canchaPaddle:false,
+      solarium:false,
+      jardinDeInvierno:false,
+      piletaCubierta: false,
+      piletaClimatizada:false,
+      sauna:false,
+      bar: false,
+      calefaccion: false,
+    },
+    environmentsOptions: {
+      dormitorio:false,
+      comedor: false,
+      vestidor:false,
+      jardin:false,
+      baño:false,
+      cocina:false,
+      living:false,
+      patio:false,
+      terraza:false,
+      estudio:false,
+      lavadero:false,
+      altillo:false,
+      playroom:false,
+      lobby:false,
+      quincho:false,
+      salaDeReuniones:false, 
+      balcon:false,
+      pileta:false,
+      cocina:false,
+      toilette:false,
+      habitacion:false,
+      living:false,
+      otro: false,
+    },
+    services: {
+      electricidad:false,
+      agua:false,
+      gas:false,
+      internet:false,
+      telefono:false,
+      desagueCloacal:false,
+      televisionPorCable:false,
+      alarma:false,
+      televisionSatelital:false,
+      aguaCorriente:false,
+    },
     title: '',
     description: '',
     floorPlans: '',
@@ -118,6 +188,27 @@ const CreateProperty = () => {
   const handleChangePropertyType = (e) => {
     const { value } = e.target;
     setFormData({ ...formData, propertyType: value });
+  };
+
+  const handleAmenityChange = (e) => {
+    const { name, checked } = e.target;
+    setFormData({
+      ...formData,
+      amenities: {
+        ...formData.amenities,
+        [name]: checked,
+      },
+    });
+  };
+
+  const handleEnvironmentOptionChange = (option) => {
+    setFormData({
+      ...formData,
+      environmentsOptions: {
+        ...formData.environmentsOptions,
+        [option]: !formData.environmentsOptions[option]
+      }
+    });
   };
 
 
@@ -309,6 +400,36 @@ const CreateProperty = () => {
 
     <div className={style.formGroup}>
     <label>
+      
+    <div className={style.formGroup}>
+        <h2>Amenidades</h2>
+        {/* Agregar checkboxes para cada amenidad */}
+        {Object.entries(formData.amenities).map(([amenity, value]) => (
+          <div key={amenity} className={style.checkboxContainer}>
+            <label>
+              <input
+                type="checkbox"
+                name={amenity}
+                checked={value}
+                onChange={handleAmenityChange}
+              />
+              {amenity}
+            </label>
+          </div>
+        ))}
+        </div>
+        <h2>Ambientes</h2>
+       {Object.entries(formData.environmentsOptions).map(([option, value]) => (
+  <div key={option}>
+    <input
+      type="checkbox"
+      id={option}
+      checked={value}
+      onChange={() => handleEnvironmentOptionChange(option)}
+    />
+    <label htmlFor={option}>{option}</label>
+  </div>
+))}
       Photo:
       <input type="text" name="photo" value={formData.photo} onChange={handleChange} />
     </label>
