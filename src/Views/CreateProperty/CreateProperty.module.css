@@ -61,22 +61,6 @@
     font-size: 14px;
   }
 
-  .operationButtons {
-    margin-top: 20px;
-  }
-  
-  .operationButtons button {
-    margin-right: 10px;
-    padding: 5px 10px;
-    border: 1px solid #000;
-    background-color: #fff;
-    cursor: pointer;
-  }
-  
-  .operationButtons button:hover {
-    background-color: #f0f0f0;
-  }
-  
   .centeredContainer {
     display: flex;
     flex-direction: column;
@@ -114,5 +98,60 @@
     padding: 10px;
     margin: 0 auto;
   }
+
+  .operationContainer {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+  }
   
+  .operationButton {
+    width: 45%; /* Ajusta el ancho del botón según tu preferencia */
+    padding: 10px; /* Ajusta el relleno según tu preferencia */
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  
+  .operationButton:focus {
+    outline: none;
+  }
+  
+  .operationButton.sale {
+    background-color: #ffffff; /* Verde para la opción de venta */
+    color: rgb(0, 0, 0);
+    border: 1px solid black;
+  }
+  
+  .operationButton.rent {
+    background-color: #ffffff; /* Rojo para la opción de alquiler */
+    color: rgb(0, 0, 0);
+    border: 1px solid black;
+  }
+  
+  .operationButton.selected {
+    border: 1px solid#008CBA;
+    color: #008CBA;
+  }
  
+  .propertyTypeDropdown {
+    width: 100%; /* Haz que el dropdown ocupe todo el ancho disponible */
+    padding: 15px; /* Ajusta el relleno según tu preferencia */
+    font-size: 18px; /* Ajusta el tamaño de la fuente según tu preferencia */
+    border: 1px solid #008CBA; /* Añade un borde para mejorar la apariencia */
+    border-radius: 5px; /* Añade esquinas redondeadas */
+    background-color: #fff; /* Color de fondo blanco */
+    color: #008CBA; /* Color del texto */
+    align-items: center;
+  }
+  
+  .propertyTypeDropdown:focus {
+    outline: none; /* Elimina el contorno al hacer clic en el dropdown */
+  }
+  
+  .propertyTypeDropdown option[selected] {
+    background-color: #008CBA; /* Color de fondo azul para la opción seleccionada */
+    color: white; /* Color del texto para la opción seleccionada */
+  }
+  

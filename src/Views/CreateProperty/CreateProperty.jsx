@@ -343,37 +343,37 @@ const CreateProperty = () => {
   </div>
 </div>
       <h2 className={style.title}>Tipo de operación</h2>
-      <div>
-          <button
-            type="button"
-            onClick={handleSaleButtonClick}
-            className={`${style.operationButton} ${formData.isForSale ? style.selected : ''}`}
-          >
-            Venta
-          </button>
-          <button
-            type="button"
-            onClick={handleRentButtonClick}
-            className={`${style.operationButton} ${formData.isForRent ? style.selected : ''}`}
-          >
-            Alquiler
-          </button>
-        </div>
-        <h2 className={style.title}>Tipo de propiedad</h2>
-        <select className={style.propertyTypeDropdown} onChange={handleChangePropertyType}>
-          <option value="departamento">Departamento</option>
-          <option value="casa">Casa</option>
-          <option value="ph">PH</option>
-          <option value="local">Local</option>
-          <option value="terrenos y lotes">Terrenos y lotes</option>
-          <option value="campos y chacras">Campos y chacras</option>
-          <option value="fondo de comercio">Fondo de comercio</option>
-          <option value="cochera">Cochera</option>
-          <option value="oficina">Oficina</option>
-          <option value="galpon">Galpón</option>
-          <option value="quinta">Quinta</option>
-          <option value="otros">Otros</option>
-        </select>
+      <div className={style.operationContainer}>
+  <button
+    type="button"
+    onClick={handleSaleButtonClick}
+    className={`${style.operationButton} ${style.sale} ${formData.isForSale ? style.selected : ''}`}
+  >
+    Venta
+  </button>
+  <button
+    type="button"
+    onClick={handleRentButtonClick}
+    className={`${style.operationButton} ${style.rent} ${formData.isForRent ? style.selected : ''}`}
+  >
+    Alquiler
+  </button>
+</div>
+<h2 className={style.title}>Tipo de propiedad</h2>
+  <select className={style.propertyTypeDropdown} onChange={handleChangePropertyType}>
+    <option value="departamento">Departamento</option>
+    <option value="casa">Casa</option>
+    <option value="ph">PH</option>
+    <option value="local">Local</option>
+    <option value="terrenos y lotes">Terrenos y lotes</option>
+    <option value="campos y chacras">Campos y chacras</option>
+    <option value="fondo de comercio">Fondo de comercio</option>
+    <option value="cochera">Cochera</option>
+    <option value="oficina">Oficina</option>
+    <option value="galpon">Galpón</option>
+    <option value="quinta">Quinta</option>
+    <option value="otros">Otros</option>
+  </select>
     </div>
     <div className={style.formGroup}>
  
