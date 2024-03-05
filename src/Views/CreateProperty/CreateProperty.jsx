@@ -4,17 +4,17 @@ import { createProperty } from '../../Redux/Actions/actions';
 import { getAllUsers } from '../../Redux/Actions/actions';
 import style from './CreateProperty.module.css'
 
-
 const CreateProperty = () => {
   const dispatch = useDispatch();
   const sellerId = useSelector(state => state.userId);
   const users = useSelector(state => state.users);
   const [selectedUser, setSelectedUser] = useState(null);
-  // console.log("userId:", sellerId);
+  // console.log("sellerId:", sellerId);
 
   const [formData, setFormData] = useState({
     propertyType: '',
     photo: '',
+    statusProperty: false,
     videoLink: '',
     currency: 'USD',
     price: '',
@@ -85,8 +85,6 @@ const CreateProperty = () => {
       vestidor:false,
       jardin:false,
       baño:false,
-      cocina:false,
-      living:false,
       patio:false,
       terraza:false,
       estudio:false,
@@ -116,6 +114,49 @@ const CreateProperty = () => {
       televisionSatelital:false,
       aguaCorriente:false,
     },
+    characteristics: {
+      placard: false,
+        parilla: false,
+        desayunador: false, 
+        orientacionSur: false,
+        orientacionOeste: false,
+        orientacionNorte: false,
+        orientacionEste: false,
+        accesoDeCocheraRampaFija: false,
+        accesoDeCocheraRampaMovil: false,
+        accesoDeCocheraAscensor: false,
+        accesoDeCocheraHorizontal: false,
+        disposicionContrafrente: false,
+        disposicionFrente: false,
+        disposicionInterno: false,
+        disposicionLateral: false,
+        amoblado: false,
+        orientacionNoroeste: false, 
+        orientacionNoreste: false,
+        orientacionSuroeste: false,
+        orientacionSureste: false,
+        deck: false,
+        tipoDeCampoOtro: false,
+        tipoDeCampoFruticula: false,
+        tipoDeCampoAgricola: false,
+        tipoDeCampoChara: false,
+        tipoDeCampoCriadero: false,
+        tipoDeCampoTambero: false,
+        tipoDeCampoFloricultura: false,
+        tipoDeCampoForestal: false,
+        tipoDeCampoGanadero: false,
+        tipoDeCampoHaras: false,
+        bodegas: false,
+        tipoDeBodegaComercial: false,
+        tipoDeBodegaNaveIndustrial: false,
+        tipoDeBodegaAlmacen: false,
+        biblioteca: false,
+        galpon: false,
+        sotano: false,
+        baulera: false,
+        permiteMascota: false,
+        aptoTuristico: false,
+    },
     title: '',
     description: '',
     floorPlans: '',
@@ -124,22 +165,33 @@ const CreateProperty = () => {
     isForRent: false,
     isFinished: false,
     isUnderDevelopment: false,
-    exclusiveContract: false,
-    cartel: false,
-    financing: false,
-    suitableCredit: false,
-    commercialSuitable: false,
-    professionalSuitable: false,
-    suitableForReducedMobility: false,
-    pozo: false,
-    CountryOrPrivateNeighborhood: false,
-    sellerId: sellerId,
+    detailsProperty: {
+        exclusiveContract: false,
+        cartel: false,
+        financing: false,
+        suitableCredit: false,
+        commercialSuitable: false,
+        professionalSuitable: false,
+        suitableForReducedMobility: false,
+        pozo: false,
+        CountryOrPrivateNeighborhood: false,
+    },
+    sellerId: '',
     userId: "",
   });
  
   useEffect(() => {
     dispatch(getAllUsers());
-  }, [dispatch]);
+    
+    // Verificar si el sellerId está disponible en el estado después de cargar los usuarios
+    if (sellerId) {
+      setFormData(prevFormData => ({
+        ...prevFormData,
+        sellerId: sellerId,
+      }));
+    }
+  }, [dispatch, sellerId]);
+  
 
   const handleUserSelect = (user) => {
     setSelectedUser(user);
@@ -170,19 +222,35 @@ const CreateProperty = () => {
   };
 
   const handleSaleButtonClick = () => {
+    const currentIsForSale = formData.isForSale;
     setFormData({
       ...formData,
       isForSale: true,
       isForRent: false,
     });
+    if (!currentIsForSale) {
+      // Restaurar isForSale a true si no lo estaba antes
+      setFormData(prevFormData => ({
+        ...prevFormData,
+        isForSale: true,
+      }));
+    }
   };
   
   const handleRentButtonClick = () => {
+    const currentIsForSale = formData.isForSale;
     setFormData({
       ...formData,
       isForSale: false,
       isForRent: true,
     });
+    if (currentIsForSale) {
+      // Restaurar isForSale a false si estaba en true antes
+      setFormData(prevFormData => ({
+        ...prevFormData,
+        isForSale: false,
+      }));
+    }
   };
 
   const handleChangePropertyType = (e) => {
@@ -211,6 +279,39 @@ const CreateProperty = () => {
     });
   };
 
+  const handleCharacteristicOptionChange = (option) => {
+    setFormData({
+      ...formData,
+      characteristics: {
+        ...formData.characteristics,
+        [option]: !formData.characteristics[option]
+      }
+    });
+  };
+  
+
+  const handleDetailPropertyOptionChange = (option) => {
+    setFormData({
+      ...formData,
+      detailsProperty: {
+        ...formData.detailsProperty,
+        [option]: !formData.detailsProperty[option]
+      }
+    });
+  };
+  
+
+  const handleServiceOptionChange = (service) => {
+    setFormData({
+      ...formData,
+      services: {
+        ...formData.services,
+        [service]: !formData.services[service]
+      }
+    });
+  };
+  
+
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -222,22 +323,26 @@ const CreateProperty = () => {
   return (
     <form className={style.form} onSubmit={handleSubmit}>
          <div className={style.formGroup}>
-         <div className={style.userList}>
-        <h2>Clientes</h2>
-        {users.map(user => (
-          <div
-            key={user.id}
-            className={`${style.userCard} ${selectedUser && selectedUser.id === user.id ? style.selected : ''}`}
-            onClick={() => handleUserSelect(user)}
-          >
-            <h3 className={style.Username}>{user.name} {user.last_name}</h3>
-            <p className={style.Userinfo}>{user.mail}</p>
-            <p className={style.Userinfo}>{user.phone_number}</p>
-            {/* Agrega más detalles del usuario según sea necesario */}
-          </div>
-        ))}
-      </div>
-      <h2>Tipo de operación</h2>
+  <h2 className={style.title}>Clientes</h2>
+         <div className={style.centeredContainer}>
+  <div className={style.userListContainer}>
+    <div className={style.userList}>
+      {users.map(user => (
+        <div
+          key={user.id}
+          className={`${style.userCard} ${selectedUser && selectedUser.id === user.id ? style.selected : ''}`}
+          onClick={() => handleUserSelect(user)}
+        >
+          <h3 className={style.Username}>{user.name} {user.last_name}</h3>
+          <p className={style.Userinfo}>{user.mail}</p>
+          <p className={style.Userinfo}>{user.phone_number}</p>
+          {/* Agrega más detalles del usuario según sea necesario */}
+        </div>
+      ))}
+    </div>
+  </div>
+</div>
+      <h2 className={style.title}>Tipo de operación</h2>
       <div>
           <button
             type="button"
@@ -254,7 +359,7 @@ const CreateProperty = () => {
             Alquiler
           </button>
         </div>
-        <h2>Tipo de propiedad</h2>
+        <h2 className={style.title}>Tipo de propiedad</h2>
         <select className={style.propertyTypeDropdown} onChange={handleChangePropertyType}>
           <option value="departamento">Departamento</option>
           <option value="casa">Casa</option>
@@ -274,7 +379,7 @@ const CreateProperty = () => {
  
       </div>
   <div className={style.formGroup}>
-    <h2>Precio</h2>
+    <h2 className={style.title}>Precio</h2>
   <select id="currency" name="currency" value={formData.currency} onChange={handleChange}>
     <option value="USD">USD</option>
     <option value="ARG">ARG</option>
@@ -282,7 +387,7 @@ const CreateProperty = () => {
       <input type="number" name="price" value={formData.price} onChange={handleChange} />
     </div>
     <div className={style.formGroup}>
-          <h2>Expensas</h2>
+          <h2 className={style.title}>Expensas</h2>
       <select id="currencyExpenses" name="currencyExpenses" value={formData.currencyExpenses} onChange={handleChange}>
     <option value="USD">USD</option>
     <option value="ARG">ARG</option>
@@ -291,7 +396,7 @@ const CreateProperty = () => {
     </div>
     <div className={style.formGroup}>
 
-      <h2>Comision del Vendedor</h2>
+      <h2 className={style.title}>Comision del Vendedor</h2>
       <select id="commissionSellerType" name="commissionSellerType" value={formData.commissionSellerType} onChange={handleChange}>
     <option value="%">%</option>
     <option value="Fijo">Fijo</option>
@@ -301,7 +406,7 @@ const CreateProperty = () => {
 
  <div className={style.formGroup}>
    
-      <h2>Comision del Comprador</h2>
+      <h2 className={style.title}>Comision del Comprador</h2>
       <select id="commissionBuyerType" name="commissionBuyerType" value={formData.commissionBuyerType} onChange={handleChange}>
     <option value="%">%</option>
     <option value="Fijo">Fijo</option>
@@ -310,7 +415,7 @@ const CreateProperty = () => {
 
     </div>
     <div className={style.formGroup}></div>
-    <h2>Fecha disponible</h2>
+    <h2 className={style.title}>Fecha disponible</h2>
       <input type="date" name="availableDate" value={formData.availableDate} onChange={handleChange} />
     
  <div className={style.formGroup}>
@@ -320,8 +425,8 @@ const CreateProperty = () => {
 
  <div className={style.formGroup}>
 
-     <h2>Ubicacion</h2>
-     <h3>Calle</h3>
+     <h2 className={style.title}>Ubicacion</h2>
+     <h3 className={style.title}>Calle</h3>
       <input type="text" name="street" value={formData.street} onChange={handleChange} />
       <h3>Numeracion</h3>
       <input type="text" name="number" value={formData.number} onChange={handleChange} />
@@ -341,32 +446,32 @@ const CreateProperty = () => {
  </div>
 
  <div className={style.formGroup}>
-   <h2>Hambientes</h2>
+   <h2 className={style.title}>Hambientes</h2>
       <input type="number" name="environments" value={formData.environments} onChange={handleChange} />
     </div>
 
     <div className={style.formGroup}>
-   <h2>Dormitorios</h2>
+   <h2 className={style.title}>Dormitorios</h2>
       <input type="number" name="rooms" value={formData.rooms} onChange={handleChange} />
     </div>
 
     <div className={style.formGroup}>
-   <h2>Baños</h2>
+   <h2 className={style.title}>Baños</h2>
       <input type="number" name="bathrooms" value={formData.bathrooms} onChange={handleChange} />
     </div>
 
     <div className={style.formGroup}>
-   <h2>Toilettes</h2>
+   <h2 className={style.title}>Toilettes</h2>
       <input type="number" name="toilettes" value={formData.toilettes} onChange={handleChange} />
     </div>
 
     <div className={style.formGroup}>
-   <h2>Cocheras</h2>
+   <h2 className={style.title}>Cocheras</h2>
       <input type="number" name="garages" value={formData.garages} onChange={handleChange} />
     </div>
 
     <div className={style.formGroup}>
-  <h2>Superficie</h2>
+  <h2 className={style.title}>Superficie</h2>
   <label>
     Cubierto (m²):
     <input type="number" name="coveredSquareMeters" value={formData.coveredSquareMeters} onChange={handleChange} />
@@ -398,11 +503,32 @@ const CreateProperty = () => {
   <h2>Total (m²): {formData.totalSquareMeters}</h2>
 </div>
 
+<div className={style.formGroup}>
+      <h2 className={style.title}>Año de construccion</h2>
+      <input type="number" name="age" placeholder='Ej: 2010' value={formData.age} onChange={handleChange} />
+    </div>
+
     <div className={style.formGroup}>
     <label>
+
+    <div className={style.formGroup}>
+  <h2 className={style.title}>Detalles de la propiedad</h2>
+  {Object.entries(formData.detailsProperty).map(([detail, value]) => (
+    <div key={detail}>
+      <input
+        type="checkbox"
+        id={detail}
+        checked={value}
+        onChange={() => handleDetailPropertyOptionChange(detail)}
+      />
+      <label htmlFor={detail}>{detail}</label>
+    </div>
+  ))}
+</div>
+
       
     <div className={style.formGroup}>
-        <h2>Amenidades</h2>
+        <h2 className={style.title}>Comodidades</h2>
         {/* Agregar checkboxes para cada amenidad */}
         {Object.entries(formData.amenities).map(([amenity, value]) => (
           <div key={amenity} className={style.checkboxContainer}>
@@ -418,7 +544,22 @@ const CreateProperty = () => {
           </div>
         ))}
         </div>
-        <h2>Ambientes</h2>
+        <div className={style.formGroup}>
+          <h2 className={style.title}>Caracteristicas</h2>
+          {Object.entries(formData.characteristics).map(([option, value]) => (
+         <div key={option} className={style.checkboxContainer}>
+            <input
+              type="checkbox"
+              id={option}
+              checked={value}
+              onChange={() => handleCharacteristicOptionChange(option)}
+            />
+            <label htmlFor={option}>{option}</label>
+          </div>
+        ))}
+
+        </div>
+        <h2 className={style.title}>Ambientes</h2>
        {Object.entries(formData.environmentsOptions).map(([option, value]) => (
   <div key={option}>
     <input
@@ -430,6 +571,34 @@ const CreateProperty = () => {
     <label htmlFor={option}>{option}</label>
   </div>
 ))}
+
+<h2 className={style.title}>servicios</h2>
+{Object.entries(formData.services).map(([service, value]) => (
+  <div key={service}>
+    <input
+      type="checkbox"
+      id={service}
+      checked={value}
+      onChange={() => handleServiceOptionChange(service)}
+    />
+    <label htmlFor={service}>{service}</label>
+  </div>
+))}
+ <div className={style.formGroup}>
+
+    <label>
+     <h2 className={style.title}>Titulo</h2>
+      <input type="text" name="title" placeholder='Ingrese un titulo' value={formData.title} onChange={handleChange} />
+    </label>
+ </div>
+ <div className={style.formGroup}>
+
+    <label>
+     <h2 className={style.title}>Descripcion</h2>
+      <textarea type="text" name="description" placeholder='Ingrese una descripcion' cols="30" rows="5" value={formData.description} onChange={handleChange} />
+    </label>
+ </div>
+
       Photo:
       <input type="text" name="photo" value={formData.photo} onChange={handleChange} />
     </label>
@@ -441,40 +610,6 @@ const CreateProperty = () => {
       <input type="text" name="videoLink" value={formData.videoLink} onChange={handleChange} />
     </label>
     </div>
-    <label>
-      Age:
-      <input type="text" name="age" value={formData.age} onChange={handleChange} />
-    </label>
- 
- 
- <div className={style.formGroup}>
-
-    <label>
-      Surface:
-      <input type="text" name="surface" value={formData.surface} onChange={handleChange} />
-    </label>
- </div>
- <div className={style.formGroup}>
-
-    <label>
-      Title:
-      <input type="text" name="title" value={formData.title} onChange={handleChange} />
-    </label>
- </div>
- <div className={style.formGroup}>
-
-    <label>
-      Description:
-      <input type="text" name="description" value={formData.description} onChange={handleChange} />
-    </label>
- </div>
- <div className={style.formGroup}>
-
-    <label>
-      Floor Plans:
-      <input type="text" name="floorPlans" value={formData.floorPlans} onChange={handleChange} />
-    </label>
- </div>
  <div className={style.formGroup}>
 
     <label>
