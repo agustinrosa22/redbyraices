@@ -1,5 +1,5 @@
 .form {
-  border: 1px solid black;
+ 
     display: flex;
     flex-direction: column;
     max-width: 1040px;
@@ -7,7 +7,7 @@
   }
   
   .formGroup {
-    margin-bottom: 1rem;
+    margin-bottom: 20px;
   }
   
   label {
@@ -27,7 +27,7 @@
   }
   
   .submitButton {
-    background-color: #007bff;
+    background-color: #3D2F87 ;
     color: #fff;
     border: none;
     border-radius: 5px;
@@ -49,7 +49,7 @@
   
   
   .selected {
-    border-color: blue;
+    border-color: #3D2F87 ;
     box-shadow: 0px 0px 5px 0px rgba(0,0,255,0.2);
   }
 
@@ -75,7 +75,8 @@
   }
   .userListContainer {
     padding: 20px;
-    border: 1px solid rgb(0, 204, 255); /* Borde para cada tarjeta de usuario */
+    border: 2px solid #3D2F87 ; /* Borde para cada tarjeta de usuario */
+    border-radius: 10px;
     max-height: 300px; /* Altura máxima del contenedor */
     overflow-y: auto; /* Agregar barra de desplazamiento vertical cuando sea necesario */
     width: 1000px;
@@ -131,19 +132,23 @@
   }
   
   .operationButton.selected {
-    border: 1px solid#008CBA;
-    color: #008CBA;
+    border: 1px solid #3D2F87 !important;
+    color: #3D2F87 ;
   }
  
   .propertyTypeDropdown {
-    width: 100%; /* Haz que el dropdown ocupe todo el ancho disponible */
+    width: 90%; /* Haz que el dropdown ocupe todo el ancho disponible */
     padding: 15px; /* Ajusta el relleno según tu preferencia */
     font-size: 18px; /* Ajusta el tamaño de la fuente según tu preferencia */
-    border: 1px solid #008CBA; /* Añade un borde para mejorar la apariencia */
+    border: 1px solid #3D2F87 ; /* Añade un borde para mejorar la apariencia */
     border-radius: 5px; /* Añade esquinas redondeadas */
     background-color: #fff; /* Color de fondo blanco */
-    color: #008CBA; /* Color del texto */
+    color: #3D2F87 ; /* Color del texto */
     align-items: center;
+    box-sizing: border-box; /* Incluye borde y relleno en el ancho especificado */
+    margin-left: 25px;
+    
+
   }
   
   .propertyTypeDropdown:focus {
@@ -151,7 +156,84 @@
   }
   
   .propertyTypeDropdown option[selected] {
-    background-color: #008CBA; /* Color de fondo azul para la opción seleccionada */
+    background-color: #3D2F87 ; /* Color de fondo azul para la opción seleccionada */
     color: white; /* Color del texto para la opción seleccionada */
   }
   
+  .selectInput {
+    width: auto; /* Ancho automático */
+    font-size: 18px; /* Tamaño de fuente */
+    border: 1px solid #3D2F87 !important; /* Borde para mejorar la apariencia */
+    background-color: #fff; /* Fondo blanco */
+    color: #3D2F87 ; /* Color del texto */
+    padding: 10px; /* Ajusta el relleno según tu preferencia */
+    margin-left: 25px;
+    border-top-left-radius: 5px; /* Redondea la esquina superior izquierda */
+    border-bottom-left-radius: 5px; /* Redondea la esquina inferior izquierda */
+  }
+  
+  .inputNumber {
+    width: auto; /* Ancho automático */
+    font-size: 18px; /* Tamaño de fuente */
+    border: 1px solid #3D2F87 !important;/* Borde para mejorar la apariencia */
+    background-color: #fff; /* Fondo blanco */
+    color: #3D2F87 ; /* Color del texto */
+    padding: 10px; /* Ajusta el relleno según tu preferencia */
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+  }
+
+  input[type="date"] {
+    width: 50%; /* Ancho completo del input */
+    margin-left: 25px;
+    height: 40px; /* Altura del input */
+    font-size: 16px; /* Tamaño de fuente */
+    padding: 8px; /* Relleno interior */
+    border: 1px solid #3D2F87 !important; /* Borde */
+    border-radius: 5px; /* Bordes redondeados */
+    box-sizing: border-box; /* Incluir el borde y el relleno en el ancho y alto */
+    color: #3D2F87 ;
+  }
+
+  .formUbication{
+    border: 1px solid #3D2F87;
+  border-radius: 5px;
+  padding: 20px;
+  margin-bottom: 20px;
+  }
+
+  .formRow {
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+    
+  }
+  
+  .formColumn {
+    flex: 1;
+    margin-right: 30px;
+
+  }
+  
+  .subtitle {
+    font-size: 20px;
+    margin-bottom: 10px;
+    margin-left: 25px;
+  }
+  
+  .inputGroup {
+    margin-bottom: 20px;
+    
+  }
+  
+  .inputText {
+    width: calc(100% - 50px); 
+    height: 40px;
+    font-size: 16px;
+    padding: 8px;
+    border: 1px solid #3D2F87 !important;
+    color: #3D2F87;
+    border-radius: 5px;
+    box-sizing: border-box;
+    margin-left: 25px;
+  }

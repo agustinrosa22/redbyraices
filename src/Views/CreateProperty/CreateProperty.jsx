@@ -378,72 +378,110 @@ const CreateProperty = () => {
     <div className={style.formGroup}>
  
       </div>
-  <div className={style.formGroup}>
-    <h2 className={style.title}>Precio</h2>
-  <select id="currency" name="currency" value={formData.currency} onChange={handleChange}>
+      <div className={`${style.formGroup}`}>
+  <h2 className={`${style.title}`}>Precio</h2>
+  <select
+    id="currency"
+    name="currency"
+    value={formData.currency}
+    onChange={handleChange}
+    className={`${style.selectInput}`}
+  >
     <option value="USD">USD</option>
     <option value="ARG">ARG</option>
   </select>
-      <input type="number" name="price" value={formData.price} onChange={handleChange} />
-    </div>
+  <input
+    type="number"
+    name="price"
+    value={formData.price}
+    onChange={handleChange}
+    className={`${style.inputNumber}`}
+  />
+</div>
     <div className={style.formGroup}>
           <h2 className={style.title}>Expensas</h2>
-      <select id="currencyExpenses" name="currencyExpenses" value={formData.currencyExpenses} onChange={handleChange}>
+      <select id="currencyExpenses" name="currencyExpenses" value={formData.currencyExpenses} onChange={handleChange} className={`${style.selectInput}`}>
     <option value="USD">USD</option>
     <option value="ARG">ARG</option>
   </select>
-      <input type="number" name="expenses" value={formData.expenses} onChange={handleChange} />
+      <input type="number" name="expenses" value={formData.expenses} onChange={handleChange} className={`${style.inputNumber}`}/>
     </div>
     <div className={style.formGroup}>
 
       <h2 className={style.title}>Comision del Vendedor</h2>
-      <select id="commissionSellerType" name="commissionSellerType" value={formData.commissionSellerType} onChange={handleChange}>
+      <select id="commissionSellerType" name="commissionSellerType" value={formData.commissionSellerType} onChange={handleChange}  className={`${style.selectInput}`}>
     <option value="%">%</option>
     <option value="Fijo">Fijo</option>
   </select>
-      <input type="number" name="sellerCommission" value={formData.sellerCommission} onChange={handleChange} />
+      <input type="number" name="sellerCommission" value={formData.sellerCommission} onChange={handleChange}  className={`${style.inputNumber}`}/>
  </div>
 
  <div className={style.formGroup}>
    
       <h2 className={style.title}>Comision del Comprador</h2>
-      <select id="commissionBuyerType" name="commissionBuyerType" value={formData.commissionBuyerType} onChange={handleChange}>
+      <select id="commissionBuyerType" name="commissionBuyerType" value={formData.commissionBuyerType} onChange={handleChange} className={`${style.selectInput}`}>
     <option value="%">%</option>
     <option value="Fijo">Fijo</option>
   </select>
-      <input type="number" name="buyerCommission" value={formData.buyerCommission} onChange={handleChange} />
+      <input type="number" name="buyerCommission" value={formData.buyerCommission} onChange={handleChange} className={`${style.inputNumber}`}/>
 
     </div>
-    <div className={style.formGroup}></div>
+    <div className={style.formGroup}>
     <h2 className={style.title}>Fecha disponible</h2>
       <input type="date" name="availableDate" value={formData.availableDate} onChange={handleChange} />
-    
+      </div>
  <div className={style.formGroup}>
-          <h2>fecha de vencimiento</h2>
+          <h2 className={style.title}>Fecha de vencimiento</h2>
       <input type="date" name="expirationDate" value={formData.expirationDate} onChange={handleChange} />
  </div>
 
- <div className={style.formGroup}>
-
-     <h2 className={style.title}>Ubicacion</h2>
-     <h3 className={style.title}>Calle</h3>
-      <input type="text" name="street" value={formData.street} onChange={handleChange} />
-      <h3>Numeracion</h3>
-      <input type="text" name="number" value={formData.number} onChange={handleChange} />
-      <h3>Pais</h3>
-      <input type="text" name="country" value={formData.country} onChange={handleChange} />
-      <h3>Provincia</h3>
-      <input type="text" name="province" value={formData.province} onChange={handleChange} />
-      <h3>Departamento</h3>
-      <input type="text" name="departments" value={formData.departments} onChange={handleChange} />
-      <h3>Localidad</h3>
-      <input type="text" name="locality" value={formData.locality} onChange={handleChange} />
-      <h3>Barrio</h3>
-      <input type="text" name="neighborhood" value={formData.neighborhood} onChange={handleChange} />
-      <h3>Barrio privado</h3>
-      <input type="text" name="privateNeighborhood" value={formData.privateNeighborhood} onChange={handleChange} />
-    
- </div>
+ <div className={style.formUbication}>
+      <h2 className={style.title}>Ubicación</h2>
+  <div className={style.formRow}>
+    <div className={style.formColumn}>
+      <div className={style.inputGroup}>
+        <h3 className={style.subtitle}>Calle</h3>
+        <input type="text" name="street" value={formData.street} onChange={handleChange} className={style.inputText} />
+      </div>
+      <div className={style.inputGroup}>
+        <h3 className={style.subtitle}>Numeración</h3>
+        <input type="text" name="number" value={formData.number} onChange={handleChange} className={style.inputText} />
+      </div>
+    </div>
+    <div className={style.formColumn}>
+      <div className={style.inputGroup}>
+        <h3 className={style.subtitle}>País</h3>
+        <input type="text" name="country" value={formData.country} onChange={handleChange} className={style.inputText} />
+      </div>
+      <div className={style.inputGroup}>
+        <h3 className={style.subtitle}>Provincia</h3>
+        <input type="text" name="province" value={formData.province} onChange={handleChange} className={style.inputText} />
+      </div>
+    </div>
+  </div>
+  <div className={style.formRow}>
+    <div className={style.formColumn}>
+      <div className={style.inputGroup}>
+        <h3 className={style.subtitle}>Departamento</h3>
+        <input type="text" name="departments" value={formData.departments} onChange={handleChange} className={style.inputText} />
+      </div>
+      <div className={style.inputGroup}>
+        <h3 className={style.subtitle}>Localidad</h3>
+        <input type="text" name="locality" value={formData.locality} onChange={handleChange} className={style.inputText} />
+      </div>
+    </div>
+    <div className={style.formColumn}>
+      <div className={style.inputGroup}>
+        <h3 className={style.subtitle}>Barrio</h3>
+        <input type="text" name="neighborhood" value={formData.neighborhood} onChange={handleChange} className={style.inputText} />
+      </div>
+      <div className={style.inputGroup}>
+        <h3 className={style.subtitle}>Barrio privado</h3>
+        <input type="text" name="privateNeighborhood" value={formData.privateNeighborhood} onChange={handleChange} className={style.inputText} />
+      </div>
+    </div>
+  </div>
+</div>
 
  <div className={style.formGroup}>
    <h2 className={style.title}>Hambientes</h2>

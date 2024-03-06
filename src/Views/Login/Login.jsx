@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { login } from '../../Redux/Actions/actions';
 import style from './Login.module.css';
 import { useNavigate } from 'react-router-dom';
-import titulo from '../../Assets/tituloNuevo.png'
+import titulo from '../../Assets/titulo.png'
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 
 const Login = () => {
