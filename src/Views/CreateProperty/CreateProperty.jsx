@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { createProperty } from '../../Redux/Actions/actions';
 import { getAllUsers } from '../../Redux/Actions/actions';
@@ -619,46 +619,64 @@ const CreateProperty = () => {
 </div>
 
 
-    <div className={style.formGroup}>
-  <h2 className={style.title}>Superficie</h2>
-  <label>
-    Cubierto (m²):
-    <input type="number" name="coveredSquareMeters" value={formData.coveredSquareMeters} onChange={handleChange} />
-  </label>
-</div>
+    <h2 className={style.title}>Superficie</h2>
+<div className={style.formGroupMedidas}>
+  <div className={style.inputGroup}>
+    <div className={style.inputContainer}>
+      <h3 className={style.subtitleM}>Cubierto (m²)</h3>
+      <input
+        type="number"
+        name="coveredSquareMeters"
+        value={formData.coveredSquareMeters}
+        onChange={handleChange}
+        className={style.inputM}
+      />
+    </div>
+    <div className={style.inputContainer}>
+    <h3 className={style.subtitleM}>Semicubierto (m²)</h3>
+       
+      <input
+        type="number"
+        name="semiCoveredSquareMeters"
+        value={formData.semiCoveredSquareMeters}
+        onChange={handleChange}
+        className={style.inputM}
+      />
+    </div>
+    <div className={style.inputContainer}>
+    <h3 className={style.subtitleM}>Descubierto (m²)</h3>
+    
+      <input
+        type="number"
+        name="uncovered"
+        value={formData.uncovered}
+        onChange={handleChange}
+        className={style.inputM}
+      />
+    </div>
+    <div className={style.inputContainer}>
+      <h3 className={style.subtitleM}>Terreno (m²)</h3>
 
-<div className={style.formGroup}>
-  <label>
-    Semicubierto (m²):
-    <input type="number" name="semiCoveredSquareMeters" value={formData.semiCoveredSquareMeters} onChange={handleChange} />
-  </label>
-</div>
-
-<div className={style.formGroup}>
-  <label>
-    Descubierto (m²):
-    <input type="number" name="uncovered" value={formData.uncovered} onChange={handleChange} />
-  </label>
-</div>
-
-<div className={style.formGroup}>
-  <label>
-    Terreno (m²):
-    <input type="number" name="land" value={formData.land} onChange={handleChange} />
-  </label>
-</div>
-
-<div className={style.formGroup}>
-  <h2>Total (m²): {formData.totalSquareMeters}</h2>
+      <input
+        type="number"
+        name="land"
+        value={formData.land}
+        onChange={handleChange}
+        className={style.inputM}
+      />
+    </div>
+    <div className={style.inputContainer}>
+      <h2 className={style.label}>Total (m²): {formData.totalSquareMeters}</h2>
+    </div>
+  </div>
 </div>
 
 <div className={style.formGroup}>
       <h2 className={style.title}>Año de construccion</h2>
-      <input type="number" name="age" placeholder='Ej: 2010' value={formData.age} onChange={handleChange} />
+      <input className={style.inputAge} type="number" name="age" placeholder='Ej: 2010' value={formData.age} onChange={handleChange} />
     </div>
 
     <div className={style.formGroup}>
-    <label>
 
     <div className={style.formGroup}>
   <h2 className={style.title}>Detalles de la propiedad</h2>
@@ -750,7 +768,7 @@ const CreateProperty = () => {
 
       Photo:
       <input type="text" name="photo" value={formData.photo} onChange={handleChange} />
-    </label>
+
     </div>
     <div className={style.formGroup}>
 
