@@ -12,7 +12,6 @@ import calendar from '../../Assets/calendario.png';
 import lupa from '../../Assets/busqueda-de-lupa.png';
 import spanner from '../../Assets/llave-inglesa.png';
 import report from '../../Assets/comentario.png';
-import title from '../../Assets/titulo.png'
 
 const Sidebar = () => {
   const [isExpanded, setIsExpanded] = useState(false);
@@ -40,9 +39,7 @@ const Sidebar = () => {
     }
   }, [dispatch, userId]);
 
-  const toggleSidebar = () => {
-    setIsExpanded(!isExpanded);
-  };
+
 
   const handleMouseEnter = () => {
     setIsExpanded(true);

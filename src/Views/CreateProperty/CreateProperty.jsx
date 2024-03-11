@@ -1,14 +1,35 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { createProperty } from '../../Redux/Actions/actions';
 import { getAllUsers } from '../../Redux/Actions/actions';
+import { GoogleMap, LoadScript, Marker, StandaloneSearchBox  } from '@react-google-maps/api';
 import style from './CreateProperty.module.css'
+import logoEmpresa from '../../Assets/favicon-byraices.png';
+
 
 const CreateProperty = () => {
   const dispatch = useDispatch();
   const sellerId = useSelector(state => state.userId);
   const users = useSelector(state => state.users);
   const [selectedUser, setSelectedUser] = useState(null);
+  const [mapLocation, setMapLocation] = useState({ lat: -32.8908, lng: -68.8272 });
+  const [searchBox, setSearchBox] = useState(null);
+
+  const onLoad = (ref) => {
+    setSearchBox(ref);
+  };
+
+  const onPlacesChanged = () => {
+    const places = searchBox.getPlaces();
+    if (places && places.length > 0) {
+      const place = places[0]; // Tomamos solo el primer lugar de la lista
+      const location = {
+        lat: place.geometry.location.lat(),
+        lng: place.geometry.location.lng(),
+      };
+      setMapLocation(location);
+    }
+  };
   // console.log("sellerId:", sellerId);
 
   const [formData, setFormData] = useState({
@@ -32,7 +53,7 @@ const CreateProperty = () => {
     buyerCommission: '',
     availableDate: '',
     expirationDate: '',
-    location: '',
+    location: [],
     street: '',
     number: '',
     country: '',
@@ -310,15 +331,38 @@ const CreateProperty = () => {
       }
     });
   };
-  
 
+ 
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    dispatch(createProperty(formData));
-    // Resetear el formulario o realizar otras acciones necesarias después de enviar los datos
-     console.log("Form Data:", formData);
+  const handleMapClick = (e) => {
+    const newLocation = {
+      lat: e.latLng.lat(),
+      lng: e.latLng.lng()
+    };
+    setMapLocation(newLocation);
   };
+  
+    const mapStyles = {
+      height: '400px',
+      width: '100%'
+    };
+
+
+    const handleSubmit = (e) => {
+      e.preventDefault();
+      const propertyData = { ...formData,
+         location: [`${mapLocation.lat}`, `${mapLocation.lng}`] 
+        };
+      dispatch(createProperty(propertyData));
+      // Resto del código...
+    };
+
+//  const handleSubmit = (e) => {
+//   e.preventDefault();
+//   const propertyData = { ...formData, location: mapLocation };
+//   dispatch(createProperty(propertyData));
+//   // Resto del código...
+// };
 
   return (
     <form className={style.form} onSubmit={handleSubmit}>
@@ -481,32 +525,99 @@ const CreateProperty = () => {
       </div>
     </div>
   </div>
+  <LoadScript googleMapsApiKey="AIzaSyD5V2B-G8s7P7Hh6cZ6UyucD0n91y-JI3I" libraries={["places"]}>
+  <StandaloneSearchBox onLoad={onLoad} onPlacesChanged={onPlacesChanged}>
+          <input
+            type="text"
+            placeholder="Buscar dirección..."
+            style={{
+              boxSizing: `border-box`,
+              border: `1px solid transparent`,
+              width: `240px`,
+              height: `32px`,
+              padding: `0 12px`,
+              borderRadius: `3px`,
+              boxShadow: `0 2px 6px rgba(0, 0, 0, 0.3)`,
+              fontSize: `14px`,
+              outline: `none`,
+              textOverflow: `ellipses`,
+             
+            }}
+          />
+        </StandaloneSearchBox>
+        <GoogleMap
+          mapContainerStyle={mapStyles}
+          zoom={13}
+          center={mapLocation}
+          onClick={handleMapClick} // Agregar este evento onClick
+        >
+          <Marker
+            position={mapLocation}
+            draggable={true}
+            onDragEnd={(e) => handleMapClick(e)} // Este evento permite actualizar la ubicación cuando se arrastra el marcador
+          >
+            <img src={logoEmpresa} alt="Logo de tu empresa" style={{ width: '50px', height: '50px' }} />
+          </Marker>
+        </GoogleMap>
+      </LoadScript>
 </div>
 
- <div className={style.formGroup}>
-   <h2 className={style.title}>Hambientes</h2>
-      <input type="number" name="environments" value={formData.environments} onChange={handleChange} />
-    </div>
 
-    <div className={style.formGroup}>
-   <h2 className={style.title}>Dormitorios</h2>
-      <input type="number" name="rooms" value={formData.rooms} onChange={handleChange} />
-    </div>
+<div className={style.formGroup}>
+  <h2 className={style.title}>Hambientes</h2>
+  <input
+    type="number"
+    name="environments"
+    value={formData.environments}
+    onChange={handleChange}
+    className={style.inputText}
+  />
+</div>
 
-    <div className={style.formGroup}>
-   <h2 className={style.title}>Baños</h2>
-      <input type="number" name="bathrooms" value={formData.bathrooms} onChange={handleChange} />
-    </div>
+<div className={style.formGroup}>
+  <h2 className={style.title}>Dormitorios</h2>
+  <input
+    type="number"
+    name="rooms"
+    value={formData.rooms}
+    onChange={handleChange}
+    className={style.inputText}
+  />
+</div>
 
-    <div className={style.formGroup}>
-   <h2 className={style.title}>Toilettes</h2>
-      <input type="number" name="toilettes" value={formData.toilettes} onChange={handleChange} />
-    </div>
+<div className={style.formGroup}>
+  <h2 className={style.title}>Baños</h2>
+  <input
+    type="number"
+    name="bathrooms"
+    value={formData.bathrooms}
+    onChange={handleChange}
+    className={style.inputText}
+  />
+</div>
 
-    <div className={style.formGroup}>
-   <h2 className={style.title}>Cocheras</h2>
-      <input type="number" name="garages" value={formData.garages} onChange={handleChange} />
-    </div>
+<div className={style.formGroup}>
+  <h2 className={style.title}>Toilettes</h2>
+  <input
+    type="number"
+    name="toilettes"
+    value={formData.toilettes}
+    onChange={handleChange}
+    className={style.inputText}
+  />
+</div>
+
+<div className={style.formGroup}>
+  <h2 className={style.title}>Cocheras</h2>
+  <input
+    type="number"
+    name="garages"
+    value={formData.garages}
+    onChange={handleChange}
+    className={style.inputText}
+  />
+</div>
+
 
     <div className={style.formGroup}>
   <h2 className={style.title}>Superficie</h2>

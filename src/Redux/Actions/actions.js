@@ -1,6 +1,6 @@
 // actions.js
 import axios from 'axios';
-import { LOGIN_SUCCESS, LOGIN_FAIL, GET_USER_SUCCESS, GET_USER_FAIL, CREATE_PROPERTY_SUCCESS, CREATE_PROPERTY_FAIL, GET_ALL_USERS_SUCCESS, GET_ALL_USERS_FAIL } from './actionTypes';
+import { LOGIN_SUCCESS, LOGIN_FAIL, GET_USER_SUCCESS, GET_USER_FAIL, CREATE_PROPERTY_SUCCESS, CREATE_PROPERTY_FAIL, GET_ALL_USERS_SUCCESS, GET_ALL_USERS_FAIL, UPDATE_MAP_LOCATION } from './actionTypes';
 
 export const login = ({ mail, password }) => async dispatch => {
   try {
@@ -95,3 +95,8 @@ export const getAllUsers = () => async (dispatch) => {
     return null;
   }
 };
+
+export const updateMapLocation = (location) => ({
+  type: UPDATE_MAP_LOCATION,
+  payload: location,
+});

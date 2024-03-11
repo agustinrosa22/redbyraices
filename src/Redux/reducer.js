@@ -8,6 +8,7 @@ import {  LOGIN_SUCCESS,
           CREATE_PROPERTY_FAIL, 
           GET_ALL_USERS_SUCCESS, 
           GET_ALL_USERS_FAIL,
+          UPDATE_MAP_LOCATION,
          } from './Actions/actionTypes';
 
 const initialState = {
@@ -17,6 +18,7 @@ const initialState = {
   users: [],
   error: null,
   propertyCreationError: null,
+  mapLocation: null,
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -67,6 +69,11 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         error: action.payload,
       };
+      case UPDATE_MAP_LOCATION:
+        return {
+          ...state,
+          mapLocation: action.payload,
+        };
     default:
       return state;
   }
