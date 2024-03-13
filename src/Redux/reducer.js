@@ -9,6 +9,8 @@ import {  LOGIN_SUCCESS,
           GET_ALL_USERS_SUCCESS, 
           GET_ALL_USERS_FAIL,
           UPDATE_MAP_LOCATION,
+          UPLOAD_IMAGE_SUCCESS,
+          UPLOAD_IMAGE_FAIL,
          } from './Actions/actionTypes';
 
 const initialState = {
@@ -19,6 +21,7 @@ const initialState = {
   error: null,
   propertyCreationError: null,
   mapLocation: null,
+  imageUploadError: null,
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -74,6 +77,18 @@ const rootReducer = (state = initialState, action) => {
           ...state,
           mapLocation: action.payload,
         };
+        case UPLOAD_IMAGE_SUCCESS:
+          return {
+            ...state,
+            imageUploadError: null,
+            // Actualizar el estado según sea necesario para la carga de imágenes exitosa
+          };
+        case UPLOAD_IMAGE_FAIL:
+          return {
+            ...state,
+            imageUploadError: action.payload,
+            // Manejar la acción de carga de imágenes fallida
+          };
     default:
       return state;
   }

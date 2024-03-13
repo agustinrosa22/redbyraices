@@ -5,6 +5,7 @@ import { getAllUsers } from '../../Redux/Actions/actions';
 import { GoogleMap, LoadScript, Marker, StandaloneSearchBox  } from '@react-google-maps/api';
 import style from './CreateProperty.module.css'
 import logoEmpresa from '../../Assets/favicon-byraices.png';
+import MultiplesImagenes from '../../Components/MultiplesImagenes/MultiplesImagenes';
 
 
 const CreateProperty = () => {
@@ -14,6 +15,7 @@ const CreateProperty = () => {
   const [selectedUser, setSelectedUser] = useState(null);
   const [mapLocation, setMapLocation] = useState({ lat: -32.8908, lng: -68.8272 });
   const [searchBox, setSearchBox] = useState(null);
+  const [uploadedImages, setUploadedImages] = useState([]);
 
   const onLoad = (ref) => {
     setSearchBox(ref);
@@ -34,7 +36,7 @@ const CreateProperty = () => {
 
   const [formData, setFormData] = useState({
     propertyType: '',
-    photo: '',
+    photo: [],
     statusProperty: false,
     videoLink: '',
     currency: 'USD',
@@ -201,6 +203,134 @@ const CreateProperty = () => {
     userId: "",
   });
  
+  const detailLabels = {
+    exclusiveContract: 'Contrato Exclusivo',
+    cartel: 'Cartel',
+    financing: 'Financiamiento',
+    suitableCredit: 'Apto a Credito',
+    commercialSuitable: 'Apto Comercial',
+    professionalSuitable: 'Apto Profesional',
+    suitableForReducedMobility: 'Apto para Movilidad Reducida',
+    pozo: 'Pozo',
+    CountryOrPrivateNeighborhood: 'Country o barrio Privado',
+  };
+  
+  const amenityLabels = {
+    aireAcondicionado: 'Aire Acondicionado',
+    portonAutomatico: 'Portón Automático',
+    gimnasio: 'Gimnasio',
+    losaRadiante: 'Losa Radiante',
+    chimenea: 'Chimenea',
+    hidromasaje: 'Hidromasaje',
+    seguridad: 'Seguridad',
+    pileta: 'Pileta',
+    caldera: 'Caldera',
+    businessCenter: 'Business Center',
+    areaCine: 'Área de Cine',
+    cisterna: 'Cisterna',
+    laundry: 'Laundry',
+    estacionamientoVisitas: 'Estacionamiento de Visitas',
+    ascensor: 'Ascensor',
+    salonUsosMultiples: 'Salón de Usos Múltiples',
+    areaDeJuegosInfantiles: 'Área de Juegos Infantiles',
+    canchaTenis: 'Cancha de Tenis',
+    recepcion: 'Recepción',
+    areasVerdes: 'Áreas Verdes',
+    valetParking: 'Valet Parking',
+    canchaBasquetbol: 'Cancha de Básquetbol',
+    canchaFutbol: 'Cancha de Fútbol',
+    canchaPaddle: 'Cancha de Paddle',
+    solarium: 'Solarium',
+    jardinDeInvierno: 'Jardín de Invierno',
+    piletaCubierta: 'Pileta Cubierta',
+    piletaClimatizada: 'Pileta Climatizada',
+    sauna: 'Sauna',
+    bar: 'Bar',
+    calefaccion: 'Calefacción',
+  };
+
+  const characteristicLabels = {
+    placard: 'Placard',
+    parilla: 'Parrilla',
+    desayunador: 'Desayunador', 
+    orientacionSur: 'Orientación Sur',
+    orientacionOeste: 'Orientación Oeste',
+    orientacionNorte: 'Orientación Norte',
+    orientacionEste: 'Orientación Este',
+    accesoDeCocheraRampaFija: 'Acceso de Cochera - Rampa Fija',
+    accesoDeCocheraRampaMovil: 'Acceso de Cochera - Rampa Móvil',
+    accesoDeCocheraAscensor: 'Acceso de Cochera - Ascensor',
+    accesoDeCocheraHorizontal: 'Acceso de Cochera - Horizontal',
+    disposicionContrafrente: 'Disposición - Contrafrente',
+    disposicionFrente: 'Disposición - Frente',
+    disposicionInterno: 'Disposición - Interno',
+    disposicionLateral: 'Disposición - Lateral',
+    amoblado: 'Amoblado',
+    orientacionNoroeste: 'Orientación Noroeste', 
+    orientacionNoreste: 'Orientación Noreste',
+    orientacionSuroeste: 'Orientación Suroeste',
+    orientacionSureste: 'Orientación Sureste',
+    deck: 'Deck',
+    tipoDeCampoOtro: 'Tipo de Campo - Otro',
+    tipoDeCampoFruticula: 'Tipo de Campo - Frutícola',
+    tipoDeCampoAgricola: 'Tipo de Campo - Agrícola',
+    tipoDeCampoChara: 'Tipo de Campo - Chacra',
+    tipoDeCampoCriadero: 'Tipo de Campo - Criadero',
+    tipoDeCampoTambero: 'Tipo de Campo - Tambero',
+    tipoDeCampoFloricultura: 'Tipo de Campo - Floricultura',
+    tipoDeCampoForestal: 'Tipo de Campo - Forestal',
+    tipoDeCampoGanadero: 'Tipo de Campo - Ganadero',
+    tipoDeCampoHaras: 'Tipo de Campo - Haras',
+    bodegas: 'Bodegas',
+    tipoDeBodegaComercial: 'Tipo de Bodega - Comercial',
+    tipoDeBodegaNaveIndustrial: 'Tipo de Bodega - Nave Industrial',
+    tipoDeBodegaAlmacen: 'Tipo de Bodega - Almacén',
+    biblioteca: 'Biblioteca',
+    galpon: 'Galpón',
+    sotano: 'Sótano',
+    baulera: 'Baulera',
+    permiteMascota: 'Permite Mascota',
+    aptoTuristico: 'Apto Turístico',
+  };
+
+  const environmentLabels = {
+    dormitorio: 'Dormitorio',
+    comedor: 'Comedor',
+    vestidor: 'Vestidor',
+    jardin: 'Jardín',
+    baño: 'Baño',
+    patio: 'Patio',
+    terraza: 'Terraza',
+    estudio: 'Estudio',
+    lavadero: 'Lavadero',
+    altillo: 'Altillo',
+    playroom: 'Playroom',
+    lobby: 'Lobby',
+    quincho: 'Quincho',
+    salaDeReuniones: 'Sala de Reuniones', 
+    balcon: 'Balcón',
+    pileta: 'Pileta',
+    cocina: 'Cocina',
+    toilette: 'Toilette',
+    habitacion: 'Habitación',
+    living: 'Living',
+    otro: 'Otro',
+  };
+
+  const serviceLabels = {
+    electricidad: 'Electricidad',
+    agua: 'Agua',
+    gas: 'Gas',
+    internet: 'Internet',
+    telefono: 'Teléfono',
+    desagueCloacal: 'Desagüe Cloacal',
+    televisionPorCable: 'Televisión por Cable',
+    alarma: 'Alarma',
+    televisionSatelital: 'Televisión Satelital',
+    aguaCorriente: 'Agua Corriente',
+  };
+
+
   useEffect(() => {
     dispatch(getAllUsers());
     
@@ -351,10 +481,11 @@ const CreateProperty = () => {
     const handleSubmit = (e) => {
       e.preventDefault();
       const propertyData = { ...formData,
+        photo: uploadedImages,
          location: [`${mapLocation.lat}`, `${mapLocation.lng}`] 
         };
       dispatch(createProperty(propertyData));
-      // Resto del código...
+     
     };
 
 //  const handleSubmit = (e) => {
@@ -419,9 +550,6 @@ const CreateProperty = () => {
     <option value="otros">Otros</option>
   </select>
     </div>
-    <div className={style.formGroup}>
- 
-      </div>
       <div className={`${style.formGroup}`}>
   <h2 className={`${style.title}`}>Precio</h2>
   <select
@@ -676,10 +804,8 @@ const CreateProperty = () => {
       <input className={style.inputAge} type="number" name="age" placeholder='Ej: 2010' value={formData.age} onChange={handleChange} />
     </div>
 
-    <div className={style.formGroup}>
-
-    <div className={style.formGroup}>
   <h2 className={style.title}>Detalles de la propiedad</h2>
+    <div className={style.formGroupChechbox}>
   {Object.entries(formData.detailsProperty).map(([detail, value]) => (
     <div key={detail}>
       <input
@@ -688,31 +814,31 @@ const CreateProperty = () => {
         checked={value}
         onChange={() => handleDetailPropertyOptionChange(detail)}
       />
-      <label htmlFor={detail}>{detail}</label>
+      <label htmlFor={detail}>{detailLabels[detail]}</label>
     </div>
   ))}
 </div>
 
       
-    <div className={style.formGroup}>
-        <h2 className={style.title}>Comodidades</h2>
-        {/* Agregar checkboxes para cada amenidad */}
-        {Object.entries(formData.amenities).map(([amenity, value]) => (
-          <div key={amenity} className={style.checkboxContainer}>
-            <label>
-              <input
-                type="checkbox"
-                name={amenity}
-                checked={value}
-                onChange={handleAmenityChange}
-              />
-              {amenity}
-            </label>
-          </div>
-        ))}
-        </div>
-        <div className={style.formGroup}>
+  <h2 className={style.title}>Comodidades</h2>
+  <div className={style.formGroupChechbox}>
+  {Object.entries(formData.amenities).map(([amenity, value]) => (
+    <div key={amenity} className={style.checkboxContainer}>
+      <label>
+        <input
+          type="checkbox"
+          name={amenity}
+          checked={value}
+          onChange={handleAmenityChange}
+        />
+        {amenityLabels[amenity]}
+      </label>
+    </div>
+  ))}
+</div>
+        
           <h2 className={style.title}>Caracteristicas</h2>
+          <div className={style.formGroupChechbox}>
           {Object.entries(formData.characteristics).map(([option, value]) => (
          <div key={option} className={style.checkboxContainer}>
             <input
@@ -721,12 +847,12 @@ const CreateProperty = () => {
               checked={value}
               onChange={() => handleCharacteristicOptionChange(option)}
             />
-            <label htmlFor={option}>{option}</label>
+              <label htmlFor={option}>{characteristicLabels[option]}</label>
           </div>
         ))}
-
         </div>
         <h2 className={style.title}>Ambientes</h2>
+        <div className={style.formGroupChechbox}>
        {Object.entries(formData.environmentsOptions).map(([option, value]) => (
   <div key={option}>
     <input
@@ -735,11 +861,13 @@ const CreateProperty = () => {
       checked={value}
       onChange={() => handleEnvironmentOptionChange(option)}
     />
-    <label htmlFor={option}>{option}</label>
+    <label htmlFor={option}>{environmentLabels[option]}</label>
   </div>
 ))}
+</div>
 
 <h2 className={style.title}>servicios</h2>
+<div className={style.formGroupChechbox}>
 {Object.entries(formData.services).map(([service, value]) => (
   <div key={service}>
     <input
@@ -748,34 +876,34 @@ const CreateProperty = () => {
       checked={value}
       onChange={() => handleServiceOptionChange(service)}
     />
-    <label htmlFor={service}>{service}</label>
+   <label htmlFor={service}>{serviceLabels[service]}</label>
   </div>
 ))}
+</div>
  <div className={style.formGroup}>
 
     <label>
      <h2 className={style.title}>Titulo</h2>
-      <input type="text" name="title" placeholder='Ingrese un titulo' value={formData.title} onChange={handleChange} />
+      <input className={style.inputText} type="text" name="title" placeholder='Ingrese un titulo' value={formData.title} onChange={handleChange} />
     </label>
  </div>
  <div className={style.formGroup}>
 
     <label>
      <h2 className={style.title}>Descripcion</h2>
-      <textarea type="text" name="description" placeholder='Ingrese una descripcion' cols="30" rows="5" value={formData.description} onChange={handleChange} />
+      <textarea className={style.inputDescription} type="text" name="description" placeholder='Ingrese una descripcion' cols="30" rows="5" value={formData.description} onChange={handleChange} />
     </label>
  </div>
 
-      Photo:
-      <input type="text" name="photo" value={formData.photo} onChange={handleChange} />
-
-    </div>
+ <MultiplesImagenes onUpload={(uploadedImages) => setFormData({ ...formData, photo: uploadedImages })} />
     <div className={style.formGroup}>
 
-    <label>
-      Video Link:
-      <input type="text" name="videoLink" value={formData.videoLink} onChange={handleChange} />
-    </label>
+  <h2 className={style.title}>
+  Video Link
+  </h2>
+     
+      <input className={style.inputText} type="text" name="videoLink" placeholder='Link de YouTube' value={formData.videoLink} onChange={handleChange} />
+   
     </div>
  <div className={style.formGroup}>
 

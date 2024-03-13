@@ -293,4 +293,41 @@
     border-radius: 5px;
     margin-left: 25px;
   }
+
+  .formGroupChechbox{
+    border: 1px solid #3D2F87 !important;
+    border-radius: 8px;
+    padding: 25px;
+    margin-bottom: 20px;
+  }
+  
+  .detailItem {
+    margin-bottom: 10px; /* Aumenta el espacio entre los elementos de detalle */
+  }
+  input[type="checkbox"] {
+    margin-right: 10px;
+    transform: scale(1.5); /* Aumenta el tamaño del checkbox */
+    border: 2px solid#3D2F87 !important; /* Establece el borde rojo para el checkbox */
+  }
+  
+  input[type="checkbox"]:checked {
+    background-color: #3D2F87 !important; /* Cambia el color de fondo cuando el checkbox está marcado */
+  }
+  
+  .label {
+    font-size: 28px;
+    color: #3D2F87;
+  }
+
+  .inputDescription {
+    width: 100%;
+    padding: 0.5rem;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    resize: vertical; /* Permitir redimensionar verticalmente */
+    margin-left: 25px;
+    border: 1px solid#3D2F87 !important; 
+    box-sizing: border-box;
+  }
   
