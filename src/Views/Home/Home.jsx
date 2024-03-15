@@ -7,7 +7,7 @@ const Home = () => {
   return (
     <div className={style.container}>
       <h1>HOME</h1>
-      <MultiplesImagenes/>
+    
     </div>
   );
 };

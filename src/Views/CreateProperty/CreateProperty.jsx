@@ -15,7 +15,6 @@ const CreateProperty = () => {
   const [selectedUser, setSelectedUser] = useState(null);
   const [mapLocation, setMapLocation] = useState({ lat: -32.8908, lng: -68.8272 });
   const [searchBox, setSearchBox] = useState(null);
-  const [uploadedImages, setUploadedImages] = useState([]);
 
   const onLoad = (ref) => {
     setSearchBox(ref);
@@ -36,7 +35,7 @@ const CreateProperty = () => {
 
   const [formData, setFormData] = useState({
     propertyType: '',
-    photo: [],
+    // photo: [],
     statusProperty: false,
     videoLink: '',
     currency: 'USD',
@@ -361,7 +360,7 @@ const CreateProperty = () => {
     }
   
     setFormData(updatedFormData);
-    console.log("Datos del formulario actualizados:", updatedFormData);
+    // console.log("Datos del formulario actualizados:", updatedFormData);
   };
 
   const calculateTotalSquareMeters = (data) => {
@@ -477,11 +476,11 @@ const CreateProperty = () => {
       width: '100%'
     };
 
-
+ 
+    
     const handleSubmit = (e) => {
       e.preventDefault();
       const propertyData = { ...formData,
-        photo: uploadedImages,
          location: [`${mapLocation.lat}`, `${mapLocation.lng}`] 
         };
       dispatch(createProperty(propertyData));
@@ -895,7 +894,7 @@ const CreateProperty = () => {
     </label>
  </div>
 
- <MultiplesImagenes onUpload={(uploadedImages) => setFormData({ ...formData, photo: uploadedImages })} />
+ <MultiplesImagenes/>
     <div className={style.formGroup}>
 
   <h2 className={style.title}>

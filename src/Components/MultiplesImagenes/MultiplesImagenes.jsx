@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Dropzone from "react-dropzone";
 import { Container } from "reactstrap";
 import style from './MultiplesImagenes.module.css'
@@ -24,22 +24,33 @@ const MultiplesImagenes = ()=> {
             .then((response) => {
                 const data = response.data
                 const fileURL = data.secure_url;
-                let specificArrayInObject = image.array;
+                let specificArrayInObject = Array.isArray(image.array) ? [...image.array] : []; // Convertir a array si no lo es
                 specificArrayInObject.push(fileURL);
-                const newobj = {...image, specificArrayInObject};
+                const newobj = {...image, array: specificArrayInObject}; // Asegúrate de actualizar el array en la propiedad correcta
                 setImage(newobj)
-                console.log(image)
-              
+                console.log(newobj)
+               
+                // Almacenar en localStorage
+             
             })
         })
         axios.all(upLoaders).then(() => {
             setLoading("false")
+            
         })
     }
 
+    useEffect(() => {
+        if (image.array.length > 0) {
+            localStorage.setItem('uploadedImages', JSON.stringify(image.array));
+            // Almacenar en localStorage
+        }
+    }, [image.array]);
+    
+
     function imagePreview(){
         if(Loading === "true"){
-            return <h3>Cargasndo imagenes...</h3>
+            return <h3>Cargando imagenes...</h3>
         }
         if(Loading === "false"){
             return <h3>
@@ -61,6 +72,7 @@ const MultiplesImagenes = ()=> {
            <Container>
             <h1 className={style.textCenter}>Sube tus imagenes aqui</h1>
             <Dropzone
+            className={style.dropzone}
             classname="dropzone"
             onDrop={handleDrop}
             onChange={(e) => setImage(e.target.value)}
@@ -68,7 +80,7 @@ const MultiplesImagenes = ()=> {
             >
                 {({getRootProps, getInputProps}) => (
                     <section>
-                        <div {...getRootProps({classname: "dropzone"}) }>
+                        <div className={style.dropzone} {...getRootProps({classname: "dropzone"}) }>
                             <input {...getInputProps()} />
                             <span>📂</span>
                             <p>Coloca tus Imagenes aqui</p>
