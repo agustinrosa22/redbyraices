@@ -6,6 +6,7 @@ import { GoogleMap, LoadScript, Marker, StandaloneSearchBox  } from '@react-goog
 import style from './CreateProperty.module.css'
 import logoEmpresa from '../../Assets/favicon-byraices.png';
 import MultiplesImagenes from '../../Components/MultiplesImagenes/MultiplesImagenes';
+import Documentacion from '../../Components/Documents/Documentacion';
 
 
 const CreateProperty = () => {
@@ -182,7 +183,6 @@ const CreateProperty = () => {
     title: '',
     description: '',
     floorPlans: '',
-    documentation: '',
     isForSale: false,
     isForRent: false,
     isFinished: false,
@@ -200,6 +200,7 @@ const CreateProperty = () => {
     },
     sellerId: '',
     userId: "",
+    // documentation: [],
   });
  
   const detailLabels = {
@@ -904,13 +905,7 @@ const CreateProperty = () => {
       <input className={style.inputText} type="text" name="videoLink" placeholder='Link de YouTube' value={formData.videoLink} onChange={handleChange} />
    
     </div>
- <div className={style.formGroup}>
-
-    <label>
-      Documentation:
-      <input type="text" name="documentation" value={formData.documentation} onChange={handleChange} />
-    </label>
- </div>
+    <Documentacion/>
     <button type="submit">Submit</button>
   </form>
   );

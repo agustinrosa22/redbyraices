@@ -59,12 +59,16 @@ export const getUser = userId => async dispatch => {
 export const createProperty = (propertyData, userId) => async (dispatch) => {
   try {
     // Incluir el userId como parte de los datos de la propiedad
-    const dataWithUserId = { ...propertyData, userId };
+    const dataWithUserId = { ...propertyData};
 
     // Recuperar las URLs de las imágenes del localStorage
     const imageUrls = JSON.parse(localStorage.getItem('uploadedImages'));
     let dataWithImages; // Declarar dataWithImages aquí
+
+     // Recuperar las URLs de los documentos del localStorage
+     const documentUrls = JSON.parse(localStorage.getItem('uploadedDocuments'));
    
+     let dataWithMedia = { ...dataWithUserId };
 
     if (Array.isArray(imageUrls)) {
       // Agregar las URLs de las imágenes al objeto de datos de la propiedad
@@ -72,9 +76,19 @@ export const createProperty = (propertyData, userId) => async (dispatch) => {
         ...dataWithUserId,
         photo: imageUrls // Suponiendo que la propiedad para las imágenes se llama "images"
       };
-      console.log(dataWithImages)
-    } else {
-      console.error('Error al obtener las URLs de las imágenes del localStorage: imageUrls no es un array');
+      // console.log("prueba imagenes" + imageUrls)
+    }
+    if (Array.isArray(documentUrls)) {
+      // Agregar las URLs de los documentos al objeto de datos de la propiedad
+      dataWithMedia = {
+        ...dataWithMedia,
+        documentation: documentUrls
+      };
+      console.log("documentos" + dataWithMedia.documentation)
+  }
+  else {
+      console.error('Error al obtener las URLs de las imágenes del localStorage: imageUrls no es un array' );
+      console.log("prueba imagenes" + dataWithImages)
       dispatch({
         type: CREATE_PROPERTY_FAIL,
         payload: 'Error al obtener las URLs de las imágenes del localStorage: imageUrls no es un array',
@@ -82,13 +96,15 @@ export const createProperty = (propertyData, userId) => async (dispatch) => {
       return; // Salir de la función si imageUrls no es un array
     }
 
-    const response = await axios.post('http://localhost:3001/property', dataWithImages);
+    const response = await axios.post('http://localhost:3001/property', { ...dataWithImages, ...dataWithMedia });
+
     dispatch({
       type: CREATE_PROPERTY_SUCCESS,
       payload: response.data,
     });
     console.log('Propiedad creada:', response.data);
     localStorage.removeItem('uploadedImages');
+    localStorage.removeItem('uploadedDocuments');
     // Manejar cualquier lógica adicional después de crear la propiedad
   } catch (error) {
     console.error('Error al crear la propiedad:', error);

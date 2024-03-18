@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
 import Dropzone from "react-dropzone";
 import { Container, Button } from "reactstrap";
-import style from './MultiplesImagenes.module.css'
+import style from './Documentacion.module.css'
 import axios from "axios";
 
-const MultiplesImagenes = () => {
-    const [images, setImages] = useState([]);
+const Documentacion = () => {
+    // const [images, setImages] = useState([]);
+    const [documents, setDocuments] = useState([]);
     const [loading, setLoading] = useState(false);
 
     const handleDrop = async (files) => {
@@ -15,7 +16,7 @@ const MultiplesImagenes = () => {
                 const formData = new FormData();
                 formData.append('file', file);
                 formData.append('tags', `codeinfuse, medium, gist`);
-                formData.append('upload_preset', "Byraices");
+                formData.append('upload_preset', "ByraicesDocument");
                 formData.append("api_key", "459789382519731");
                 formData.append("timestamp", (Date.now() / 1000) | 0);
                 const response = await axios.post("https://api.cloudinary.com/v1_1/dt0tsuyeu/image/upload", formData, {
@@ -23,58 +24,58 @@ const MultiplesImagenes = () => {
                 });
                 return response.data.secure_url;
             });
-            const uploadedImages = await Promise.all(uploaders);
-            setImages(prevImages => [...prevImages, ...uploadedImages]);
+            const uploadedDocuments = await Promise.all(uploaders);
+            setDocuments(prevDocuments => [...prevDocuments, ...uploadedDocuments]);
             
         } catch (error) {
-            console.error("Error al subir imágenes:", error);
+            console.error("Error al subir documentos:", error);
         } finally {
             setLoading(false);
         }
     }
 
-    const handleDeleteImage = (index) => {
-        const newImages = [...images];
-        newImages.splice(index, 1);
-        setImages(newImages);
+    const handleDeleteDocuments = (index) => {
+        const newDocuments = [...documents];
+        newDocuments.splice(index, 1);
+        setDocuments(newDocuments);
     }
 
-    const handleDeleteAllImages = () => {
-        setImages([]);
+    const handleDeleteAllDocuments = () => {
+        setDocuments([]);
     }
 
     useEffect(() => {
-        const storedImages = JSON.parse(localStorage.getItem('uploadedImages'));
-        if (storedImages) {
-            setImages(storedImages);
+        const storedDocuments = JSON.parse(localStorage.getItem('uploadedDocuments'));
+        if (storedDocuments) {
+            setDocuments(storedDocuments);
         }
     }, []);
 
     useEffect(() => {
-        if (images.length > 0) {
-            localStorage.setItem('uploadedImages', JSON.stringify(images));
+        if (documents.length > 0) {
+            localStorage.setItem('uploadedDocuments', JSON.stringify(documents));
         }
-    }, [images]);
-    console.log(images)
-    function imagePreview() {
+    }, [documents]);
+    console.log(documents)
+    function documentsPreview() {
         if (loading) {
             return <h3>Cargando imágenes...</h3>;
         }
         return (
             <div>
-                <Button color="danger" onClick={handleDeleteAllImages}>Eliminar todas las imágenes</Button>
-                {images.length <= 0
+                <Button color="danger" onClick={handleDeleteAllDocuments}>Eliminar todas las imágenes</Button>
+                {documents.length <= 0
                     ? <h3>No hay imágenes</h3>
                     : (
                         <div className={style.imageContainer}>
-                            {images.map((item, index) => (
+                            {documents.map((item, index) => (
                                 <div key={index} className={style.imageItem}>
                                     <img
                                         alt='Imagen'
                                         className={style.image}
                                         src={item}
                                     />
-                                    <Button color="danger" onClick={() => handleDeleteImage(index)}>Eliminar</Button>
+                                    <Button color="danger" onClick={() => handleDeleteDocuments(index)}>Eliminar</Button>
                                 </div>
                             ))}
                         </div>
@@ -87,7 +88,7 @@ const MultiplesImagenes = () => {
     return (
         <div>
             <Container>
-                <h1 className={style.textCenter}>Sube tus imágenes aquí</h1>
+                <h1 className={style.textCenter}>Sube tus documentos aquí</h1>
                 <Dropzone
                     className={style.dropzone}
                     onDrop={handleDrop}
@@ -102,10 +103,10 @@ const MultiplesImagenes = () => {
                         </section>
                     )}
                 </Dropzone>
-                {imagePreview()}
+                {documentsPreview()}
             </Container>
         </div>
     );
 }
 
-export default MultiplesImagenes;
+export default Documentacion;
