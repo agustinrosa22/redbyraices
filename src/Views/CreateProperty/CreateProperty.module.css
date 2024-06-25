@@ -25,6 +25,16 @@
   input[type="checkbox"] {
     width: auto;
   }
+
+  .errorBorder {
+    border: 1px solid red;
+  }
+  
+  .errorMessage {
+    color: red;
+    font-size: 12px;
+    margin-top: 5px;
+  }
   
   .submitButton {
     background-color: #3D2F87 ;

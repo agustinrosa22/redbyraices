@@ -12,8 +12,8 @@ import Documentacion from '../../Components/Documents/Documentacion';
 const CreateProperty = () => {
   const dispatch = useDispatch();
   const sellerId = useSelector(state => state.userId);
-  const users = useSelector(state => state.users);
-  const [selectedUser, setSelectedUser] = useState(null);
+  // const users = useSelector(state => state.users);
+  // const [selectedUser, setSelectedUser] = useState(null);
   const [mapLocation, setMapLocation] = useState({ lat: -32.8908, lng: -68.8272 });
   const [searchBox, setSearchBox] = useState(null);
 
@@ -199,9 +199,12 @@ const CreateProperty = () => {
         CountryOrPrivateNeighborhood: false,
     },
     sellerId: '',
-    userId: "",
+    userId: "1",
     // documentation: [],
   });
+
+  const [isValid, setIsValid] = useState(true);
+
  
   const detailLabels = {
     exclusiveContract: 'Contrato Exclusivo',
@@ -344,14 +347,19 @@ const CreateProperty = () => {
   }, [dispatch, sellerId]);
   
 
-  const handleUserSelect = (user) => {
-    setSelectedUser(user);
-    setFormData({ ...formData, userId: user.id });
-  };
+  // const handleUserSelect = (user) => {
+  //   setSelectedUser(user);
+  //   setFormData({ ...formData, userId: user.id });
+  // };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    let updatedFormData = { ...formData, [name]: value };
+      // Permitir solo números y el punto decimal, y no permitir la letra "e"
+      if (name === 'price' && (!/^[\d.]*$/.test(value) || (value.includes('.') && value.split('.').length > 2) || value.includes('e'))) {
+        return;
+      }
+  
+      let updatedFormData = { ...formData, [name]: value };
   
     // Verificar si se están modificando los campos de metros cuadrados
     if (name === "coveredSquareMeters" || name === "semiCoveredSquareMeters" || name === "uncovered" || name === "land") {
@@ -361,8 +369,21 @@ const CreateProperty = () => {
     }
   
     setFormData(updatedFormData);
+
+    if (name === 'price') {
+      setIsValid(!!value);
+    }
     // console.log("Datos del formulario actualizados:", updatedFormData);
   };
+
+  const handleBlur = () => {
+    if (!formData.price) {
+      setIsValid(false);
+    } else {
+      setIsValid(true);
+    }
+  };
+
 
   const calculateTotalSquareMeters = (data) => {
     const { coveredSquareMeters, semiCoveredSquareMeters, uncovered } = data;
@@ -498,7 +519,7 @@ const CreateProperty = () => {
   return (
     <form className={style.form} onSubmit={handleSubmit}>
          <div className={style.formGroup}>
-  <h2 className={style.title}>Clientes</h2>
+   {/* <h2 className={style.title}>Clientes</h2>
          <div className={style.centeredContainer}>
   <div className={style.userListContainer}>
     <div className={style.userList}>
@@ -511,12 +532,12 @@ const CreateProperty = () => {
           <h3 className={style.Username}>{user.name} {user.last_name}</h3>
           <p className={style.Userinfo}>{user.mail}</p>
           <p className={style.Userinfo}>{user.phone_number}</p>
-          {/* Agrega más detalles del usuario según sea necesario */}
         </div>
       ))}
     </div>
   </div>
-</div>
+</div>  */}
+
       <h2 className={style.title}>Tipo de operación</h2>
       <div className={style.operationContainer}>
   <button
@@ -562,13 +583,15 @@ const CreateProperty = () => {
     <option value="USD">USD</option>
     <option value="ARG">ARG</option>
   </select>
-  <input
-    type="number"
-    name="price"
-    value={formData.price}
-    onChange={handleChange}
-    className={`${style.inputNumber}`}
-  />
+        <input
+          type="text"
+          name="price"
+          value={formData.price}
+          onChange={handleChange}
+          onBlur={handleBlur}
+          className={`${style.inputNumber} ${!isValid && style.errorBorder}`}
+        />
+        {!isValid && <span className={style.errorMessage}>Agregar precio</span>}
 </div>
     <div className={style.formGroup}>
           <h2 className={style.title}>Expensas</h2>
@@ -692,7 +715,7 @@ const CreateProperty = () => {
 
 
 <div className={style.formGroup}>
-  <h2 className={style.title}>Hambientes</h2>
+  <h2 className={style.title}>Ambientes</h2>
   <input
     type="number"
     name="environments"
@@ -800,7 +823,7 @@ const CreateProperty = () => {
 </div>
 
 <div className={style.formGroup}>
-      <h2 className={style.title}>Año de construccion</h2>
+      <h2 className={style.title}>Antiguedad</h2>
       <input className={style.inputAge} type="number" name="age" placeholder='Ej: 2010' value={formData.age} onChange={handleChange} />
     </div>
 

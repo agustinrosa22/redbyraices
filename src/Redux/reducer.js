@@ -11,6 +11,8 @@ import {  LOGIN_SUCCESS,
           UPDATE_MAP_LOCATION,
           UPLOAD_IMAGE_SUCCESS,
           UPLOAD_IMAGE_FAIL,
+          GET_PROPERTIES_BY_SELLER_ID_SUCCESS,
+          GET_PROPERTIES_BY_SELLER_ID_FAIL
          } from './Actions/actionTypes';
 
 const initialState = {
@@ -22,6 +24,7 @@ const initialState = {
   propertyCreationError: null,
   mapLocation: null,
   imageUploadError: null,
+  propertiesBySellerId: [],
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -89,9 +92,22 @@ const rootReducer = (state = initialState, action) => {
             imageUploadError: action.payload,
             // Manejar la acción de carga de imágenes fallida
           };
+          case GET_PROPERTIES_BY_SELLER_ID_SUCCESS:
+      return {
+        ...state,
+        propertiesBySellerId: action.payload,
+        error: null
+      };
+    case GET_PROPERTIES_BY_SELLER_ID_FAIL:
+      return {
+        ...state,
+        propertiesBySellerId: [],
+        error: action.payload
+      };
     default:
       return state;
   }
 };
+
 
 export default rootReducer;

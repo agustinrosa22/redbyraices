@@ -9,7 +9,8 @@ import { store } from './Redux/store';
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
- axios.defaults.baseURL = 'http://localhost:3001'
+ axios.defaults.baseURL = 'https://server.byraices.com'
+//  axios.defaults.baseURL = 'http://localhost:3000'
 
  ReactDOM.render(
   <Provider store={store}>

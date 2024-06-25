@@ -105,7 +105,8 @@ const Sidebar = () => {
     </ul>
     {user && (
         <div className={style['user-details']}>
-          <img src= {user.user.photo} alt="" />
+            {user.user.photo && <img src={user.user.photo} alt=""/>}
+            {user.user.img && <img src={user.user.img} alt="" />}
           <p>{user.user.name}</p><p>{user.user.last_name}</p>
           {/* Mostrar otros detalles del usuario según sea necesario */}
         </div>

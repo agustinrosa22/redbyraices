@@ -1,10 +1,22 @@
 // actions.js
 import axios from 'axios';
-import { LOGIN_SUCCESS, LOGIN_FAIL, GET_USER_SUCCESS, GET_USER_FAIL, CREATE_PROPERTY_SUCCESS, CREATE_PROPERTY_FAIL, GET_ALL_USERS_SUCCESS, GET_ALL_USERS_FAIL, UPDATE_MAP_LOCATION } from './actionTypes';
+import { 
+  LOGIN_SUCCESS, 
+  LOGIN_FAIL, 
+  GET_USER_SUCCESS, 
+  GET_USER_FAIL, 
+  CREATE_PROPERTY_SUCCESS, 
+  CREATE_PROPERTY_FAIL, 
+  GET_ALL_USERS_SUCCESS, 
+  GET_ALL_USERS_FAIL, 
+  UPDATE_MAP_LOCATION,
+  GET_PROPERTIES_BY_SELLER_ID_SUCCESS,
+  GET_PROPERTIES_BY_SELLER_ID_FAIL
+ } from './actionTypes';
 
 export const login = ({ mail, password }) => async dispatch => {
   try {
-    const response = await axios.post('http://localhost:3001/login', { mail, password });
+    const response = await axios.post('/login', { mail, password });
     const user = response.data.user;
     if (!user || !user.id) {
       throw new Error('ID de usuario no válido en la respuesta');
@@ -41,7 +53,7 @@ export const getUser = userId => async dispatch => {
       throw new Error('El ID del usuario no está definido');
     }
     
-    const response = await axios.get(`http://localhost:3001/seller/${userId}`);
+    const response = await axios.get(`/seller/${userId}`);
     // console.log('Detalles del usuario obtenidos del backend:', response.data);
     dispatch({
       type: GET_USER_SUCCESS,
@@ -84,11 +96,13 @@ export const createProperty = (propertyData, userId) => async (dispatch) => {
         ...dataWithMedia,
         documentation: documentUrls
       };
-      console.log("documentos" + dataWithMedia.documentation)
+      // console.log("documentos" + dataWithMedia.documentation)
+
   }
   else {
       console.error('Error al obtener las URLs de las imágenes del localStorage: imageUrls no es un array' );
-      console.log("prueba imagenes" + dataWithImages)
+      alert('Error al crear la propiedad. Por favor, revise los datos e intente nuevamente.');
+      // console.log("prueba imagenes" + dataWithImages)
       dispatch({
         type: CREATE_PROPERTY_FAIL,
         payload: 'Error al obtener las URLs de las imágenes del localStorage: imageUrls no es un array',
@@ -96,29 +110,36 @@ export const createProperty = (propertyData, userId) => async (dispatch) => {
       return; // Salir de la función si imageUrls no es un array
     }
 
-    const response = await axios.post('http://localhost:3001/property', { ...dataWithImages, ...dataWithMedia });
+    const response = await axios.post('/property', { ...dataWithImages, ...dataWithMedia });
 
     dispatch({
       type: CREATE_PROPERTY_SUCCESS,
       payload: response.data,
     });
-    console.log('Propiedad creada:', response.data);
+    // console.log('Propiedad creada:', response.data);
     localStorage.removeItem('uploadedImages');
     localStorage.removeItem('uploadedDocuments');
     // Manejar cualquier lógica adicional después de crear la propiedad
+
+     // Mostrar alerta de éxito y redirigir a /home
+     alert('Propiedad cargada con éxito');
+     window.location.href = '/home';
   } catch (error) {
     console.error('Error al crear la propiedad:', error);
+    alert('Error al crear la propiedad. Por favor, revise los datos e intente nuevamente.');
     dispatch({
       type: CREATE_PROPERTY_FAIL,
       payload: 'Error al crear la propiedad',
     });
     // Manejar errores
+
+    
   }
 };
 
 export const getAllUsers = () => async (dispatch) => {
   try {
-    const response = await axios.get('http://localhost:3001/users');
+    const response = await axios.get('/users');
     dispatch({
       type: GET_ALL_USERS_SUCCESS,
       payload: response.data.data,
@@ -138,3 +159,30 @@ export const updateMapLocation = (location) => ({
   type: UPDATE_MAP_LOCATION,
   payload: location,
 });
+
+
+// Acción para obtener las propiedades relacionadas al vendedor por su id
+export const getPropertiesBySellerId = (userId) => async (dispatch) => {
+  if (!userId) {
+    dispatch({
+      type: GET_PROPERTIES_BY_SELLER_ID_FAIL,
+      payload: 'El ID del usuario no está definido',
+    });
+    return; // Salir de la función si no hay userId
+  }
+
+  try {
+    const response = await axios.get(`/properties/seller/${userId}`);
+    dispatch({
+      type: GET_PROPERTIES_BY_SELLER_ID_SUCCESS,
+      payload: response.data.data,
+    });
+    // console.log('Propiedades obtenidas:', response.data.data);
+  } catch (error) {
+    console.error('Error al obtener las propiedades del vendedor:', error);
+    dispatch({
+      type: GET_PROPERTIES_BY_SELLER_ID_FAIL,
+      payload: 'Error al obtener las propiedades del vendedor',
+    });
+  }
+};
