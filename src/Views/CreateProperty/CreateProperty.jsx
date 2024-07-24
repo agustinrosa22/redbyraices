@@ -36,7 +36,6 @@ const CreateProperty = () => {
 
   const [formData, setFormData] = useState({
     propertyType: '',
-    // photo: [],
     statusProperty: false,
     videoLink: '',
     currency: 'USD',
@@ -204,6 +203,7 @@ const CreateProperty = () => {
   });
 
   const [isValid, setIsValid] = useState(true);
+  const [displayPrice, setDisplayPrice] = useState('');
 
  
   const detailLabels = {
@@ -352,28 +352,50 @@ const CreateProperty = () => {
   //   setFormData({ ...formData, userId: user.id });
   // };
 
+  const calculateTotalSquareMeters = (data) => {
+    const { coveredSquareMeters, semiCoveredSquareMeters, uncovered, land } = data;
+    return (parseFloat(coveredSquareMeters) || 0) +
+           (parseFloat(semiCoveredSquareMeters) || 0) +
+           (parseFloat(uncovered) || 0) +
+           (parseFloat(land) || 0);
+  };
+
+  const formatNumber = (value) => {
+    if (!value) return '';
+    // Remover puntos y comas para manejar el valor como número
+    const cleanedValue = value.replace(/[.,]/g, '');
+    // Convertir el valor a número
+    const numberValue = parseFloat(cleanedValue);
+    if (isNaN(numberValue)) return '';
+    // Formatear el número con puntos
+    return numberValue.toLocaleString('de-DE', { minimumFractionDigits: 0 });
+  };
+
   const handleChange = (e) => {
     const { name, value } = e.target;
-      // Permitir solo números y el punto decimal, y no permitir la letra "e"
-      if (name === 'price' && (!/^[\d.]*$/.test(value) || (value.includes('.') && value.split('.').length > 2) || value.includes('e'))) {
-        return;
-      }
-  
-      let updatedFormData = { ...formData, [name]: value };
-  
+
+    // Limitar la longitud del valor a 12 dígitos
+    const cleanedValue = value.replace(/[.,]/g, '');
+    if (name === 'price' && (cleanedValue.length > 12 || !/^\d*$/.test(cleanedValue) || value.includes('e'))) {
+      return;
+    }
+
+    let updatedFormData = { ...formData, [name]: cleanedValue };
+
     // Verificar si se están modificando los campos de metros cuadrados
     if (name === "coveredSquareMeters" || name === "semiCoveredSquareMeters" || name === "uncovered" || name === "land") {
       // Calcular el total de metros cuadrados
       const totalSquareMeters = calculateTotalSquareMeters(updatedFormData);
       updatedFormData = { ...updatedFormData, totalSquareMeters };
     }
-  
-    setFormData(updatedFormData);
 
     if (name === 'price') {
-      setIsValid(!!value);
+      setFormData({ ...formData, price: cleanedValue });
+      setDisplayPrice(formatNumber(cleanedValue)); // Actualizar el valor visual
+      setIsValid(!!cleanedValue);
+    } else {
+      setFormData(updatedFormData);
     }
-    // console.log("Datos del formulario actualizados:", updatedFormData);
   };
 
   const handleBlur = () => {
@@ -384,14 +406,6 @@ const CreateProperty = () => {
     }
   };
 
-
-  const calculateTotalSquareMeters = (data) => {
-    const { coveredSquareMeters, semiCoveredSquareMeters, uncovered } = data;
-    const total = parseFloat(coveredSquareMeters || 0) +
-                  parseFloat(semiCoveredSquareMeters || 0) +
-                  parseFloat(uncovered || 0) 
-    return total;
-  };
 
   const handleSaleButtonClick = () => {
     const currentIsForSale = formData.isForSale;
@@ -583,15 +597,15 @@ const CreateProperty = () => {
     <option value="USD">USD</option>
     <option value="ARG">ARG</option>
   </select>
-        <input
-          type="text"
-          name="price"
-          value={formData.price}
-          onChange={handleChange}
-          onBlur={handleBlur}
-          className={`${style.inputNumber} ${!isValid && style.errorBorder}`}
-        />
-        {!isValid && <span className={style.errorMessage}>Agregar precio</span>}
+  <input
+        type="text"
+        name="price"
+        value={displayPrice}
+        onChange={handleChange}
+        onBlur={handleBlur}
+        className={`${style.inputNumber} ${!isValid && style.errorBorder}`}
+      />
+      {!isValid && <div style={{ color: 'red' }}>El precio no es válido</div>}
 </div>
     <div className={style.formGroup}>
           <h2 className={style.title}>Expensas</h2>

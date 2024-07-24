@@ -9,6 +9,7 @@ import Home from './Views/Home/Home';
 import NavBar from './Components/NavBar/NavBar';
 import Sidebar from './Components/SideBar/SideBar';
 import CreateProperty from './Views/CreateProperty/CreateProperty';
+import EditPropertyForm from './Views/EditPropertyForm/EditPropertyForm';
 
 function App() {
   const location = useLocation();
@@ -34,6 +35,7 @@ function App() {
             <Route path='/' element={<Login />} />
             <Route path='/home' element={<Home />} />
             <Route path='/create' element={<CreateProperty />} />
+            <Route path='/detalles/:id' element={<EditPropertyForm />} />
           </Routes>
         </div>
       </div>

@@ -12,10 +12,15 @@ import {  LOGIN_SUCCESS,
           UPLOAD_IMAGE_SUCCESS,
           UPLOAD_IMAGE_FAIL,
           GET_PROPERTIES_BY_SELLER_ID_SUCCESS,
-          GET_PROPERTIES_BY_SELLER_ID_FAIL
+          GET_PROPERTIES_BY_SELLER_ID_FAIL,
+          EDIT_PROPERTY_REQUEST,
+          EDIT_PROPERTY_SUCCESS,
+          EDIT_PROPERTY_FAIL,
+          GET_PROPERTY_BY_ID,
          } from './Actions/actionTypes';
 
 const initialState = {
+  properties: [],
   user: null,
   userId: null,
   userDetails: null,
@@ -25,6 +30,7 @@ const initialState = {
   mapLocation: null,
   imageUploadError: null,
   propertiesBySellerId: [],
+  property: null,
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -104,6 +110,32 @@ const rootReducer = (state = initialState, action) => {
         propertiesBySellerId: [],
         error: action.payload
       };
+      case EDIT_PROPERTY_REQUEST:
+      return {
+        ...state,
+        loading: true,
+        error: null,
+      };
+    case EDIT_PROPERTY_SUCCESS:
+      return {
+        ...state,
+        properties: state.properties.map((property) =>
+          property.id === action.payload.id ? action.payload : property
+        ),
+        loading: false,
+        error: null,
+      };
+    case EDIT_PROPERTY_FAIL:
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
+      };
+      case GET_PROPERTY_BY_ID:
+        return {
+          ...state,
+          property: action.payload,
+        };
     default:
       return state;
   }

@@ -11,7 +11,11 @@ import {
   GET_ALL_USERS_FAIL, 
   UPDATE_MAP_LOCATION,
   GET_PROPERTIES_BY_SELLER_ID_SUCCESS,
-  GET_PROPERTIES_BY_SELLER_ID_FAIL
+  GET_PROPERTIES_BY_SELLER_ID_FAIL,
+  EDIT_PROPERTY_REQUEST,
+  EDIT_PROPERTY_SUCCESS,
+  EDIT_PROPERTY_FAIL,
+  GET_PROPERTY_BY_ID,
  } from './actionTypes';
 
 export const login = ({ mail, password }) => async dispatch => {
@@ -22,15 +26,18 @@ export const login = ({ mail, password }) => async dispatch => {
       throw new Error('ID de usuario no válido en la respuesta');
     }
     const userId = user.id;
+    const userType = user.type; 
     dispatch({
       type: LOGIN_SUCCESS,
       payload: {
         user: user,
-        userId: userId
+        userId: userId,
+        userType: userType
       }
     });
     localStorage.setItem('user', JSON.stringify(user));
     localStorage.setItem('userId', userId);
+    localStorage.setItem('userType', userType);
     // console.log('Usuario guardado en localStorage:', user); 
     // Ahora puedes llamar a la acción getUser con el userId
     dispatch(getUser(userId));
@@ -171,8 +178,18 @@ export const getPropertiesBySellerId = (userId) => async (dispatch) => {
     return; // Salir de la función si no hay userId
   }
 
+  const userType = localStorage.getItem('userType'); // Recuperar el tipo de usuario desde localStorage
+
   try {
-    const response = await axios.get(`/properties/seller/${userId}`);
+    let response;
+    if (userType === 'MARTILLER') {
+      response = await axios.get(`/properties/martiller/${userId}`);
+    } else if (userType === 'Vendedor') {
+      response = await axios.get(`/properties/seller/${userId}`);
+    } else {
+      throw new Error('Tipo de usuario desconocido');
+    }
+
     dispatch({
       type: GET_PROPERTIES_BY_SELLER_ID_SUCCESS,
       payload: response.data.data,
@@ -184,5 +201,65 @@ export const getPropertiesBySellerId = (userId) => async (dispatch) => {
       type: GET_PROPERTIES_BY_SELLER_ID_FAIL,
       payload: 'Error al obtener las propiedades del vendedor',
     });
+  }
+};
+
+export const editProperty = (propertyId, propertyData) => async (dispatch) => {
+  try {
+    dispatch({ type: EDIT_PROPERTY_REQUEST });
+
+    // Recuperar las URLs de las imágenes del localStorage
+    const imageUrls = JSON.parse(localStorage.getItem('uploadedImages'));
+    let dataWithImages = { ...propertyData }; // Declarar dataWithImages aquí
+
+    // Recuperar las URLs de los documentos del localStorage
+    const documentUrls = JSON.parse(localStorage.getItem('uploadedDocuments'));
+    let dataWithMedia = { ...propertyData };
+
+    if (Array.isArray(imageUrls)) {
+      // Agregar las URLs de las imágenes al objeto de datos de la propiedad
+      dataWithImages = {
+        ...propertyData,
+        photo: imageUrls // Suponiendo que la propiedad para las imágenes se llama "photo"
+      };
+    }
+    if (Array.isArray(documentUrls)) {
+      // Agregar las URLs de los documentos al objeto de datos de la propiedad
+      dataWithMedia = {
+        ...dataWithImages,
+        documentation: documentUrls
+      };
+    }
+
+    const response = await axios.put(`/properties/${propertyId}`, dataWithMedia);
+
+    dispatch({
+      type: EDIT_PROPERTY_SUCCESS,
+      payload: response.data,
+    });
+
+    // Mostrar alerta de éxito y redirigir a /home
+    alert('Propiedad editada con éxito');
+    window.location.href = '/home';
+  } catch (error) {
+    console.error('Error al editar la propiedad:', error);
+    alert('Error al editar la propiedad. Por favor, revise los datos e intente nuevamente.');
+    dispatch({
+      type: EDIT_PROPERTY_FAIL,
+      payload: 'Error al editar la propiedad',
+    });
+  }
+};
+
+export const getPropertyById = (id) => async (dispatch) => {
+  try {
+    const res = await axios.get(`/property/${id}`);
+    dispatch({
+      type: GET_PROPERTY_BY_ID,
+      payload: res.data,
+    });
+  } catch (err) {
+    console.error(err);
+    // Handle error accordingly
   }
 };

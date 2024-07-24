@@ -19,7 +19,6 @@ const Sidebar = () => {
   const userId = useSelector(state => state.userId);
 
   const user = useSelector(state => state.user); // Declarar la variable user y obtener los detalles del usuario del estado global
-
   useEffect(() => {
     const storedUser = localStorage.getItem('user');
     if (storedUser) {
