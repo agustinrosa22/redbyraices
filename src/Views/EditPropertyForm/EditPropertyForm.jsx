@@ -124,8 +124,14 @@ const EditPropertyForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(editProperty(id, formData));
+    dispatch(editProperty(id, formData,));
   };
+
+  // const handleSubmit = (e) => {
+  //   e.preventDefault();
+  //   const updatedFormData = { ...formData, statusProperty: false };
+  //   dispatch(editProperty(id, updatedFormData));
+  // };
 
   if (loading) {
     return <div>Loading...</div>;
@@ -135,21 +141,13 @@ const EditPropertyForm = () => {
     <div className={styles.container}>
       <h1>Editar Propiedad</h1>
       <form onSubmit={handleSubmit}>
-        <label>
-          Precio:
-          <input
-            className={styles.input}
-            type="number"
-            name="price"
-            value={formData.price}
-            onChange={handleChange}
-          />
-        </label>
+      <div className={styles.formGroup}>
         <label>
         propertyType:
           <textarea
             className={styles.input}
             name="propertyType"
+            type="text"
             value={formData.propertyType}
             onChange={handleChange}
           />
@@ -164,6 +162,293 @@ const EditPropertyForm = () => {
             onChange={handleChange}
           />
         </label>
+        </div>
+        <label>       
+        videoLink:
+          <input
+            className={styles.input}
+            name="videoLink"
+            type="text"
+            value={formData.videoLink}
+            onChange={handleChange}
+          />
+        </label>    
+        <label>
+        expenses:
+          <input
+            className={styles.input}
+            name="expenses"
+            type="number"
+            value={formData.expenses}
+            onChange={handleChange}
+          />
+        </label>   
+         <label>
+        totalSquareMeters:
+          <input
+            className={styles.input}
+            type="number"
+            name="totalSquareMeters"
+            value={formData.totalSquareMeters}
+            onChange={handleChange}
+          />
+        </label>
+        <label>
+        semiCoveredSquareMeters:
+          <input
+            className={styles.input}
+            type="number"
+            name="semiCoveredSquareMeters"
+            value={formData.semiCoveredSquareMeters}
+            onChange={handleChange}
+          />
+        </label>
+        <label>
+        uncovered:
+          <input
+            className={styles.input}
+            type="number"
+            name="uncovered"
+            value={formData.uncovered}
+            onChange={handleChange}
+          />
+        </label>
+        <label>
+        land:
+          <input
+            className={styles.input}
+            type="number"
+            name="land"
+            value={formData.land}
+            onChange={handleChange}
+          />
+        </label>
+        <label>
+        age:
+          <input
+            className={styles.input}
+            type="number"
+            name="age"
+            value={formData.age}
+            onChange={handleChange}
+          />
+        </label>
+        <label>
+        commissionSellerType:
+          <input
+            className={styles.input}
+            type="text"
+            name="commissionSellerType"
+            value={formData.commissionSellerType}
+            onChange={handleChange}
+          />
+        </label>
+        <label>
+        commissionBuyerType:
+          <input
+            className={styles.commissionBuyerType}
+            type="text"
+            name="commissionBuyerType"
+            value={formData.commissionBuyerType}
+            onChange={handleChange}
+          />
+        </label>
+        <label>
+        sellerCommission:
+          <input
+            className={styles.input}
+            type="number"
+            name="sellerCommission"
+            value={formData.sellerCommission}
+            onChange={handleChange}
+          />
+        </label>
+        <label>
+        buyerCommission:
+          <input
+            className={styles.input}
+            type="number"
+            name="buyerCommission"
+            value={formData.buyerCommission}
+            onChange={handleChange}
+          />
+        </label>
+        <label>
+        availableDate:
+          <input
+            className={styles.input}
+            type="date"
+            name="availableDate"
+            value={formData.availableDate}
+            onChange={handleChange}
+          />
+        </label>
+        <label>
+        expirationDate:
+          <input
+            className={styles.input}
+            type="date"
+            name="expirationDate"
+            value={formData.expirationDate}
+            onChange={handleChange}
+          />
+        </label>
+        <label>
+        street:
+          <input
+            className={styles.input}
+            type="text"
+            name="street"
+            value={formData.street}
+            onChange={handleChange}
+          />
+        </label>
+        <label>
+        number:
+          <input
+            className={styles.input}
+            type="number"
+            name="number"
+            value={formData.number}
+            onChange={handleChange}
+          />
+        </label>
+        <label>
+        country:
+          <input
+            className={styles.input}
+            type="text"
+            name="country"
+            value={formData.country}
+            onChange={handleChange}
+          />
+        </label>
+        <label>
+        province:
+          <input
+            className={styles.input}
+            type="text"
+            name="province"
+            value={formData.province}
+            onChange={handleChange}
+          />
+        </label>
+        <label>
+        departments:
+          <input
+            className={styles.input}
+            type="text"
+            name="departments"
+            value={formData.departments}
+            onChange={handleChange}
+          />
+        </label>
+        <label>
+        locality:
+          <input
+            className={styles.input}
+           type="text"
+            name="locality"
+            value={formData.locality}
+            onChange={handleChange}
+          />
+        </label>
+        <label>
+        neighborhood:
+          <input
+            className={styles.input}
+           type="text"
+            name="neighborhood"
+            value={formData.neighborhood}
+            onChange={handleChange}
+          />
+        </label>
+        <label>
+        privateNeighborhood:
+          <input
+            className={styles.input}
+           type="text"
+            name="privateNeighborhood"
+            value={formData.privateNeighborhood}
+            onChange={handleChange}
+          />
+        </label>
+        <label>
+        environments:
+          <input
+            className={styles.input}
+           type="number"
+            name="environments"
+            value={formData.environments}
+            onChange={handleChange}
+          />
+        </label>
+        <label>
+        rooms:
+          <input
+            className={styles.input}
+           type='number'
+            name="rooms"
+            value={formData.rooms}
+            onChange={handleChange}
+          />
+        </label>
+        <label>
+        bathrooms:
+          <input
+            className={styles.bathrooms}
+            type='number'
+            name="locality"
+            value={formData.bathrooms}
+            onChange={handleChange}
+          />
+        </label>
+        <label>
+        toilettes:
+          <input
+            className={styles.input}
+             type='number'
+            name="toilettes"
+            value={formData.toilettes}
+            onChange={handleChange}
+          />
+        </label>
+        <label>
+        garages:
+          <input
+            className={styles.input}
+            type='number'
+            name="garages"
+            value={formData.garages}
+            onChange={handleChange}
+          />
+        </label>
+        <label>
+        floorPlans:
+          <input
+            className={styles.input}
+           type='number'
+            name="floorPlans"
+            value={formData.floorPlans}
+            onChange={handleChange}
+          />
+        </label>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         <label>
           En Venta:
           <button
