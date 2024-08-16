@@ -208,48 +208,18 @@ export const editProperty = (propertyId, propertyData) => async (dispatch) => {
   try {
     dispatch({ type: EDIT_PROPERTY_REQUEST });
 
-    // Recuperar las URLs de las imágenes del localStorage
-    const imageUrls = JSON.parse(localStorage.getItem('uploadedImages'));
-    let dataWithImages = { ...propertyData }; // Declarar dataWithImages aquí
+    const response = await axios.put(`/properties/${propertyId}`, propertyData);
+    dispatch({ type: EDIT_PROPERTY_SUCCESS, payload: response.data });
 
-    // Recuperar las URLs de los documentos del localStorage
-    const documentUrls = JSON.parse(localStorage.getItem('uploadedDocuments'));
-    let dataWithMedia = { ...propertyData };
-
-    if (Array.isArray(imageUrls)) {
-      // Agregar las URLs de las imágenes al objeto de datos de la propiedad
-      dataWithImages = {
-        ...propertyData,
-        photo: imageUrls // Suponiendo que la propiedad para las imágenes se llama "photo"
-      };
-    }
-    if (Array.isArray(documentUrls)) {
-      // Agregar las URLs de los documentos al objeto de datos de la propiedad
-      dataWithMedia = {
-        ...dataWithImages,
-        documentation: documentUrls
-      };
-    }
-
-    const response = await axios.put(`/properties/${propertyId}`, dataWithMedia);
-
-    dispatch({
-      type: EDIT_PROPERTY_SUCCESS,
-      payload: response.data,
-    });
-
-    // Mostrar alerta de éxito y redirigir a /home
     alert('Propiedad editada con éxito');
     window.location.href = '/home';
   } catch (error) {
     console.error('Error al editar la propiedad:', error);
     alert('Error al editar la propiedad. Por favor, revise los datos e intente nuevamente.');
-    dispatch({
-      type: EDIT_PROPERTY_FAIL,
-      payload: 'Error al editar la propiedad',
-    });
+    dispatch({ type: EDIT_PROPERTY_FAIL, payload: 'Error al editar la propiedad' });
   }
 };
+
 
 export const getPropertyById = (id) => async (dispatch) => {
   try {

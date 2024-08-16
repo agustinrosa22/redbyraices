@@ -3,7 +3,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import { editProperty } from '../../Redux/Actions/actions';
-import styles from './EditPropertyForm.module.css';
+import style from './EditPropertyForm.module.css';
+import MultiplesImagenes from '../../Components/MultiplesImagenes/MultiplesImagenes';
 
 const EditPropertyForm = () => {
   const { id } = useParams();
@@ -50,6 +51,7 @@ const EditPropertyForm = () => {
     isForRent: false,
     isFinished: false,
     isUnderDevelopment: false,
+    photo: []
   });
   const [loading, setLoading] = useState(true);
 
@@ -67,6 +69,7 @@ const EditPropertyForm = () => {
           currencyExpenses: propertyData.currencyExpenses,
           expenses: propertyData.expenses,
           totalSquareMeters: propertyData.totalSquareMeters,
+          coveredSquareMeters: propertyData.coveredSquareMeters,
           semiCoveredSquareMeters: propertyData.semiCoveredSquareMeters,
           uncovered: propertyData.uncovered,
           land: propertyData.land,
@@ -97,6 +100,130 @@ const EditPropertyForm = () => {
           isForRent: propertyData.isForRent,
           isFinished: propertyData.isFinished,
           isUnderDevelopment: propertyData.isUnderDevelopment,
+          amenities: propertyData.amenities || {
+            aireAcondicionado: false,
+            portonAutomatico: false,
+            gimnasio: false,
+            losaRadiante: false,
+            chimenea: false,
+            hidromasaje: false,
+            seguridad: false,
+            pileta: false,
+            caldera: false,
+            businessCenter: false,
+            areaCine: false,
+            cisterna: false,
+            laundry: false,
+            estacionamientoVisitas: false,
+            ascensor: false,
+            salonUsosMultiples: false,
+            areaDeJuegosInfantiles: false,
+            canchaTenis: false,
+            recepcion: false,
+            areasVerdes: false,
+            valetParking: false,
+            canchaBasquetbol: false,
+            canchaFutbol: false,
+            canchaPaddle: false,
+            solarium: false,
+            jardinDeInvierno: false,
+            piletaCubierta: false,
+            piletaClimatizada: false,
+            sauna: false,
+            bar: false,
+            calefaccion: false,
+          },
+          environmentsOptions: propertyData.environmentsOptions || {
+            dormitorio: false,
+            comedor: false,
+            vestidor: false,
+            jardin: false,
+            baño: false,
+            patio: false,
+            terraza: false,
+            estudio: false,
+            lavadero: false,
+            altillo: false,
+            playroom: false,
+            lobby: false,
+            quincho: false,
+            salaDeReuniones: false,
+            balcon: false,
+            pileta: false,
+            cocina: false,
+            toilette: false,
+            habitacion: false,
+            living: false,
+            otro: false,
+          },
+          services: propertyData.services || {
+            electricidad: false,
+            agua: false,
+            gas: false,
+            internet: false,
+            telefono: false,
+            desagueCloacal: false,
+            televisionPorCable: false,
+            alarma: false,
+            televisionSatelital: false,
+            aguaCorriente: false,
+          },
+          characteristics: propertyData.characteristics || {
+            placard: false,
+            parilla: false,
+            desayunador: false,
+            orientacionSur: false,
+            orientacionOeste: false,
+            orientacionNorte: false,
+            orientacionEste: false,
+            accesoDeCocheraRampaFija: false,
+            accesoDeCocheraRampaMovil: false,
+            accesoDeCocheraAscensor: false,
+            accesoDeCocheraHorizontal: false,
+            disposicionContrafrente: false,
+            disposicionFrente: false,
+            disposicionInterno: false,
+            disposicionLateral: false,
+            amoblado: false,
+            orientacionNoroeste: false,
+            orientacionNoreste: false,
+            orientacionSuroeste: false,
+            orientacionSureste: false,
+            deck: false,
+            tipoDeCampoOtro: false,
+            tipoDeCampoFruticula: false,
+            tipoDeCampoAgricola: false,
+            tipoDeCampoChara: false,
+            tipoDeCampoCriadero: false,
+            tipoDeCampoTambero: false,
+            tipoDeCampoFloricultura: false,
+            tipoDeCampoForestal: false,
+            tipoDeCampoGanadero: false,
+            tipoDeCampoHaras: false,
+            bodegas: false,
+            tipoDeBodegaComercial: false,
+            tipoDeBodegaNaveIndustrial: false,
+            tipoDeBodegaAlmacen: false,
+            biblioteca: false,
+            galpon: false,
+            sotano: false,
+            baulera: false,
+            permiteMascota: false,
+            aptoTuristico: false,
+          },
+          detailsProperty: propertyData.detailsProperty || {
+            exclusiveContract: false,
+            cartel: false,
+            financing: false,
+            suitableCredit: false,
+            commercialSuitable: false,
+            professionalSuitable: false,
+            suitableForReducedMobility: false,
+            pozo: false,
+            CountryOrPrivateNeighborhood: false,
+          },
+          statusProperty: false,
+          photo: propertyData.photo 
         });
         setLoading(false);
       } catch (error) {
@@ -106,6 +233,194 @@ const EditPropertyForm = () => {
     };
     fetchProperty();
   }, [id]);
+
+  const detailLabels = {
+    exclusiveContract: 'Contrato Exclusivo',
+    cartel: 'Cartel',
+    financing: 'Financiamiento',
+    suitableCredit: 'Apto a Credito',
+    commercialSuitable: 'Apto Comercial',
+    professionalSuitable: 'Apto Profesional',
+    suitableForReducedMobility: 'Apto para Movilidad Reducida',
+    pozo: 'Pozo',
+    CountryOrPrivateNeighborhood: 'Country o barrio Privado',
+  };
+  
+  const amenityLabels = {
+    aireAcondicionado: 'Aire Acondicionado',
+    portonAutomatico: 'Portón Automático',
+    gimnasio: 'Gimnasio',
+    losaRadiante: 'Losa Radiante',
+    chimenea: 'Chimenea',
+    hidromasaje: 'Hidromasaje',
+    seguridad: 'Seguridad',
+    pileta: 'Pileta',
+    caldera: 'Caldera',
+    businessCenter: 'Business Center',
+    areaCine: 'Área de Cine',
+    cisterna: 'Cisterna',
+    laundry: 'Laundry',
+    estacionamientoVisitas: 'Estacionamiento de Visitas',
+    ascensor: 'Ascensor',
+    salonUsosMultiples: 'Salón de Usos Múltiples',
+    areaDeJuegosInfantiles: 'Área de Juegos Infantiles',
+    canchaTenis: 'Cancha de Tenis',
+    recepcion: 'Recepción',
+    areasVerdes: 'Áreas Verdes',
+    valetParking: 'Valet Parking',
+    canchaBasquetbol: 'Cancha de Básquetbol',
+    canchaFutbol: 'Cancha de Fútbol',
+    canchaPaddle: 'Cancha de Paddle',
+    solarium: 'Solarium',
+    jardinDeInvierno: 'Jardín de Invierno',
+    piletaCubierta: 'Pileta Cubierta',
+    piletaClimatizada: 'Pileta Climatizada',
+    sauna: 'Sauna',
+    bar: 'Bar',
+    calefaccion: 'Calefacción',
+  };
+
+  const characteristicLabels = {
+    placard: 'Placard',
+    parilla: 'Parrilla',
+    desayunador: 'Desayunador', 
+    orientacionSur: 'Orientación Sur',
+    orientacionOeste: 'Orientación Oeste',
+    orientacionNorte: 'Orientación Norte',
+    orientacionEste: 'Orientación Este',
+    accesoDeCocheraRampaFija: 'Acceso de Cochera - Rampa Fija',
+    accesoDeCocheraRampaMovil: 'Acceso de Cochera - Rampa Móvil',
+    accesoDeCocheraAscensor: 'Acceso de Cochera - Ascensor',
+    accesoDeCocheraHorizontal: 'Acceso de Cochera - Horizontal',
+    disposicionContrafrente: 'Disposición - Contrafrente',
+    disposicionFrente: 'Disposición - Frente',
+    disposicionInterno: 'Disposición - Interno',
+    disposicionLateral: 'Disposición - Lateral',
+    amoblado: 'Amoblado',
+    orientacionNoroeste: 'Orientación Noroeste', 
+    orientacionNoreste: 'Orientación Noreste',
+    orientacionSuroeste: 'Orientación Suroeste',
+    orientacionSureste: 'Orientación Sureste',
+    deck: 'Deck',
+    tipoDeCampoOtro: 'Tipo de Campo - Otro',
+    tipoDeCampoFruticula: 'Tipo de Campo - Frutícola',
+    tipoDeCampoAgricola: 'Tipo de Campo - Agrícola',
+    tipoDeCampoChara: 'Tipo de Campo - Chacra',
+    tipoDeCampoCriadero: 'Tipo de Campo - Criadero',
+    tipoDeCampoTambero: 'Tipo de Campo - Tambero',
+    tipoDeCampoFloricultura: 'Tipo de Campo - Floricultura',
+    tipoDeCampoForestal: 'Tipo de Campo - Forestal',
+    tipoDeCampoGanadero: 'Tipo de Campo - Ganadero',
+    tipoDeCampoHaras: 'Tipo de Campo - Haras',
+    bodegas: 'Bodegas',
+    tipoDeBodegaComercial: 'Tipo de Bodega - Comercial',
+    tipoDeBodegaNaveIndustrial: 'Tipo de Bodega - Nave Industrial',
+    tipoDeBodegaAlmacen: 'Tipo de Bodega - Almacén',
+    biblioteca: 'Biblioteca',
+    galpon: 'Galpón',
+    sotano: 'Sótano',
+    baulera: 'Baulera',
+    permiteMascota: 'Permite Mascota',
+    aptoTuristico: 'Apto Turístico',
+  };
+
+  const environmentLabels = {
+    dormitorio: 'Dormitorio',
+    comedor: 'Comedor',
+    vestidor: 'Vestidor',
+    jardin: 'Jardín',
+    baño: 'Baño',
+    patio: 'Patio',
+    terraza: 'Terraza',
+    estudio: 'Estudio',
+    lavadero: 'Lavadero',
+    altillo: 'Altillo',
+    playroom: 'Playroom',
+    lobby: 'Lobby',
+    quincho: 'Quincho',
+    salaDeReuniones: 'Sala de Reuniones', 
+    balcon: 'Balcón',
+    pileta: 'Pileta',
+    cocina: 'Cocina',
+    toilette: 'Toilette',
+    habitacion: 'Habitación',
+    living: 'Living',
+    otro: 'Otro',
+  };
+
+  const serviceLabels = {
+    electricidad: 'Electricidad',
+    agua: 'Agua',
+    gas: 'Gas',
+    internet: 'Internet',
+    telefono: 'Teléfono',
+    desagueCloacal: 'Desagüe Cloacal',
+    televisionPorCable: 'Televisión por Cable',
+    alarma: 'Alarma',
+    televisionSatelital: 'Televisión Satelital',
+    aguaCorriente: 'Agua Corriente',
+  };
+
+  const handleChangePropertyType = (e) => {
+    const { value } = e.target;
+    setFormData({ ...formData, propertyType: value });
+  };
+
+  const handleAmenityChange = (e) => {
+    const { name, checked } = e.target;
+    setFormData({
+      ...formData,
+      amenities: {
+        ...formData.amenities,
+        [name]: checked,
+      },
+    });
+  };
+
+  const handleEnvironmentOptionChange = (option) => {
+    setFormData({
+      ...formData,
+      environmentsOptions: {
+        ...formData.environmentsOptions,
+        [option]: !formData.environmentsOptions[option]
+      }
+    });
+  };
+
+  const handleCharacteristicOptionChange = (option) => {
+    setFormData({
+      ...formData,
+      characteristics: {
+        ...formData.characteristics,
+        [option]: !formData.characteristics[option]
+      }
+    });
+  };
+  
+
+  const handleDetailPropertyOptionChange = (option) => {
+    setFormData({
+      ...formData,
+      detailsProperty: {
+        ...formData.detailsProperty,
+        [option]: !formData.detailsProperty[option]
+      }
+    });
+  };
+  
+
+  const handleServiceOptionChange = (service) => {
+    setFormData({
+      ...formData,
+      services: {
+        ...formData.services,
+        [service]: !formData.services[service]
+      }
+    });
+  };
+
+ 
+
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -127,6 +442,37 @@ const EditPropertyForm = () => {
     dispatch(editProperty(id, formData,));
   };
 
+  const handleSaleButtonClick = () => {
+    const currentIsForSale = formData.isForSale;
+    setFormData({
+      ...formData,
+      isForSale: true,
+      isForRent: false,
+    });
+    if (!currentIsForSale) {
+      setFormData(prevFormData => ({
+        ...prevFormData,
+        isForSale: true,
+      }));
+    }
+  };
+
+  const handleRentButtonClick = () => {
+    const currentIsForSale = formData.isForSale;
+    setFormData({
+      ...formData,
+      isForSale: false,
+      isForRent: true,
+    });
+    if (currentIsForSale) {
+      setFormData(prevFormData => ({
+        ...prevFormData,
+        isForSale: false,
+      }));
+    }
+  };
+
+
   // const handleSubmit = (e) => {
   //   e.preventDefault();
   //   const updatedFormData = { ...formData, statusProperty: false };
@@ -137,358 +483,369 @@ const EditPropertyForm = () => {
     return <div>Loading...</div>;
   }
 
+  console.log(formData.photo);
+  
+
   return (
-    <div className={styles.container}>
+    <div className={style.container}>
       <h1>Editar Propiedad</h1>
       <form onSubmit={handleSubmit}>
-      <div className={styles.formGroup}>
-        <label>
-        propertyType:
-          <textarea
-            className={styles.input}
-            name="propertyType"
-            type="text"
-            value={formData.propertyType}
-            onChange={handleChange}
-          />
-        </label>
-        <label>
-          Precio:
-          <input
-            className={styles.input}
-            type="number"
-            name="price"
-            value={formData.price}
-            onChange={handleChange}
-          />
-        </label>
+      <h2 className={style.title}>Tipo de operación</h2>
+      <div className={style.operationContainer}>
+          <button
+            type="button"
+            onClick={handleSaleButtonClick}
+            className={`${style.operationButton} ${style.sale} ${formData.isForSale ? style.selected : ''}`}
+          >
+            Venta
+          </button>
+          <button
+            type="button"
+            onClick={handleRentButtonClick}
+            className={`${style.operationButton} ${style.rent} ${formData.isForRent ? style.selected : ''}`}
+          >
+            Alquiler
+          </button>
         </div>
-        <label>       
-        videoLink:
-          <input
-            className={styles.input}
-            name="videoLink"
-            type="text"
-            value={formData.videoLink}
-            onChange={handleChange}
-          />
-        </label>    
+      <div className={style.formGroup}>
         <label>
-        expenses:
-          <input
-            className={styles.input}
-            name="expenses"
-            type="number"
-            value={formData.expenses}
-            onChange={handleChange}
-          />
-        </label>   
-         <label>
-        totalSquareMeters:
-          <input
-            className={styles.input}
-            type="number"
-            name="totalSquareMeters"
-            value={formData.totalSquareMeters}
-            onChange={handleChange}
-          />
+        <h2 className={style.title}>Tipo de propiedad</h2>
+          <select
+           className={style.propertyTypeDropdown}
+            value={formData.propertyType}
+            onChange={handleChangePropertyType}
+            >
+            <option value="departamento">Departamento</option>
+            <option value="casa">Casa</option>
+            <option value="ph">PH</option>
+            <option value="local">Local</option>
+            <option value="terrenos y lotes">Terrenos y lotes</option>
+            <option value="campos y chacras">Campos y chacras</option>
+            <option value="fondo de comercio">Fondo de comercio</option>
+            <option value="cochera">Cochera</option>
+            <option value="oficina">Oficina</option>
+            <option value="galpon">Galpón</option>
+            <option value="quinta">Quinta</option>
+            <option value="otros">Otros</option>
+          </select>
         </label>
-        <label>
-        semiCoveredSquareMeters:
-          <input
-            className={styles.input}
-            type="number"
-            name="semiCoveredSquareMeters"
-            value={formData.semiCoveredSquareMeters}
-            onChange={handleChange}
-          />
-        </label>
-        <label>
-        uncovered:
-          <input
-            className={styles.input}
-            type="number"
-            name="uncovered"
-            value={formData.uncovered}
-            onChange={handleChange}
-          />
-        </label>
-        <label>
-        land:
-          <input
-            className={styles.input}
-            type="number"
-            name="land"
-            value={formData.land}
-            onChange={handleChange}
-          />
-        </label>
-        <label>
-        age:
-          <input
-            className={styles.input}
-            type="number"
-            name="age"
-            value={formData.age}
-            onChange={handleChange}
-          />
-        </label>
-        <label>
-        commissionSellerType:
-          <input
-            className={styles.input}
-            type="text"
-            name="commissionSellerType"
-            value={formData.commissionSellerType}
-            onChange={handleChange}
-          />
-        </label>
-        <label>
-        commissionBuyerType:
-          <input
-            className={styles.commissionBuyerType}
-            type="text"
-            name="commissionBuyerType"
-            value={formData.commissionBuyerType}
-            onChange={handleChange}
-          />
-        </label>
-        <label>
-        sellerCommission:
-          <input
-            className={styles.input}
-            type="number"
-            name="sellerCommission"
-            value={formData.sellerCommission}
-            onChange={handleChange}
-          />
-        </label>
-        <label>
-        buyerCommission:
-          <input
-            className={styles.input}
-            type="number"
-            name="buyerCommission"
-            value={formData.buyerCommission}
-            onChange={handleChange}
-          />
-        </label>
-        <label>
-        availableDate:
-          <input
-            className={styles.input}
-            type="date"
-            name="availableDate"
-            value={formData.availableDate}
-            onChange={handleChange}
-          />
-        </label>
-        <label>
-        expirationDate:
-          <input
-            className={styles.input}
-            type="date"
-            name="expirationDate"
-            value={formData.expirationDate}
-            onChange={handleChange}
-          />
-        </label>
-        <label>
-        street:
-          <input
-            className={styles.input}
-            type="text"
-            name="street"
-            value={formData.street}
-            onChange={handleChange}
-          />
-        </label>
-        <label>
-        number:
-          <input
-            className={styles.input}
-            type="number"
-            name="number"
-            value={formData.number}
-            onChange={handleChange}
-          />
-        </label>
-        <label>
-        country:
-          <input
-            className={styles.input}
-            type="text"
-            name="country"
-            value={formData.country}
-            onChange={handleChange}
-          />
-        </label>
-        <label>
-        province:
-          <input
-            className={styles.input}
-            type="text"
-            name="province"
-            value={formData.province}
-            onChange={handleChange}
-          />
-        </label>
-        <label>
-        departments:
-          <input
-            className={styles.input}
-            type="text"
-            name="departments"
-            value={formData.departments}
-            onChange={handleChange}
-          />
-        </label>
-        <label>
-        locality:
-          <input
-            className={styles.input}
-           type="text"
-            name="locality"
-            value={formData.locality}
-            onChange={handleChange}
-          />
-        </label>
-        <label>
-        neighborhood:
-          <input
-            className={styles.input}
-           type="text"
-            name="neighborhood"
-            value={formData.neighborhood}
-            onChange={handleChange}
-          />
-        </label>
-        <label>
-        privateNeighborhood:
-          <input
-            className={styles.input}
-           type="text"
-            name="privateNeighborhood"
-            value={formData.privateNeighborhood}
-            onChange={handleChange}
-          />
-        </label>
-        <label>
-        environments:
-          <input
-            className={styles.input}
-           type="number"
-            name="environments"
-            value={formData.environments}
-            onChange={handleChange}
-          />
-        </label>
-        <label>
-        rooms:
-          <input
-            className={styles.input}
-           type='number'
-            name="rooms"
-            value={formData.rooms}
-            onChange={handleChange}
-          />
-        </label>
-        <label>
-        bathrooms:
-          <input
-            className={styles.bathrooms}
-            type='number'
-            name="locality"
-            value={formData.bathrooms}
-            onChange={handleChange}
-          />
-        </label>
-        <label>
-        toilettes:
-          <input
-            className={styles.input}
-             type='number'
-            name="toilettes"
-            value={formData.toilettes}
-            onChange={handleChange}
-          />
-        </label>
-        <label>
-        garages:
-          <input
-            className={styles.input}
-            type='number'
-            name="garages"
-            value={formData.garages}
-            onChange={handleChange}
-          />
-        </label>
-        <label>
-        floorPlans:
-          <input
-            className={styles.input}
-           type='number'
-            name="floorPlans"
-            value={formData.floorPlans}
-            onChange={handleChange}
-          />
-        </label>
+        <div  className={style.formGroup}>
+        <h2 className={`${style.title}`}>Precio</h2>
+  <select
+    id="currency"
+    name="currency"
+    value={formData.currency}
+    onChange={handleChange}
+    className={`${style.selectInput}`}
+  >
+    <option value="USD">USD</option>
+    <option value="ARG">ARG</option>
+  </select>
+  <input
+        type="text"
+        name="price"
+        value={formData.price}
+        onChange={handleChange}
+        className={`${style.inputNumber}`}
+      />
+        </div>
+        <div className={style.formGroup}>
+          <h2 className={style.title}>Expensas</h2>
+      <select id="currencyExpenses" name="currencyExpenses" value={formData.currencyExpenses} onChange={handleChange} className={`${style.selectInput}`}>
+    <option value="USD">USD</option>
+    <option value="ARG">ARG</option>
+  </select>
+      <input type="number" name="expenses" value={formData.expenses} onChange={handleChange} className={`${style.inputNumber}`}/>
+    </div>
+    <div className={style.formGroup}>
 
+      <h2 className={style.title}>Comision del Vendedor</h2>
+      <select id="commissionSellerType" name="commissionSellerType" value={formData.commissionSellerType} onChange={handleChange}  className={`${style.selectInput}`}>
+    <option value="%">%</option>
+    <option value="Fijo">Fijo</option>
+  </select>
+      <input type="number" name="sellerCommission" value={formData.sellerCommission} onChange={handleChange}  className={`${style.inputNumber}`}/>
+ </div>
 
+ <div className={style.formGroup}>
+   
+      <h2 className={style.title}>Comision del Comprador</h2>
+      <select id="commissionBuyerType" name="commissionBuyerType" value={formData.commissionBuyerType} onChange={handleChange} className={`${style.selectInput}`}>
+    <option value="%">%</option>
+    <option value="Fijo">Fijo</option>
+  </select>
+      <input type="number" name="buyerCommission" value={formData.buyerCommission} onChange={handleChange} className={`${style.inputNumber}`}/>
 
+    </div>
+ <div className={style.formGroup}>
+    <h2 className={style.title}>Fecha disponible</h2>
+      <input type="date" name="availableDate" value={formData.availableDate} onChange={handleChange} />
+      </div>
+ <div className={style.formGroup}>
+          <h2 className={style.title}>Fecha de vencimiento</h2>
+      <input type="date" name="expirationDate" value={formData.expirationDate} onChange={handleChange} />
+ </div>
+ <div className={style.formUbication}>
+      <h2 className={style.title}>Ubicación</h2>
+  <div className={style.formRow}>
+    <div className={style.formColumn}>
+      <div className={style.inputGroup}>
+        <h3 className={style.subtitle}>Calle</h3>
+        <input type="text" name="street" value={formData.street} onChange={handleChange} className={style.inputText} />
+      </div>
+      <div className={style.inputGroup}>
+        <h3 className={style.subtitle}>Numeración</h3>
+        <input type="text" name="number" value={formData.number} onChange={handleChange} className={style.inputText} />
+      </div>
+    </div>
+    <div className={style.formColumn}>
+      <div className={style.inputGroup}>
+        <h3 className={style.subtitle}>País</h3>
+        <input type="text" name="country" value={formData.country} onChange={handleChange} className={style.inputText} />
+      </div>
+      <div className={style.inputGroup}>
+        <h3 className={style.subtitle}>Provincia</h3>
+        <input type="text" name="province" value={formData.province} onChange={handleChange} className={style.inputText} />
+      </div>
+    </div>
+  </div>
+  <div className={style.formRow}>
+    <div className={style.formColumn}>
+      <div className={style.inputGroup}>
+        <h3 className={style.subtitle}>Departamento</h3>
+        <input type="text" name="departments" value={formData.departments} onChange={handleChange} className={style.inputText} />
+      </div>
+      <div className={style.inputGroup}>
+        <h3 className={style.subtitle}>Localidad</h3>
+        <input type="text" name="locality" value={formData.locality} onChange={handleChange} className={style.inputText} />
+      </div>
+    </div>
+    <div className={style.formColumn}>
+      <div className={style.inputGroup}>
+        <h3 className={style.subtitle}>Barrio</h3>
+        <input type="text" name="neighborhood" value={formData.neighborhood} onChange={handleChange} className={style.inputText} />
+      </div>
+      <div className={style.inputGroup}>
+        <h3 className={style.subtitle}>Barrio privado</h3>
+        <input type="text" name="privateNeighborhood" value={formData.privateNeighborhood} onChange={handleChange} className={style.inputText} />
+      </div>
+    </div>
+  </div>
+  </div>
+        </div>
+        <div className={style.formGroup}>
+  <h2 className={style.title}>Ambientes</h2>
+  <input
+    type="number"
+    name="environments"
+    value={formData.environments}
+    onChange={handleChange}
+    className={style.inputText}
+  />
+</div>
 
+<div className={style.formGroup}>
+  <h2 className={style.title}>Dormitorios</h2>
+  <input
+    type="number"
+    name="rooms"
+    value={formData.rooms}
+    onChange={handleChange}
+    className={style.inputText}
+  />
+</div>
 
+<div className={style.formGroup}>
+  <h2 className={style.title}>Baños</h2>
+  <input
+    type="number"
+    name="bathrooms"
+    value={formData.bathrooms}
+    onChange={handleChange}
+    className={style.inputText}
+  />
+</div>
 
+<div className={style.formGroup}>
+  <h2 className={style.title}>Toilettes</h2>
+  <input
+    type="number"
+    name="toilettes"
+    value={formData.toilettes}
+    onChange={handleChange}
+    className={style.inputText}
+  />
+</div>
 
+<div className={style.formGroup}>
+  <h2 className={style.title}>Cocheras</h2>
+  <input
+    type="number"
+    name="garages"
+    value={formData.garages}
+    onChange={handleChange}
+    className={style.inputText}
+  />
+</div>
+<h2 className={style.title}>Superficie</h2>
+<div className={style.formGroupMedidas}>
+  <div className={style.inputGroup}>
+    <div className={style.inputContainer}>
+      <h3 className={style.subtitleM}>Cubierto (m²)</h3>
+      <input
+        type="number"
+        name="coveredSquareMeters"
+        value={formData.coveredSquareMeters}
+        onChange={handleChange}
+        className={style.inputM}
+      />
+    </div>
+    <div className={style.inputContainer}>
+    <h3 className={style.subtitleM}>Semicubierto (m²)</h3>
+       
+      <input
+        type="number"
+        name="semiCoveredSquareMeters"
+        value={formData.semiCoveredSquareMeters}
+        onChange={handleChange}
+        className={style.inputM}
+      />
+    </div>
+    <div className={style.inputContainer}>
+    <h3 className={style.subtitleM}>Descubierto (m²)</h3>
+    
+      <input
+        type="number"
+        name="uncovered"
+        value={formData.uncovered}
+        onChange={handleChange}
+        className={style.inputM}
+      />
+    </div>
+    <div className={style.inputContainer}>
+      <h3 className={style.subtitleM}>Terreno (m²)</h3>
 
+      <input
+        type="number"
+        name="land"
+        value={formData.land}
+        onChange={handleChange}
+        className={style.inputM}
+      />
+    </div>
+    <div className={style.inputContainer}>
+      <h2 className={style.label}>Total (m²): {formData.totalSquareMeters}</h2>
+    </div>
+  </div>
+</div>
 
+<div className={style.formGroup}>
+      <h2 className={style.title}>Antiguedad</h2>
+      <input className={style.inputAge} type="number" name="age" placeholder='Ej: 2010' value={formData.age} onChange={handleChange} />
+    </div>
+    <h2 className={style.title}>Detalles de la propiedad</h2>
+    <div className={style.formGroupChechbox}>
+  {Object.entries(formData.detailsProperty).map(([detail, value]) => (
+    <div key={detail}>
+      <input
+        type="checkbox"
+        id={detail}
+        checked={value}
+        onChange={() => handleDetailPropertyOptionChange(detail)}
+      />
+      <label htmlFor={detail}>{detailLabels[detail]}</label>
+    </div>
+  ))}
+</div>
 
+      
+  <h2 className={style.title}>Comodidades</h2>
+  <div className={style.formGroupChechbox}>
+  {Object.entries(formData.amenities).map(([amenity, value]) => (
+    <div key={amenity} className={style.checkboxContainer}>
+      <label>
+        <input
+          type="checkbox"
+          name={amenity}
+          checked={value}
+          onChange={handleAmenityChange}
+        />
+        {amenityLabels[amenity]}
+      </label>
+    </div>
+  ))}
+</div>
+        
+          <h2 className={style.title}>Caracteristicas</h2>
+          <div className={style.formGroupChechbox}>
+          {Object.entries(formData.characteristics).map(([option, value]) => (
+         <div key={option} className={style.checkboxContainer}>
+            <input
+              type="checkbox"
+              id={option}
+              checked={value}
+              onChange={() => handleCharacteristicOptionChange(option)}
+            />
+              <label htmlFor={option}>{characteristicLabels[option]}</label>
+          </div>
+        ))}
+        </div>
+        <h2 className={style.title}>Ambientes</h2>
+        <div className={style.formGroupChechbox}>
+       {Object.entries(formData.environmentsOptions).map(([option, value]) => (
+  <div key={option}>
+    <input
+      type="checkbox"
+      id={option}
+      checked={value}
+      onChange={() => handleEnvironmentOptionChange(option)}
+    />
+    <label htmlFor={option}>{environmentLabels[option]}</label>
+  </div>
+))}
+</div>
 
+<h2 className={style.title}>servicios</h2>
+<div className={style.formGroupChechbox}>
+{Object.entries(formData.services).map(([service, value]) => (
+  <div key={service}>
+    <input
+      type="checkbox"
+      id={service}
+      checked={value}
+      onChange={() => handleServiceOptionChange(service)}
+    />
+   <label htmlFor={service}>{serviceLabels[service]}</label>
+  </div>
+))}
+</div>
+<div className={style.formGroup}>
 
+    <label>
+     <h2 className={style.title}>Titulo</h2>
+      <input className={style.inputText} type="text" name="title" placeholder='Ingrese un titulo' value={formData.title} onChange={handleChange} />
+    </label>
+ </div>
+ <div className={style.formGroup}>
 
+    <label>
+     <h2 className={style.title}>Descripcion</h2>
+      <textarea className={style.inputDescription} type="text" name="description" placeholder='Ingrese una descripcion' cols="30" rows="5" value={formData.description} onChange={handleChange} />
+    </label>
+ </div>
+ <div className={style.formGroup}>
 
-
-
-        <label>
-          En Venta:
-          <button
-            type="button"
-            className={formData.isForSale ? styles.buttonActive : styles.buttonInactive}
-            onClick={() => handleToggle('isForSale')}
-          >
-            {formData.isForSale ? 'Sí' : 'No'}
-          </button>
-        </label>
-        <label>
-          En Alquiler:
-          <button
-            type="button"
-            className={formData.isForRent ? styles.buttonActive : styles.buttonInactive}
-            onClick={() => handleToggle('isForRent')}
-          >
-            {formData.isForRent ? 'Sí' : 'No'}
-          </button>
-        </label>
-        <label>
-          Finalizado:
-          <button
-            type="button"
-            className={formData.isFinished ? styles.buttonActive : styles.buttonInactive}
-            onClick={() => handleToggle('isFinished')}
-          >
-            {formData.isFinished ? 'Sí' : 'No'}
-          </button>
-        </label>
-        <label>
-          En Desarrollo:
-          <button
-            type="button"
-            className={formData.isUnderDevelopment ? styles.buttonActive : styles.buttonInactive}
-            onClick={() => handleToggle('isUnderDevelopment')}
-          >
-            {formData.isUnderDevelopment ? 'Sí' : 'No'}
-          </button>
-        </label>
+<h2 className={style.title}>
+Video Link
+</h2>
+   
+    <input className={style.inputText} type="text" name="videoLink" placeholder='Link de YouTube' value={formData.videoLink} onChange={handleChange} />
+ 
+  </div>
+  <MultiplesImagenes
+            initialImages={formData.photo}
+            onImagesChange={(images) => setFormData({ ...formData, photo: images })}
+          />
         <button type="submit">Guardar Cambios</button>
       </form>
     </div>
