@@ -1,15 +1,21 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import style from './CardSellerProperties.module.css';
 
 const CardSellerProperties = ({ property }) => {
   return (
-    <div className="card">
-      <img src={property.photo[0]} className="card-img-top" alt={property.title} />
-      <div className="card-body">
-        <h5 className="card-title">{property.title}</h5>
-        <p className="card-text">{property.description}</p>
-        <Link to={`/detalles/${property.id}`}>
-        <button  className="btn btn-primary">Ver detalles</button>
+    <div className={style.card}>
+      <div className={style.imageContainer}>
+        {property?.photo?.length > 0 && (
+          <img src={property.photo[0]} className={style.image} alt={property.title} />
+        )}
+      </div>
+      <div className={style.cardContent}>
+        <h5 className={style.cardTitle}>{property.title}</h5>
+        <h5 className={style.cardTitle}>$ {property.currency} {property.price}</h5>
+        <p className={style.cardText}>{property.description}</p>
+        <Link to={`/detalles/${property.id}`} className={style.detailsLink}>
+          <button className={style.detailsButton}>Ver detalles</button>
         </Link>
       </div>
     </div>
@@ -17,3 +23,4 @@ const CardSellerProperties = ({ property }) => {
 };
 
 export default CardSellerProperties;
+
