@@ -23,8 +23,9 @@ import {  LOGIN_SUCCESS,
 
 const initialState = {
   properties: [],
-  user: null,
-  userId: null,
+  user: JSON.parse(localStorage.getItem('user')) || null,
+  userId: localStorage.getItem('userId') || null,
+  userType: localStorage.getItem('userType') || null,
   userDetails: null,
   users: [],
   error: null,
@@ -33,6 +34,7 @@ const initialState = {
   imageUploadError: null,
   propertiesBySellerId: [],
   property: null,
+  pendingProperties: [], 
 };
 
 const rootReducer = (state = initialState, action) => {

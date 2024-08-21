@@ -239,6 +239,7 @@ export const getPropertyById = (id) => async (dispatch) => {
 export const getPendingProperties = () => async (dispatch) => {
   try {
     const response = await axios.get('/properties/pending');
+    console.log(response);
     dispatch({
       type: GET_PROPERTIES_PENDING_SUCCESS,
       payload: response.data.data, // Ajustar según la estructura de la respuesta

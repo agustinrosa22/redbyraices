@@ -1,31 +1,32 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-import { getPropertiesBySellerId } from '../../Redux/Actions/actions';
-import CardSellerProperties from '../CardSellerProperties/CardSellerProperties';
+import { getPendingProperties } from '../../Redux/Actions/actions';
+import CardAprobar from '../CardAprobar/CardAprobar';
 
-const CardAprobarContainer = ({ userId, properties, getPropertiesBySellerId }) => {
+const CardAprobarContainer = ({ pendingProperties, getPendingProperties }) => {
   useEffect(() => {
-    if (userId) {
-      getPropertiesBySellerId(userId);
-    }
-  }, [userId, getPropertiesBySellerId]);
+    getPendingProperties();
+  }, [getPendingProperties]);
 
-  if (!userId) {
-    return <div>No se encontró el ID del usuario. Por favor, inicia sesión nuevamente.</div>;
+  if (!pendingProperties) {
+    return <div>Cargando propiedades...</div>; // Puedes mostrar un estado de carga aquí
+  }
+
+  if (pendingProperties.length === 0) {
+    return <div>No hay propiedades pendientes para aprobar.</div>;
   }
 
   return (
     <div className="card-deck">
-      {properties.map((property) => (
-        <CardSellerProperties key={property.id} property={property} />
+      {pendingProperties.map((property) => (
+        <CardAprobar key={property.id} property={property} />
       ))}
     </div>
   );
 };
 
 const mapStateToProps = (state) => ({
-  userId: state.userId, // Aquí asegúrate de que userId esté bien conectado al componente
-  properties: state.propertiesBySellerId, // Asegúrate de que esto esté definido
+  pendingProperties: state.pendingProperties,
 });
 
-export default connect(mapStateToProps, { getPropertiesBySellerId })(CardAprobarContainer);
+export default connect(mapStateToProps, { getPendingProperties })(CardAprobarContainer);

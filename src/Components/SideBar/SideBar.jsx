@@ -54,7 +54,8 @@ const Sidebar = () => {
   };
 
   // Verificar si el correo electrónico del usuario está en la lista permitida
-  const showApproveButton = user.user.mail && allowedEmails.includes(user.user.mail);
+  const showApproveButton = user && user.user && user.user.mail && allowedEmails.includes(user.user.mail);
+
   return (
     <div className={`${style.sidebar} ${isExpanded ? style.expanded : ''}`}
          onMouseEnter={handleMouseEnter}
@@ -115,10 +116,10 @@ const Sidebar = () => {
           </li>
         )}
       </ul>
-      {user && (
+      {user && user.user && (
         <div className={style['user-details']}>
-          {user.user.photo && <img src={user.user.photo} alt=""/>}
-          {user.user.img && <img src={user.user.img} alt="" />}
+          {user.user.photo && <img src={user.user.photo} alt="User Photo"/>}
+          {user.user.img && <img src={user.user.img} alt="User Image" />}
           <p>{user.user.name}</p><p>{user.user.last_name}</p>
         </div>
       )}
@@ -127,4 +128,3 @@ const Sidebar = () => {
 };
 
 export default Sidebar;
-

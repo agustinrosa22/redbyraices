@@ -1,7 +1,7 @@
 // Home.jsx
 import React from 'react';
-import style from './Home.module.css';
-import CardAprobarContainer from '../../Components/CardAprobarContainer'
+import style from './Aprobar.module.css';
+import CardAprobarContainer from '../../Components/CardAprobarContainer/CardAprobarContainer'
 const Aprobar = () => {
   return (
     <div className={style.container}>

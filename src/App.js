@@ -10,7 +10,7 @@ import NavBar from './Components/NavBar/NavBar';
 import Sidebar from './Components/SideBar/SideBar';
 import CreateProperty from './Views/CreateProperty/CreateProperty';
 import EditPropertyForm from './Views/EditPropertyForm/EditPropertyForm';
-
+import Aprobar from './Views/Aprobar/Aprobar'
 function App() {
   const location = useLocation();
   const dispatch = useDispatch();
@@ -36,6 +36,7 @@ function App() {
             <Route path='/home' element={<Home />} />
             <Route path='/create' element={<CreateProperty />} />
             <Route path='/detalles/:id' element={<EditPropertyForm />} />
+            <Route path='/aprobar' element={<Aprobar />} />
           </Routes>
         </div>
       </div>
