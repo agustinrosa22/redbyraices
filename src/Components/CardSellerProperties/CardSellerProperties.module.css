@@ -62,4 +62,56 @@
   .detailsButton:hover {
     background-color: #0056b3;
   }
+
+    /* Estilos Responsivos */
+@media (max-width: 768px) {
+  .card {
+    flex-direction: column; /* Apilar elementos verticalmente */
+    align-items: flex-start; /* Alinear elementos al inicio */
+  }
+
+  .imageContainer {
+    width: 100%; /* La imagen ocupa todo el ancho en pantallas pequeñas */
+    margin-right: 0; /* Eliminar el margen derecho */
+    margin-bottom: 16px; /* Añadir un margen inferior para separar la imagen del contenido */
+  }
+
+  .image {
+    border-radius: 8px;
+    object-fit: cover;
+  }
+
+  .cardContent {
+    width: 100%; /* Asegurar que el contenido ocupe todo el ancho */
+    text-align: left; /* Alinear el texto a la izquierda */
+  }
+
+  .detailsLink {
+    width: 100%; /* Asegurar que el botón ocupe todo el ancho */
+    text-align: left; /* Alinear el botón a la izquierda */
+    margin-top: 8px; /* Añadir margen superior */
+  }
+
+  .detailsButton,
+  .editButton {
+    width: 100%; /* Hacer que los botones ocupen todo el ancho en pantallas pequeñas */
+    text-align: center; /* Centrar el texto dentro del botón */
+  }
+}
+
+  @media (max-width: 480px) {
+    .cardTitle {
+      font-size: 1.125rem; /* Reducir el tamaño de la fuente en pantallas muy pequeñas */
+    }
+  
+    .cardText {
+      font-size: 0.875rem; /* Reducir el tamaño de la fuente del texto */
+    }
+  
+    .detailsButton,
+    .editButton {
+      padding: 8px 12px; /* Reducir el padding en pantallas pequeñas */
+      font-size: 14px; /* Reducir el tamaño de la fuente en los botones */
+    }
+  }
   
