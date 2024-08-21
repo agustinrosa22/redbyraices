@@ -17,6 +17,8 @@ import {  LOGIN_SUCCESS,
           EDIT_PROPERTY_SUCCESS,
           EDIT_PROPERTY_FAIL,
           GET_PROPERTY_BY_ID,
+          GET_PROPERTIES_PENDING_SUCCESS, 
+          GET_PROPERTIES_PENDING_FAIL 
          } from './Actions/actionTypes';
 
 const initialState = {
@@ -136,6 +138,19 @@ const rootReducer = (state = initialState, action) => {
           ...state,
           property: action.payload,
         };
+        case GET_PROPERTIES_PENDING_SUCCESS:
+          return {
+            ...state,
+            pendingProperties: action.payload,
+            loading: false,
+          };
+    
+        case GET_PROPERTIES_PENDING_FAIL:
+          return {
+            ...state,
+            error: action.payload,
+            loading: false,
+          };
     default:
       return state;
   }

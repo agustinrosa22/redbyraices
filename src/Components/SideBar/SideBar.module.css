@@ -97,4 +97,7 @@
     z-index: 3;
   } */
 
- 
+  .link {
+    text-decoration: none;  /* Quitar el subrayado */
+    color: inherit;         /* Mantener el color del texto inherente */
+  }

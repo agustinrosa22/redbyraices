@@ -13,7 +13,9 @@ const NavBar = () => {
 
   return (
     <div className={style.navbar}>
+      <Link to="/home" className={style.title} >
       <img className={style.title} src={title} alt="" />
+      </Link>
       <button className={style.notificationButton}>
         <img className={style.icon} src={campaign} alt="" />
       </button>
