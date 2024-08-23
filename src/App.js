@@ -11,6 +11,9 @@ import Sidebar from './Components/SideBar/SideBar';
 import CreateProperty from './Views/CreateProperty/CreateProperty';
 import EditPropertyForm from './Views/EditPropertyForm/EditPropertyForm';
 import Aprobar from './Views/Aprobar/Aprobar'
+import List from './Views/List/List'
+
+
 function App() {
   const location = useLocation();
   const dispatch = useDispatch();
@@ -37,6 +40,7 @@ function App() {
             <Route path='/create' element={<CreateProperty />} />
             <Route path='/detalles/:id' element={<EditPropertyForm />} />
             <Route path='/aprobar' element={<Aprobar />} />
+            <Route path='/lista' element={<List />} />
           </Routes>
         </div>
       </div>

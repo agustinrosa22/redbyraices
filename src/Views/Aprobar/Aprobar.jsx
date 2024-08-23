@@ -1,4 +1,3 @@
-// Home.jsx
 import React from 'react';
 import style from './Aprobar.module.css';
 import CardAprobarContainer from '../../Components/CardAprobarContainer/CardAprobarContainer'

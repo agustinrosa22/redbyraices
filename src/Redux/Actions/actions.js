@@ -18,6 +18,8 @@ import {
   GET_PROPERTY_BY_ID,
   GET_PROPERTIES_PENDING_SUCCESS,
   GET_PROPERTIES_PENDING_FAIL,
+  GET_PROPERTIES_LIST_SUCCESS,
+  GET_PROPERTIES_LIST_FAIL,
  } from './actionTypes';
 
 export const login = ({ mail, password }) => async dispatch => {
@@ -249,6 +251,23 @@ export const getPendingProperties = () => async (dispatch) => {
     dispatch({
       type: GET_PROPERTIES_PENDING_FAIL,
       payload: 'Error al obtener propiedades pendientes',
+    });
+  }
+};
+
+export const getListProperties = () => async (dispatch) => {
+  try {
+    const response = await axios.get('/properties/active');
+    console.log(response);
+    dispatch({
+      type: GET_PROPERTIES_LIST_SUCCESS,
+      payload: response.data, // Ajustar según la estructura de la respuesta
+    });
+  } catch (error) {
+    console.error('Error al obtener propiedades activas:', error);
+    dispatch({
+      type:  GET_PROPERTIES_LIST_FAIL,
+      payload: 'Error al obtener propiedades activas',
     });
   }
 };

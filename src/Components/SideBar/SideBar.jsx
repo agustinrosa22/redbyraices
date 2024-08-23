@@ -21,6 +21,8 @@ const allowedEmails = [
   'dsanesteban@byraices.com'
 ];
 
+const listButtonEmail = 'lyunes@byraices.com';
+
 const Sidebar = () => {
   const [isExpanded, setIsExpanded] = useState(false);
   const dispatch = useDispatch();
@@ -50,6 +52,7 @@ const Sidebar = () => {
   };
 
   const showApproveButton = user && user.user && user.user.mail && allowedEmails.includes(user.user.mail);
+  const showListButton = user && user.user && user.user.mail === listButtonEmail;
 
   return (
     <div>
@@ -111,6 +114,14 @@ const Sidebar = () => {
               <Link to="/aprobar" className={style.link}>
                 <img src={report} alt="Approve" className={style.icon} />
                 Aprobar
+              </Link>
+            </li>
+          )}
+          {showListButton && (
+            <li>
+              <Link to="/lista" className={style.link}>
+                <img src={report} alt="List" className={style.icon} />
+                Lista
               </Link>
             </li>
           )}

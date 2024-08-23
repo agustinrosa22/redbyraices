@@ -18,7 +18,9 @@ import {  LOGIN_SUCCESS,
           EDIT_PROPERTY_FAIL,
           GET_PROPERTY_BY_ID,
           GET_PROPERTIES_PENDING_SUCCESS, 
-          GET_PROPERTIES_PENDING_FAIL 
+          GET_PROPERTIES_PENDING_FAIL,
+          GET_PROPERTIES_LIST_SUCCESS,
+          GET_PROPERTIES_LIST_FAIL, 
          } from './Actions/actionTypes';
 
 const initialState = {
@@ -35,6 +37,7 @@ const initialState = {
   propertiesBySellerId: [],
   property: null,
   pendingProperties: [], 
+  activeProperties: [], 
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -153,6 +156,19 @@ const rootReducer = (state = initialState, action) => {
             error: action.payload,
             loading: false,
           };
+          case GET_PROPERTIES_LIST_SUCCESS:
+            return {
+              ...state,
+              activeProperties: action.payload,
+              loading: false,
+            };
+      
+          case GET_PROPERTIES_LIST_FAIL:
+            return {
+              ...state,
+              error: action.payload,
+              loading: false,
+            };
     default:
       return state;
   }
