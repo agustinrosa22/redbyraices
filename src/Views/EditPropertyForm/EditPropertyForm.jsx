@@ -1,10 +1,81 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback  } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import { editProperty } from '../../Redux/Actions/actions';
 import style from './EditPropertyForm.module.css';
 import MultiplesImagenes from '../../Components/MultiplesImagenes/MultiplesImagenes';
+import { GoogleMap, LoadScript, Marker, StandaloneSearchBox  } from '@react-google-maps/api';
+import logoEmpresa from '../../Assets/titulo.png'
+
+const MyMapComponent = ({ initialLocation, onLocationChange }) => {
+  const [mapLocation, setMapLocation] = useState({
+    lat: parseFloat(initialLocation[0]),
+    lng: parseFloat(initialLocation[1]),
+  });
+  const [searchBox, setSearchBox] = useState(null);
+
+  const onLoad = useCallback((ref) => setSearchBox(ref), []);
+  
+  const onPlacesChanged = useCallback(() => {
+    const places = searchBox.getPlaces();
+    if (places && places.length > 0) {
+      const place = places[0]; // Tomamos solo el primer lugar de la lista
+      const location = {
+        lat: place.geometry.location.lat(),
+        lng: place.geometry.location.lng(),
+      };
+      setMapLocation(location);
+      onLocationChange([location.lat.toFixed(6).toString(), location.lng.toFixed(6).toString()]); // Enviar array de strings
+    }
+  }, [searchBox, onLocationChange]);
+
+  const handleMapClick = (e) => {
+    const newLocation = {
+      lat: e.latLng.lat(),
+      lng: e.latLng.lng()
+    };
+    setMapLocation(newLocation);
+    onLocationChange([newLocation.lat.toFixed(6).toString(), newLocation.lng.toFixed(6).toString()]); // Enviar array de strings
+  };
+
+  return (
+    <LoadScript googleMapsApiKey="AIzaSyD5V2B-G8s7P7Hh6cZ6UyucD0n91y-JI3I" libraries={["places"]}>
+      <StandaloneSearchBox onLoad={onLoad} onPlacesChanged={onPlacesChanged}>
+        <input
+          type="text"
+          placeholder="Buscar dirección..."
+          style={{
+            boxSizing: `border-box`,
+            border: `1px solid transparent`,
+            width: `240px`,
+            height: `32px`,
+            padding: `0 12px`,
+            borderRadius: `3px`,
+            boxShadow: `0 2px 6px rgba(0, 0, 0, 0.3)`,
+            fontSize: `14px`,
+            outline: `none`,
+            textOverflow: `ellipses`,
+          }}
+        />
+      </StandaloneSearchBox>
+      <GoogleMap
+        mapContainerStyle={{ height: '400px', width: '100%' }}
+        zoom={13}
+        center={mapLocation}
+        onClick={handleMapClick}
+      >
+        <Marker
+          position={mapLocation}
+          draggable={true}
+          onDragEnd={(e) => handleMapClick(e)}
+        >
+          <img src={logoEmpresa} alt="Logo de tu empresa" style={{ width: '50px', height: '50px' }} />
+        </Marker>
+      </GoogleMap>
+    </LoadScript>
+  );
+};
 
 const EditPropertyForm = () => {
   const { id } = useParams();
@@ -30,7 +101,7 @@ const EditPropertyForm = () => {
     buyerCommission: '',
     availableDate: '',
     expirationDate: '',
-    location: [],
+    location: ['', ''], // Inicializar como array de strings vacíos
     street: '',
     number: '',
     country: '',
@@ -80,7 +151,10 @@ const EditPropertyForm = () => {
           buyerCommission: propertyData.buyerCommission,
           availableDate: propertyData.availableDate,
           expirationDate: propertyData.expirationDate,
-          location: propertyData.location,
+          location: [
+            propertyData.location[0].toString(), // Asegúrate de que location sea un array de strings
+            propertyData.location[1].toString()
+          ],
           street: propertyData.street,
           number: propertyData.number,
           country: propertyData.country,
@@ -419,8 +493,12 @@ const EditPropertyForm = () => {
     });
   };
 
- 
-
+  const handleLocationChange = (newLocation) => {
+    setFormData(prevData => ({
+      ...prevData,
+      location: newLocation
+    }));
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -430,16 +508,9 @@ const EditPropertyForm = () => {
     });
   };
 
-  const handleToggle = (name) => {
-    setFormData({
-      ...formData,
-      [name]: !formData[name],
-    });
-  };
-
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(editProperty(id, formData,));
+    dispatch(editProperty(id, formData));
   };
 
   const handleSaleButtonClick = () => {
@@ -483,8 +554,11 @@ const EditPropertyForm = () => {
     return <div>Loading...</div>;
   }
 
-  console.log(formData.photo);
-  
+  // console.log(formData.photo);
+
+  // Componente del mapa
+
+  console.log(formData.location)
 
   return (
     <div className={style.container}>
@@ -631,6 +705,7 @@ const EditPropertyForm = () => {
       </div>
     </div>
   </div>
+  <MyMapComponent initialLocation={formData.location} onLocationChange={handleLocationChange} />
   </div>
         </div>
         <div className={style.formGroup}>

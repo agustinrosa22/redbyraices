@@ -92,7 +92,7 @@ const Sidebar = () => {
             <img src={calendar} alt="Calendar" className={style.icon} />
             Calendario
           </li>
-          <li>
+          {/* <li>
             <img src={lupa} alt="Lupa" className={style.icon} />
             Busqueda
             <ul className={style['sub-menu']}>
@@ -100,7 +100,7 @@ const Sidebar = () => {
               <li>Busqueda Avanzada</li>
               <li>Matcher</li>
             </ul>
-          </li>
+          </li> */}
           <li>
             <img src={spanner} alt="Spanner" className={style.icon} />
             Herramientas
