@@ -46,7 +46,7 @@
   }
   
   .detailsButton {
-    background-color: #007bff;
+    background-color: #3D2F87;
     color: white;
     padding: 8px 16px;
     border: none;
@@ -56,7 +56,7 @@
   }
   
   .detailsButton:hover {
-    background-color: #0056b3;
+    background-color: #A83E52;
   }
   
   .editButton {

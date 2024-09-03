@@ -35,10 +35,14 @@
   }
   
   .notificationButton:hover,
-  .refreshButton:hover,
-  .createButton:hover {
+  .refreshButton:hover{
     opacity: 0.7;
   }
+
+  .createButton:hover {
+    background-color: #A83E52;
+  }
+  
   
   .icon {
     padding: 5px;

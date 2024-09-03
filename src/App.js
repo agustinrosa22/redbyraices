@@ -13,6 +13,7 @@ import EditPropertyForm from './Views/EditPropertyForm/EditPropertyForm';
 import Aprobar from './Views/Aprobar/Aprobar'
 import List from './Views/List/List'
 import DetailListView from './Views/DetailListView/DetailListView'
+import ListAdmin from './Views/ListAdmin/ListAdmin';
 
 
 function App() {
@@ -42,6 +43,7 @@ function App() {
             <Route path='/detalles/:id' element={<EditPropertyForm />} />
             <Route path='/aprobar' element={<Aprobar />} />
             <Route path='/lista' element={<List />} />
+            <Route path='/lista-administrador' element={<ListAdmin />} />
             <Route path='/lista/detail/:id' element={<DetailListView />} />
           </Routes>
         </div>
