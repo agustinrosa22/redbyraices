@@ -55,6 +55,7 @@ const CreateProperty = () => {
     availableDate: '',
     expirationDate: '',
     location: [],
+    photo: [],
     street: '',
     number: '',
     country: '',
@@ -626,11 +627,8 @@ const CreateProperty = () => {
     
     const handleSubmit = (e) => {
       e.preventDefault();
-      const propertyData = { ...formData,
-         location: [`${mapLocation.lat}`, `${mapLocation.lng}`] 
-        };
+      const propertyData = { ...formData, location: [`${mapLocation.lat}`, `${mapLocation.lng}`] };
       dispatch(createProperty(propertyData));
-     
     };
 
 //  const handleSubmit = (e) => {
@@ -1042,7 +1040,10 @@ const CreateProperty = () => {
     </label>
  </div>
 
- <MultiplesImagenes/>
+ <MultiplesImagenes
+          initialImages={formData.photo}
+          onImagesChange={(images) => setFormData({ ...formData, photo: images })}
+        />
     <div className={style.formGroup}>
 
   <h2 className={style.title}>

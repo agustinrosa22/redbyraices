@@ -1,0 +1,42 @@
+
+  
+  h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+  
+  .input {
+    padding: 10px;
+    width: 100%;
+    max-width: 400px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    margin-bottom: 10px;
+  }
+  
+  .generateButton, .printButton {
+    padding: 10px 20px;
+    font-size: 16px;
+    color: white;
+    background-color: #4CAF50;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+  }
+  
+  .generateButton:hover, .printButton:hover {
+    background-color: #45a049;
+  }
+  
+  .qrContainer {
+    margin-top: 20px;
+    text-align: center;
+  }
+  
+  img {
+    max-width: 200px;
+    margin-top: 10px;
+  }
+  
