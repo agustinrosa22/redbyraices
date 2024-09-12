@@ -1,0 +1,119 @@
+/* Contenedor del formulario */
+.formContainer {
+    max-width: 600px; /* Limitar el ancho del formulario */
+    margin: 0 auto; /* Centrar el formulario */
+    padding: 20px;
+    background-color: #f9f9f9; /* Color de fondo suave */
+    border-radius: 200px; /* Bordes más redondeados */
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1); /* Sombra ligera */
+    
+    /* Borde degradado */
+    border: 3px solid transparent; /* Borde transparente para que se vea el degradado */
+    border-image: linear-gradient(to right, #3D2F87, #A83E52); /* Gradiente de azul a rojo */
+    border-image-slice: 1; /* Hace que el borde se ajuste al gradiente */
+  } 
+  
+  /* Estilos generales para los campos de entrada */
+  .inputField {
+    width: calc(100% - 120px); /* Ajustar el ancho teniendo en cuenta el sufijo fijo */
+    padding: 10px; /* Espacio interno para una mejor usabilidad */
+    margin-top: 5px; /* Espaciado interno en la parte superior */
+    margin-bottom: 15px; /* Espaciado inferior entre inputs */
+    border: 1px solid #ccc;
+    border-radius: 5px; /* Bordes redondeados */
+    font-size: 14px;
+    transition: border-color 0.3s; /* Transición suave al hacer focus */
+  }
+  
+  /* Efecto al hacer foco en los campos */
+  .inputField:focus {
+    border-color: #3D2F87; /* Color de borde azul en foco */
+    outline: none;
+  }
+  
+  /* Contenedor de correo electrónico */
+  .mailContainer {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+  }
+  
+  .emailSuffix {
+    padding-left: 5px;
+    font-size: 14px;
+  }
+  
+  /* Botones */
+  .button {
+    padding: 10px 20px; /* Tamaño uniforme para ambos botones */
+    border-radius: 5px;
+    font-size: 14px;
+    cursor: pointer;
+    border: none;
+    transition: background-color 0.3s;
+  }
+  
+  .button:focus {
+    outline: none; /* Eliminar borde predeterminado */
+  }
+  
+  /* Estilo de los botones específicos */
+  .primaryButton {
+    background-color: #3D2F87; /* Color azul para el botón principal */
+    color: white;
+  }
+  
+  .primaryButton:hover {
+    background-color: #2f236b; /* Hover más oscuro */
+  }
+  
+  .secondaryButton {
+    background-color: #A83E52; /* Color rojo para botones secundarios */
+    color: white;
+  }
+  
+  .secondaryButton:hover {
+    background-color: #922d41; /* Hover rojo más oscuro */
+  }
+  
+  /* Botones de contraseña: Mostrar/Ocultar y Generar */
+  .passwordButtons {
+    display: flex;
+    gap: 10px; /* Espacio entre los botones */
+    margin-bottom: 15px;
+  }
+  
+  /* Contenedor de la imagen del vendedor */
+  .imageContainer {
+    margin-bottom: 15px;
+    padding: 15px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Etiquetas de los formularios */
+  label {
+    font-weight: bold;
+    margin-bottom: 5px;
+    display: inline-block;
+    color: #333;
+  }
+  
+  /* Botón de Crear Usuario */
+  .createUserButton {
+    background-color: #3D2F87; /* Azul principal */
+    color: white;
+    font-size: 16px; /* Fuente un poco más grande */
+    width: 100%;
+    padding: 10px;
+    margin-top: 20px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .createUserButton:hover {
+    background-color: #2f236b;
+  }
+  

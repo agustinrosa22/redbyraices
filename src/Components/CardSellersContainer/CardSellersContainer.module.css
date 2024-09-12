@@ -1,0 +1,45 @@
+/* Contenedor del componente */
+.containerWrapper {
+    padding: 20px; /* Espaciado interno del contenedor principal */
+  }
+  
+  /* Estilo para la cantidad de vendedores */
+  .quantityTitle {
+    font-size: 18px; /* Tamaño de fuente más pequeño */
+    color: #333; /* Color del texto */
+    text-align: center; /* Centrar el texto */
+    margin-bottom: 20px; /* Espaciado inferior */
+  }
+  
+  .quantityTitle span {
+    color: #A83E52; /* Color rojo para los números */
+    font-weight: bold; /* Negrita para los números */
+  }
+  
+  /* Contenedor de las tarjetas */
+  .cardContainer {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 3 columnas de igual tamaño */
+    gap: 20px; /* Espacio entre las tarjetas */
+    justify-items: center; /* Centrar las tarjetas horizontalmente */
+  }
+  
+  /* Ajuste de columnas en pantallas más pequeñas */
+  @media (max-width: 1200px) {
+    .cardContainer {
+      grid-template-columns: repeat(2, 1fr); /* 2 columnas en pantallas más pequeñas */
+    }
+  }
+  
+  @media (max-width: 900px) {
+    .cardContainer {
+      grid-template-columns: repeat(2, 1fr); /* 2 columnas en pantallas medianas */
+    }
+  }
+  
+  @media (max-width: 600px) {
+    .cardContainer {
+      grid-template-columns: 1fr; /* Una sola columna en pantallas pequeñas */
+    }
+  }
+  

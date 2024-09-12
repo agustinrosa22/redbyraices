@@ -26,13 +26,22 @@ console.log(sellers)
     return <p>No hay vendedores disponibles.</p>; // Mensaje si no hay vendedores
   }
 
+  const numVendedores = sellers.length
+  
   return (
-    <div className={styles.container}>
-      {sellers.map((seller) => (
-        <CardSellers key={seller.id} seller={seller} />
-      ))}
+    <div className={styles.containerWrapper}>
+      <h2 className={styles.quantityTitle}>
+        Cantidad de vendedores: <span>{numVendedores}</span>
+      </h2>
+  
+      <div className={styles.cardContainer}>
+        {sellers.map((seller) => (
+          <CardSellers key={seller.id} seller={seller} />
+        ))}
+      </div>
     </div>
   );
-};
+  
+}
 
 export default CardSellersContainer;

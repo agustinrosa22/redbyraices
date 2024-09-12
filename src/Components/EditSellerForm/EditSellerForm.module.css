@@ -1,0 +1,137 @@
+/* Estilo del contenedor principal */
+.editFormWrapper {
+    max-width: 600px;
+    margin: 0 auto; /* Centramos el formulario horizontalmente */
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Sección de información del vendedor */
+  .sellerInfo {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .sellerImage {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 10px;
+    border: 3px solid #A83E52; /* Borde alrededor de la imagen */
+  }
+  
+  .sellerName {
+    font-size: 1.5em;
+    font-weight: bold;
+    color: #3D2F87;
+    margin: 0;
+  }
+  
+  /* Estilos para el formulario */
+  .formContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  /* Estilos para cada grupo de formulario */
+  .formContainer .form-group {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .formContainer label {
+    font-size: 1.1em;
+    color: #3D2F87;
+  }
+  
+  .formContainer input {
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    transition: border 0.3s;
+  }
+  
+  .formContainer input:focus {
+    border: 1px solid #A83E52;
+  }
+  
+ /* Botón primario personalizado */
+.customButtonPrimary {
+    background-color: #3D2F87 !important; /* Color primario */
+    color: white;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    font-size: 14px;
+  }
+  
+  .customButtonPrimary:hover {
+    background-color: #2b2466 !important; /* Color primario al hacer hover */
+  }
+  
+  /* Botón secundario personalizado */
+  .customButtonSecondary {
+    background-color: #A83E52 !important; /* Color secundario */
+    color: white;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    font-size: 14px;
+  }
+  
+  .customButtonSecondary:hover {
+    background-color: #922d41 !important; /* Color secundario al hacer hover */
+  }
+  
+  /* Contenedor de botones */
+  .buttonGroup {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 20px;
+  }
+  
+  /* Botones de la contraseña */
+.passwordButtons {
+    display: flex;
+    justify-content: space-between; /* Los botones estarán alineados horizontalmente con espacio entre ellos */
+    gap: 10px; /* Espacio entre los botones */
+    margin-bottom: 20px; /* Espacio inferior con el siguiente grupo de formulario */
+  }
+  
+  .toggleButton, .generateButton {
+    flex: 1; /* Ambos botones ocuparán el mismo espacio */
+    padding: 6px 20px; /* Menos alto (6px), más ancho (20px) */
+    border: none;
+    border-radius: 5px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    width: 100%; /* Asegura que ocupen todo el ancho posible */
+  }
+  
+  .toggleButton {
+    background-color: #A83E52; /* Color rojo */
+    color: white;
+  }
+  
+  .toggleButton:hover {
+    background-color: #922d41; /* Color rojo más oscuro en hover */
+  }
+  
+  .generateButton {
+    background-color: #3D2F87; /* Color azul */
+    color: white;
+  }
+  
+  .generateButton:hover {
+    background-color: #2f236b; /* Color azul más oscuro en hover */
+  }
