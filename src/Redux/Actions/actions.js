@@ -20,6 +20,14 @@ import {
   GET_PROPERTIES_PENDING_FAIL,
   GET_PROPERTIES_LIST_SUCCESS,
   GET_PROPERTIES_LIST_FAIL,
+  CREATE_USER_REQUEST,
+  CREATE_USER_SUCCESS,
+  CREATE_USER_FAIL,
+  GET_ALL_SELLERS_SUCCESS,
+  GET_ALL_SELLERS_FAIL,
+  UPDATE_SELLER_SUCCESS,
+  UPDATE_SELLER_FAIL,
+  UPDATE_SELLER_REQUEST,
  } from './actionTypes';
 
 export const login = ({ mail, password }) => async dispatch => {
@@ -234,6 +242,73 @@ export const getListProperties = () => async (dispatch) => {
     dispatch({
       type:  GET_PROPERTIES_LIST_FAIL,
       payload: 'Error al obtener propiedades activas',
+    });
+  }
+};
+
+
+export const createUserSeller = (userData) => async (dispatch) => {
+  try {
+    dispatch({ type: CREATE_USER_REQUEST });
+
+    // Llamada a la API para crear el usuario
+    const response = await axios.post('/seller', userData);
+
+    dispatch({
+      type: CREATE_USER_SUCCESS,
+      payload: response.data,
+    });
+
+    alert('Usuario creado con éxito');
+    // Redireccionar o realizar alguna acción adicional si es necesario
+    window.location.href = '/home';
+  } catch (error) {
+    dispatch({
+      type: CREATE_USER_FAIL,
+      payload: error.message || 'Error al crear el usuario',
+    });
+
+    alert('Error al crear el usuario, por favor intente nuevamente.');
+    console.error('Error al crear usuario:', error);
+  }
+};
+
+// Action para obtener todos los vendedores
+export const getAllSellers = () => async (dispatch) => {
+  try {
+    const response = await axios.get('/sellers');
+    dispatch({
+      type: GET_ALL_SELLERS_SUCCESS,
+      payload: response.data // Asume que el servidor devuelve una lista de vendedores
+    });
+  } catch (error) {
+    console.error('Error al obtener los vendedores:', error);
+    dispatch({
+      type: GET_ALL_SELLERS_FAIL,
+      payload: error.message || 'Error al obtener los vendedores'
+    });
+  }
+};
+
+// Acción para actualizar un vendedor
+export const updateSeller = (id, sellerData) => async (dispatch) => {
+  try {
+    dispatch({ type: UPDATE_SELLER_REQUEST });
+
+    const response = await axios.put(`/sellers/${id}`, sellerData);
+    dispatch({
+      type: UPDATE_SELLER_SUCCESS,
+      payload: response.data // Asume que el servidor devuelve el vendedor actualizado
+    });
+
+    alert('Vendedor actualizado con éxito');
+    // Puedes redirigir o actualizar la UI según sea necesario
+  } catch (error) {
+    console.error('Error al actualizar el vendedor:', error);
+    alert('Error al actualizar el vendedor. Por favor, revise los datos e intente nuevamente.');
+    dispatch({
+      type: UPDATE_SELLER_FAIL,
+      payload: 'Error al actualizar el vendedor'
     });
   }
 };

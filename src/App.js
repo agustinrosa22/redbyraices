@@ -14,6 +14,8 @@ import Aprobar from './Views/Aprobar/Aprobar'
 import List from './Views/List/List'
 import DetailListView from './Views/DetailListView/DetailListView'
 import ListAdmin from './Views/ListAdmin/ListAdmin';
+import Sellers from './Views/Sellers/Sellers'
+import EditSellerForm from './Components/EditSellerForm/EditSellerForm'
 
 
 function App() {
@@ -45,6 +47,8 @@ function App() {
             <Route path='/lista' element={<List />} />
             <Route path='/lista-administrador' element={<ListAdmin />} />
             <Route path='/lista/detail/:id' element={<DetailListView />} />
+            <Route path='/usuarios' element={<Sellers />} />
+            <Route path="/edit-seller/:id" element={<EditSellerForm />} />
           </Routes>
         </div>
       </div>

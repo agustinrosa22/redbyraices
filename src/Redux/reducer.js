@@ -21,6 +21,14 @@ import {  LOGIN_SUCCESS,
           GET_PROPERTIES_PENDING_FAIL,
           GET_PROPERTIES_LIST_SUCCESS,
           GET_PROPERTIES_LIST_FAIL, 
+          CREATE_USER_REQUEST,
+          CREATE_USER_SUCCESS,
+          CREATE_USER_FAIL,
+          GET_ALL_SELLERS_SUCCESS,
+          GET_ALL_SELLERS_FAIL,
+          UPDATE_SELLER_REQUEST,
+          UPDATE_SELLER_SUCCESS,
+          UPDATE_SELLER_FAIL,
          } from './Actions/actionTypes';
 
 const initialState = {
@@ -38,6 +46,8 @@ const initialState = {
   property: null,
   pendingProperties: [], 
   activeProperties: [], 
+  seller: null,
+  sellers: [],
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -169,6 +179,51 @@ const rootReducer = (state = initialState, action) => {
               error: action.payload,
               loading: false,
             };
+            case CREATE_USER_REQUEST:
+              return { ...state, loading: true };
+        
+            case CREATE_USER_SUCCESS:
+              return { ...state, loading: false, seller: action.payload };
+        
+            case CREATE_USER_FAIL:
+              return { ...state, loading: false, error: action.payload };
+              case GET_ALL_SELLERS_SUCCESS:
+                return {
+                  ...state,
+                  sellers: action.payload, // Guarda la lista de vendedores en el estado
+                  error: null
+                };
+              case GET_ALL_SELLERS_FAIL:
+                return {
+                  ...state,
+                  sellers: [], // Limpia la lista de vendedores en caso de fallo
+                  error: action.payload
+                };
+                case UPDATE_SELLER_REQUEST:
+                  return {
+                    ...state,
+                    loading: true,
+                    error: null,
+                  };
+                  
+                case UPDATE_SELLER_SUCCESS:
+                  return {
+                    ...state,
+                    sellers: Array.isArray(state.sellers) 
+                      ? state.sellers.map((seller) => 
+                          seller.id === action.payload.id ? action.payload : seller
+                        )
+                      : [],  // Aseguramos que sellers sea siempre un array
+                    loading: false,
+                    error: null,
+                  };
+            
+                case UPDATE_SELLER_FAIL:
+                  return {
+                    ...state,
+                    loading: false,
+                    error: action.payload,
+                  };
     default:
       return state;
   }

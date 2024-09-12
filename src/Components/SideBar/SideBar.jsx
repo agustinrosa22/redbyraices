@@ -117,6 +117,14 @@ const Sidebar = () => {
               </Link>
             </li>
           )}
+            {showApproveButton && (
+            <li>
+              <Link to="/usuarios" className={style.link}>
+                <img src={report} alt="Approve" className={style.icon} />
+               Usuarios
+              </Link>
+            </li>
+          )}
           {showApproveButton && (
             <li>
               <Link to="/lista-administrador" className={style.link}>

@@ -1,0 +1,55 @@
+.card {
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    width: 300px;
+    margin: 15px;
+    transition: transform 0.3s ease;
+  }
+  
+  .card:hover {
+    transform: translateY(-5px);
+  }
+  
+  .header {
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    background-color: #f8f8f8;
+  }
+  
+  .photo {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 15px;
+  }
+  
+  .name h3 {
+    margin: 0;
+    font-size: 1.2em;
+    color: #333;
+  }
+  
+  .name p {
+    margin: 5px 0 0 0;
+    color: #666;
+    font-size: 0.9em;
+  }
+  
+  .details {
+    padding: 15px;
+  }
+  
+  .details p {
+    margin: 10px 0;
+    font-size: 0.9em;
+    color: #333;
+  }
+  
+  .details p strong {
+    font-weight: bold;
+  }
+  

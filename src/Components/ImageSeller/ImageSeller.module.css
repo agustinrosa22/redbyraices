@@ -1,0 +1,46 @@
+.textCenter {
+    text-align: center;
+  }
+  
+  .dropzone {
+    border: 2px dashed #cccccc;
+    border-radius: 4px;
+    padding: 20px;
+    margin-bottom: 20px;
+    text-align: center;
+    cursor: pointer;
+  }
+  
+  .dropzone p {
+    margin-top: 10px;
+  }
+  
+  .dropzone img {
+    width: 125px;
+    height: 70px;
+    background-size: cover;
+    padding-right: 15px;
+  }
+
+  .imageContainer {
+    display: flex;
+    /* flex-direction: column; */
+    align-items: center;
+    max-height: 300px; /* Altura máxima para la barra de desplazamiento */
+    overflow-y: auto; /* Agrega una barra de desplazamiento vertical si el contenido es demasiado grande */
+}
+
+.imageItem {
+    margin-bottom: 10px; /* Espacio entre cada imagen */
+}
+
+.image {
+    width: 150px; /* Ancho de la imagen */
+    height: auto; /* Altura ajustada automáticamente */
+    margin-right: 10px; /* Espacio entre la imagen y el botón de eliminar */
+}
+
+/* Estilos para el botón de eliminar */
+.btn-danger {
+    margin-left: 10px; /* Espacio entre el botón y la imagen */
+}
