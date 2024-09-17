@@ -1,22 +1,14 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { useParams, useNavigate } from 'react-router-dom'; // Importamos useNavigate
-import { updateSeller } from '../../Redux/Actions/actions';
+import React, { useState, useEffect } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
+import axios from 'axios';  // Asegúrate de haber instalado axios o puedes usar fetch
 import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
-import ImageSeller from '../ImageSeller/ImageSeller'; // Componente para seleccionar imágenes
+import ImageSeller from '../ImageSeller/ImageSeller';
 import styles from './EditSellerForm.module.css';
 
 const EditSellerForm = () => {
-  const { id } = useParams();
-  const dispatch = useDispatch();
+  const { id } = useParams();  // Obtener el ID de los parámetros de la URL
   const navigate = useNavigate();
   
-  const sellers = useSelector((state) => state.sellers.data || []);
-
-  // Intenta obtener el vendedor del estado o de localStorage
-  const localSellers = JSON.parse(localStorage.getItem('sellers')) || [];
-  const seller = sellers.find((seller) => seller.id === parseInt(id)) || localSellers.find((seller) => seller.id === parseInt(id));
-
   const [formData, setFormData] = useState({
     name: '',
     last_name: '',
@@ -25,8 +17,37 @@ const EditSellerForm = () => {
     photo: '',
     password: '',
   });
-
+  
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
   const [showPassword, setShowPassword] = useState(false);
+
+  // useEffect para cargar los datos del vendedor
+  useEffect(() => {
+    const fetchSeller = async () => {
+      try {
+        const response = await axios.get(`/seller/${id}`);  // Cambia la URL según tu API
+        const seller = response.data.data;
+        setFormData({
+          name: seller.name,
+          last_name: seller.last_name,
+          mail: seller.mail,
+          phone_number: seller.phone_number,
+          photo: seller.photo || '',
+          password: seller.password,
+        });
+        setLoading(false);
+      } catch (error) {
+        console.error('Error fetching seller details:', error);
+        setError('Error al cargar los datos del vendedor');
+        setLoading(false);
+      }
+    };
+    
+    fetchSeller();
+  }, [id]);
+
+  // Función para generar una contraseña aleatoria
   const generatePassword = () => {
     const characters =
       'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()';
@@ -39,31 +60,6 @@ const EditSellerForm = () => {
       password: password,
     });
   };
-
-  
-  // Cambiar visibilidad de la contraseña
-  const toggleShowPassword = () => {
-    setShowPassword(!showPassword);
-  };
-
-
-  useEffect(() => {
-    if (sellers.length > 0) {
-      // Guardamos los vendedores en localStorage cuando se cargan desde Redux
-      localStorage.setItem('sellers', JSON.stringify(sellers));
-    }
-
-    if (seller) {
-      setFormData({
-        name: seller.name,
-        last_name: seller.last_name,
-        mail: seller.mail,
-        phone_number: seller.phone_number,
-        photo: seller.photo || '',
-        password: seller.password,
-      });
-    }
-  }, [sellers, seller]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -80,31 +76,39 @@ const EditSellerForm = () => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    dispatch(updateSeller(id, formData));
+    try {
+      await axios.put(`/seller/${id}`, formData);  // Cambia la URL según tu API
+      navigate(-1);  // Navega de vuelta después de la actualización
+    } catch (error) {
+      console.error('Error updating seller details:', error);
+      setError('Error al actualizar los datos del vendedor');
+    }
   };
 
   const handleBack = () => {
-    navigate(-1); // Esto te llevará a la página anterior
+    navigate(-1);  // Navegar hacia atrás
   };
 
-  if (!seller) {
-    return <p>Vendedor no encontrado.</p>;
+  if (loading) {
+    return <p>Cargando vendedor...</p>;
+  }
+
+  if (error) {
+    return <p>Error: {error}</p>;
   }
 
   return (
     <div className={styles.editFormWrapper}>
-      {/* Sección de imagen y nombre */}
       <div className={styles.sellerInfo}>
         <img src={formData.photo || '/default-profile.png'} alt="Seller" className={styles.sellerImage} />
         <h2 className={styles.sellerName}>{formData.name} {formData.last_name}</h2>
       </div>
 
-      {/* Formulario para editar los datos del vendedor */}
       <Form onSubmit={handleSubmit} className={styles.formContainer}>
         <FormGroup>
-          <Label for="name">Nombre: {formData.name}</Label>
+          <Label for="name">Nombre</Label>
           <Input
             type="text"
             name="name"
@@ -116,7 +120,7 @@ const EditSellerForm = () => {
         </FormGroup>
 
         <FormGroup>
-          <Label for="last_name">Apellido: {formData.last_name}</Label>
+          <Label for="last_name">Apellido</Label>
           <Input
             type="text"
             name="last_name"
@@ -128,7 +132,7 @@ const EditSellerForm = () => {
         </FormGroup>
 
         <FormGroup>
-          <Label for="mail">Correo Electrónico: {formData.mail}</Label>
+          <Label for="mail">Correo Electrónico</Label>
           <Input
             type="email"
             name="mail"
@@ -140,42 +144,41 @@ const EditSellerForm = () => {
         </FormGroup>
 
         <FormGroup>
-        <Label for="password">Contraseña</Label>
-        <div style={{ display: 'flex', alignItems: 'center' }}>
-          <Input
-            type={showPassword ? 'text' : 'password'} // Cambia el tipo según el estado
-            name="password"
-            id="password"
-            value={formData.password}
-            onChange={handleChange}
-            required
-          />
- <div className={styles.passwordButtons}>
-          <Button
-            type="button"
-            color="secondary"
-            className={styles.toggleButton}
-            style={{ marginLeft: '10px' }}
-            onClick={toggleShowPassword}
-          >
-            {showPassword ? 'Ocultar' : 'Mostrar'} {/* Botón para mostrar/ocultar contraseña */}
-          </Button>
-          <Button
-            type="button"
-            color="secondary"
-            className={styles.generateButton}
-            style={{ marginLeft: '10px' }}
-            onClick={generatePassword}
-          >
-            Generar Contraseña {/* Botón para generar nueva contraseña */}
-          </Button>
+          <Label for="password">Contraseña</Label>
+          <div style={{ display: 'flex', alignItems: 'center' }}>
+            <Input
+              type={showPassword ? 'text' : 'password'}
+              name="password"
+              id="password"
+              value={formData.password}
+              onChange={handleChange}
+              required
+            />
+            <div className={styles.passwordButtons}>
+              <Button
+                type="button"
+                color="secondary"
+                className={styles.toggleButton}
+                style={{ marginLeft: '10px' }}
+                onClick={() => setShowPassword(!showPassword)}
+              >
+                {showPassword ? 'Ocultar' : 'Mostrar'}
+              </Button>
+              <Button
+                type="button"
+                color="secondary"
+                className={styles.generateButton}
+                style={{ marginLeft: '10px' }}
+                onClick={generatePassword}
+              >
+                Generar Contraseña
+              </Button>
+            </div>
           </div>
-        </div>
-      </FormGroup>
-
+        </FormGroup>
 
         <FormGroup>
-          <Label for="phone_number">Número de Teléfono: {formData.phone_number}</Label>
+          <Label for="phone_number">Número de Teléfono</Label>
           <Input
             type="text"
             name="phone_number"

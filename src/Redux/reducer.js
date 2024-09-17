@@ -29,6 +29,9 @@ import {  LOGIN_SUCCESS,
           UPDATE_SELLER_REQUEST,
           UPDATE_SELLER_SUCCESS,
           UPDATE_SELLER_FAIL,
+          GET_SELLER_BY_ID_REQUEST,
+          GET_SELLER_BY_ID_SUCCESS,
+          GET_SELLER_BY_ID_FAILURE,
          } from './Actions/actionTypes';
 
 const initialState = {
@@ -48,6 +51,9 @@ const initialState = {
   activeProperties: [], 
   seller: null,
   sellers: [],
+  selleredit: null,
+  loading: false,
+  error: null,
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -224,6 +230,25 @@ const rootReducer = (state = initialState, action) => {
                     loading: false,
                     error: action.payload,
                   };
+                  case GET_SELLER_BY_ID_REQUEST:
+                    return {
+                      ...state,
+                      loading: true,
+                      error: null,
+                    };
+                  case GET_SELLER_BY_ID_SUCCESS:
+                    return {
+                      ...state,
+                      selleredit: action.payload,  // Asegúrate de que el vendedor esté aquí
+                      loading: false,
+                    };
+                  case GET_SELLER_BY_ID_FAILURE:
+                    return {
+                      ...state,
+                      loading: false,
+                      error: action.payload,
+                    };
+                  
     default:
       return state;
   }
