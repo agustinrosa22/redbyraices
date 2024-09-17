@@ -28,9 +28,7 @@ import {
   UPDATE_SELLER_SUCCESS,
   UPDATE_SELLER_FAIL,
   UPDATE_SELLER_REQUEST,
-  GET_SELLER_BY_ID_REQUEST,
-  GET_SELLER_BY_ID_SUCCESS,
-  GET_SELLER_BY_ID_FAILURE,
+  
  } from './actionTypes';
 
 export const login = ({ mail, password }) => async dispatch => {
@@ -316,21 +314,3 @@ export const updateSeller = (id, sellerData) => async (dispatch) => {
   }
 };
 
-export const getSellerById = (id) => async (dispatch) => {
-  dispatch({ type: GET_SELLER_BY_ID_REQUEST });
-  
-  try {
-    const response = await axios.get(`/seller/${id}`);  // Aquí se hace la petición a la API
-    const sellerData = response.data;
-    
-    dispatch({
-      type: GET_SELLER_BY_ID_SUCCESS,
-      payload: sellerData,
-    });
-  } catch (error) {
-    dispatch({
-      type: GET_SELLER_BY_ID_FAILURE,
-      payload: error.message,
-    });
-  }
-};

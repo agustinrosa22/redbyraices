@@ -230,24 +230,6 @@ const rootReducer = (state = initialState, action) => {
                     loading: false,
                     error: action.payload,
                   };
-                  case GET_SELLER_BY_ID_REQUEST:
-                    return {
-                      ...state,
-                      loading: true,
-                      error: null,
-                    };
-                  case GET_SELLER_BY_ID_SUCCESS:
-                    return {
-                      ...state,
-                      selleredit: action.payload,  // Asegúrate de que el vendedor esté aquí
-                      loading: false,
-                    };
-                  case GET_SELLER_BY_ID_FAILURE:
-                    return {
-                      ...state,
-                      loading: false,
-                      error: action.payload,
-                    };
                   
     default:
       return state;
