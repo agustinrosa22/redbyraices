@@ -7,7 +7,7 @@ import style from './CreateProperty.module.css'
 import logoEmpresa from '../../Assets/favicon-byraices.png';
 import MultiplesImagenes from '../../Components/MultiplesImagenes/MultiplesImagenes';
 import Documentacion from '../../Components/Documents/Documentacion';
-
+import NumberFormat from 'react-number-format';
 
 const CreateProperty = () => {
   const dispatch = useDispatch();
@@ -471,40 +471,35 @@ const CreateProperty = () => {
            (parseFloat(uncovered) || 0) 
   };
 
-  const formatNumber = (value) => {
-    if (!value) return '';
-    // Remover puntos y comas para manejar el valor como número
-    const cleanedValue = value.replace(/[.,]/g, '');
-    // Convertir el valor a número
-    const numberValue = parseFloat(cleanedValue);
-    if (isNaN(numberValue)) return '';
-    // Formatear el número con puntos
-    return numberValue.toLocaleString('de-DE', { minimumFractionDigits: 0 });
+
+  const formatPrice = (value) => {
+    // Eliminar cualquier carácter que no sea dígito ni punto ni coma
+    let cleanedValue = value.replace(/[^\d,.]/g, '');
+
+    return  cleanedValue;
   };
+const handleChange = (e) => {
+  const { name, value } = e.target;
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
+  if (name === 'price') {
+    // Formatear el valor con puntos como separadores de miles
+    const formattedValue = formatPrice(value);
 
-    // Limitar la longitud del valor a 12 dígitos
-    const cleanedValue = value.replace(/[.,]/g, '');
-    if (name === 'price' && (cleanedValue.length > 12 || !/^\d*$/.test(cleanedValue) || value.includes('e'))) {
-      return;
-    }
-
-    let updatedFormData = { ...formData, [name]: cleanedValue };
-
-    // Verificar si se están modificando los campos de metros cuadrados
-    if (name === "coveredSquareMeters" || name === "semiCoveredSquareMeters" || name === "uncovered" || name === "land") {
-      // Calcular el total de metros cuadrados
-      const totalSquareMeters = calculateTotalSquareMeters(updatedFormData);
-      updatedFormData = { ...updatedFormData, totalSquareMeters };
-    }
-
-    if (name === 'price') {
-      setFormData({ ...formData, price: cleanedValue });
-      setDisplayPrice(formatNumber(cleanedValue)); // Actualizar el valor visual
-      setIsValid(!!cleanedValue);
+    // Actualizar el estado del formulario para 'price'
+    setFormData({ ...formData, price: formattedValue });
+    setDisplayPrice(formattedValue); // Mostrar el valor formateado en tiempo real
+    setIsValid(!!formattedValue);
     } else {
+      // Para otros campos como 'description' o 'title', no eliminar puntos ni comas
+      let updatedFormData = { ...formData, [name]: value }; // Mantener el valor original con puntos y comas
+  
+      // Si los campos modificados son metros cuadrados, recalcular el total
+      if (name === "coveredSquareMeters" || name === "semiCoveredSquareMeters" || name === "uncovered" || name === "land") {
+        const totalSquareMeters = calculateTotalSquareMeters(updatedFormData);
+        updatedFormData = { ...updatedFormData, totalSquareMeters };
+      }
+  
+      // Actualizar el estado del formulario
       setFormData(updatedFormData);
     }
   };
