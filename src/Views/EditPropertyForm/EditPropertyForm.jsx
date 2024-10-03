@@ -500,13 +500,29 @@ const EditPropertyForm = () => {
     }));
   };
 
+  const calculateTotalSquareMeters = (data) => {
+    const { coveredSquareMeters, semiCoveredSquareMeters, uncovered, land } = data;
+    return (parseFloat(coveredSquareMeters) || 0) +
+           (parseFloat(semiCoveredSquareMeters) || 0) +
+           (parseFloat(uncovered) || 0) 
+  };
+
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
+  
+    // Actualizar el estado del formulario con los nuevos valores
+    let updatedFormData = { ...formData, [name]: value };
+  
+    // Si los campos modificados son metros cuadrados, recalcular el total
+    if (name === "coveredSquareMeters" || name === "semiCoveredSquareMeters" || name === "uncovered" || name === "land") {
+      const totalSquareMeters = calculateTotalSquareMeters(updatedFormData);
+      updatedFormData = { ...updatedFormData, totalSquareMeters };
+    }
+  
+    // Actualizar el estado del formulario
+    setFormData(updatedFormData);
   };
+  
 
   const handleSubmit = (e) => {
     e.preventDefault();
