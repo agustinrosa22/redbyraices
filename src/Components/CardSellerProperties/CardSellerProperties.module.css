@@ -63,6 +63,11 @@
     background-color: #A83E52;
   }
 
+  .buttonContainer {
+    display: flex;
+    justify-content:end; /* Centra ambos botones horizontalmente */
+    gap: 10px; /* Añade espacio entre los botones */
+  }
     /* Estilos Responsivos */
 @media (max-width: 768px) {
   .card {

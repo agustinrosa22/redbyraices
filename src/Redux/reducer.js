@@ -32,6 +32,15 @@ import {  LOGIN_SUCCESS,
           GET_SELLER_BY_ID_REQUEST,
           GET_SELLER_BY_ID_SUCCESS,
           GET_SELLER_BY_ID_FAILURE,
+          CREATE_VISITA_REQUEST,
+          CREATE_VISITA_SUCCESS,
+          CREATE_VISITA_FAIL,
+          GET_ALL_VISITAS_REQUEST,
+          GET_ALL_VISITAS_SUCCESS,
+          GET_ALL_VISITAS_FAIL,
+          GET_VISITAS_BY_PROPERTY_REQUEST,
+          GET_VISITAS_BY_PROPERTY_SUCCESS,
+          GET_VISITAS_BY_PROPERTY_FAIL,
          } from './Actions/actionTypes';
 
 const initialState = {
@@ -41,7 +50,6 @@ const initialState = {
   userType: localStorage.getItem('userType') || null,
   userDetails: null,
   users: [],
-  error: null,
   propertyCreationError: null,
   mapLocation: null,
   imageUploadError: null,
@@ -54,6 +62,7 @@ const initialState = {
   selleredit: null,
   loading: false,
   error: null,
+  visitas: [],
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -230,6 +239,41 @@ const rootReducer = (state = initialState, action) => {
                     loading: false,
                     error: action.payload,
                   };
+                  case CREATE_VISITA_REQUEST:
+                    case GET_ALL_VISITAS_REQUEST:
+                    case GET_VISITAS_BY_PROPERTY_REQUEST:
+                      return { ...state, loading: true };
+                
+                    case CREATE_VISITA_SUCCESS:
+                      return {
+                        ...state,
+                        loading: false,
+                        visitas: [...state.visitas, action.payload], // Añade la nueva visita
+                      };
+                
+                    case GET_ALL_VISITAS_SUCCESS:
+                      return {
+                        ...state,
+                        loading: false,
+                        visitas: action.payload, // Carga todas las visitas
+                      };
+                
+                    case GET_VISITAS_BY_PROPERTY_SUCCESS:
+                      return {
+                        ...state,
+                        loading: false,
+                        visitas: action.payload, // Carga visitas de una propiedad específica
+                      };
+                
+                    case CREATE_VISITA_FAIL:
+                    case GET_ALL_VISITAS_FAIL:
+                    case GET_VISITAS_BY_PROPERTY_FAIL:
+                      return {
+                        ...state,
+                        loading: false,
+                        error: action.payload, // Manejo de errores
+                      };
+                
                   
     default:
       return state;

@@ -28,6 +28,15 @@ import {
   UPDATE_SELLER_SUCCESS,
   UPDATE_SELLER_FAIL,
   UPDATE_SELLER_REQUEST,
+  CREATE_VISITA_REQUEST,
+  CREATE_VISITA_SUCCESS,
+  CREATE_VISITA_FAIL,
+  GET_ALL_VISITAS_REQUEST,
+  GET_ALL_VISITAS_SUCCESS,
+  GET_ALL_VISITAS_FAIL,
+  GET_VISITAS_BY_PROPERTY_REQUEST,
+  GET_VISITAS_BY_PROPERTY_SUCCESS,
+  GET_VISITAS_BY_PROPERTY_FAIL,
   
  } from './actionTypes';
 
@@ -310,6 +319,68 @@ export const updateSeller = (id, sellerData) => async (dispatch) => {
     dispatch({
       type: UPDATE_SELLER_FAIL,
       payload: 'Error al actualizar el vendedor'
+    });
+  }
+};
+
+export const createVisita = (visitaData) => async (dispatch) => {
+  try {
+    dispatch({ type: CREATE_VISITA_REQUEST });
+
+    const response = await axios.post('/visita', visitaData);
+
+    dispatch({
+      type: CREATE_VISITA_SUCCESS,
+      payload: response.data,
+    });
+  } catch (error) {
+    dispatch({
+      type: CREATE_VISITA_FAIL,
+      payload: error.response && error.response.data.message
+        ? error.response.data.message
+        : error.message,
+    });
+  }
+};
+
+// Acción para obtener todas las visitas
+export const getAllVisitas = () => async (dispatch) => {
+  try {
+    dispatch({ type: GET_ALL_VISITAS_REQUEST });
+
+    const response = await axios.get('/visitas');
+
+    dispatch({
+      type: GET_ALL_VISITAS_SUCCESS,
+      payload: response.data,
+    });
+  } catch (error) {
+    dispatch({
+      type: GET_ALL_VISITAS_FAIL,
+      payload: error.response && error.response.data.message
+        ? error.response.data.message
+        : error.message,
+    });
+  }
+};
+
+// Acción para obtener visitas por propiedad
+export const getVisitasByPropertyId = (propertyId) => async (dispatch) => {
+  try {
+    dispatch({ type: GET_VISITAS_BY_PROPERTY_REQUEST });
+
+    const response = await axios.get(`/visitas/property/${propertyId}`);
+
+    dispatch({
+      type: GET_VISITAS_BY_PROPERTY_SUCCESS,
+      payload: response.data,
+    });
+  } catch (error) {
+    dispatch({
+      type: GET_VISITAS_BY_PROPERTY_FAIL,
+      payload: error.response && error.response.data.message
+        ? error.response.data.message
+        : error.message,
     });
   }
 };

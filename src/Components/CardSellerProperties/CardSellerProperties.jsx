@@ -14,9 +14,17 @@ const CardSellerProperties = ({ property }) => {
         <h5 className={style.cardTitle}>{property.title}</h5>
         <h5 className={style.cardTitle}>$ {property.currency} {property.price}</h5>
         <p className={style.cardText}>{property.description}</p>
-        <Link to={`/detalles/${property.id}`} className={style.detailsLink}>
-          <button className={style.detailsButton}>Ver detalles</button>
-        </Link>
+        <div className={style.buttonContainer}>
+        <Link to={`/historial/visitas/${property.id}`} className={style.detailsLink}>
+    <button className={style.detailsButton}>Historial Visitas</button>
+  </Link>
+  <Link to={`/visita/${property.id}`} className={style.detailsLink}>
+    <button className={style.detailsButton}>Anotar Visita</button>
+  </Link>
+  <Link to={`/detalles/${property.id}`} className={style.detailsLink}>
+    <button className={style.detailsButton}>Ver detalles</button>
+  </Link>
+</div>
       </div>
     </div>
   );

@@ -16,6 +16,8 @@ import DetailListView from './Views/DetailListView/DetailListView'
 import ListAdmin from './Views/ListAdmin/ListAdmin';
 import Sellers from './Views/Sellers/Sellers'
 import EditSellerForm from './Components/EditSellerForm/EditSellerForm'
+import VisitaForm from './Views/VisitaForm/VisitaForm'
+import CardContainerVisitas from './Components/CardContainerVisitas/CardContainerVisitas';
 
 
 function App() {
@@ -31,7 +33,6 @@ function App() {
       dispatch(getUser(user.id));
     }
   }, [dispatch]);
-  
   return (
     <div className="App">
       {location.pathname !== "/" && <NavBar />}
@@ -49,6 +50,8 @@ function App() {
             <Route path='/lista/detail/:id' element={<DetailListView />} />
             <Route path='/usuarios' element={<Sellers />} />
             <Route path="/edit-seller/:id" element={<EditSellerForm />} />
+            <Route path="/visita/:id" element={<VisitaForm />} />
+            <Route path="/historial/visitas/:id" element={<CardContainerVisitas />} />
           </Routes>
         </div>
       </div>

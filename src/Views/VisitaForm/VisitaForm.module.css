@@ -1,0 +1,44 @@
+.title {
+    margin-bottom: 20px; /* Espaciado inferior */
+    font-size: 24px; /* Tamaño de fuente */
+    color: #333; /* Color del texto */
+}
+
+.form {
+    width: 100%; /* Ancho completo */
+}
+
+.label {
+    font-size: 16px; /* Tamaño de fuente para etiquetas */
+    color: #555; /* Color del texto */
+    margin-bottom: 5px; /* Espaciado inferior */
+    display: block; /* Hacer que las etiquetas sean bloques */
+}
+
+.input,
+.textarea {
+    width: 50%; /* Ancho completo del input */
+    margin-left: 25px;
+    height: 40px; /* Altura del input */
+    font-size: 16px; /* Tamaño de fuente */
+    padding: 8px; /* Relleno interior */
+    border: 1px solid #3D2F87 !important; /* Borde */
+    border-radius: 5px; /* Bordes redondeados */
+    box-sizing: border-box; /* Incluir el borde y el relleno en el ancho y alto */
+    color: #3D2F87 ;
+}
+
+.textarea {
+    min-height: 100px; /* Altura mínima para el área de texto */
+    resize: vertical; /* Permitir el cambio de tamaño vertical */
+}
+
+.submitButton {
+    background-color: #007bff; /* Color de fondo */
+    color: white; /* Color del texto */
+    padding: 10px 15px; /* Espaciado interno */
+    border: none; /* Sin borde */
+    border-radius: 4px; /* Bordes redondeados */
+    font-size: 16px; /* Tamaño de fuente */
+    cursor: pointer; /* Cambiar cursor a puntero */
+}
