@@ -97,40 +97,36 @@ export const getUser = userId => async dispatch => {
   }
 };
 
-export const createProperty = (propertyData) => async (dispatch) => {
+export const createProperty = (formData) => async (dispatch) => {
   try {
-    // Recuperar las URLs de las imágenes del localStorage
-    const imageUrls = propertyData.photo;
+      dispatch({ type: 'CREATE_PROPERTY_REQUEST' });
 
-    // Validar que imageUrls sea un array
-    if (!Array.isArray(imageUrls)) {
-      console.error('Error: Las URLs de las imágenes no son un array');
-      alert('Error al crear la propiedad. Por favor, revise los datos e intente nuevamente.');
-      return;
-    }
+      const config = {
+          headers: {
+              'Content-Type': 'multipart/form-data',
+          },
+      };
 
-    // Añadir imágenes a los datos de la propiedad
-    const dataWithImages = { ...propertyData, photo: imageUrls };
+      // Enviar la solicitud POST al backend con los datos del formulario y las imágenes/documentos
+      const { data } = await axios.post('http://localhost:3000/property', formData, config);
 
-    const response = await axios.post('/property', dataWithImages);
+      dispatch({
+          type: 'CREATE_PROPERTY_SUCCESS',
+          payload: data,
+      });
 
-    dispatch({
-      type: CREATE_PROPERTY_SUCCESS,
-      payload: response.data,
-    });
-
-    alert('Propiedad creada con éxito');
-    window.location.href = '/home';
+      // Muestra mensaje de éxito o redirige a otra página si es necesario
+      alert('Propiedad creada exitosamente!');
   } catch (error) {
-    console.error('Error al crear la propiedad:', error);
-    alert('Error al crear la propiedad. Por favor, revise los datos e intente nuevamente.');
-    dispatch({
-      type: CREATE_PROPERTY_FAIL,
-      payload: 'Error al crear la propiedad',
-    });
+      dispatch({
+          type: 'CREATE_PROPERTY_FAIL',
+          payload: error.response?.data?.message || error.message,
+      });
+
+      // Muestra el error si falla
+      alert('Error al crear la propiedad');
   }
 };
-
 
 export const getAllUsers = () => async (dispatch) => {
   try {

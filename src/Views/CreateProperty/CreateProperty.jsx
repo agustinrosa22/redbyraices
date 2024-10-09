@@ -7,7 +7,7 @@ import style from './CreateProperty.module.css'
 import logoEmpresa from '../../Assets/favicon-byraices.png';
 import MultiplesImagenes from '../../Components/MultiplesImagenes/MultiplesImagenes';
 import Documentacion from '../../Components/Documents/Documentacion';
-import NumberFormat from 'react-number-format';
+
 
 const CreateProperty = () => {
   const dispatch = useDispatch();
@@ -311,12 +311,13 @@ const CreateProperty = () => {
     },
     sellerId: '',
     userId: "1",
-    // documentation: [],
+    documentation: [],
   });
 
   const [isValid, setIsValid] = useState(true);
   const [displayPrice, setDisplayPrice] = useState('');
-
+  const [photo, setPhotos] = useState([]);
+  const [documentation, setDocumentation] = useState([]);
  
   const detailLabels = {
     exclusiveContract: 'Contrato Exclusivo',
@@ -478,6 +479,8 @@ const CreateProperty = () => {
 
     return  cleanedValue;
   };
+
+
 const handleChange = (e) => {
   const { name, value } = e.target;
 
@@ -512,6 +515,15 @@ const handleChange = (e) => {
     }
   };
 
+const handleFileChange = (e) => {
+  const { name, files } = e.target;
+
+  if (name === 'photo') {
+    setPhotos(files);
+  } else if (name === 'documentation') {
+    setDocumentation(files);
+  }
+};
 
   const handleSaleButtonClick = () => {
     const currentIsForSale = formData.isForSale;
@@ -620,11 +632,96 @@ const handleChange = (e) => {
 
  
     
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
       e.preventDefault();
-      const propertyData = { ...formData, location: [`${mapLocation.lat}`, `${mapLocation.lng}`] };
-      dispatch(createProperty(propertyData));
-    };
+  
+      // Crear un nuevo FormData para enviar archivos y otros datos
+      const formDataToSend = new FormData();
+  
+      // Añadir los campos de texto y booleanos al FormData
+      formDataToSend.append('propertyType', formData.propertyType);
+      formDataToSend.append('statusProperty', formData.statusProperty);
+      formDataToSend.append('videoLink', formData.videoLink);
+      formDataToSend.append('currency', formData.currency);
+      formDataToSend.append('price', formData.price);
+      formDataToSend.append('currencyExpenses', formData.currencyExpenses);
+      formDataToSend.append('expenses', formData.expenses);
+      formDataToSend.append('totalSquareMeters', formData.totalSquareMeters);
+      formDataToSend.append('coveredSquareMeters', formData.coveredSquareMeters);
+      formDataToSend.append('semiCoveredSquareMeters', formData.semiCoveredSquareMeters);
+      formDataToSend.append('uncovered', formData.uncovered);
+      formDataToSend.append('land', formData.land);
+      formDataToSend.append('age', formData.age);
+      formDataToSend.append('commissionSellerType', formData.commissionSellerType);
+      formDataToSend.append('commissionBuyerType', formData.commissionBuyerType);
+      formDataToSend.append('sellerCommission', formData.sellerCommission);
+      formDataToSend.append('buyerCommission', formData.buyerCommission);
+      formDataToSend.append('availableDate', formData.availableDate);
+      formDataToSend.append('expirationDate', formData.expirationDate);
+      formDataToSend.append('street', formData.street);
+      formDataToSend.append('number', formData.number);
+      formDataToSend.append('country', formData.country);
+      formDataToSend.append('province', formData.province);
+      formDataToSend.append('departments', formData.departments);
+      formDataToSend.append('locality', formData.locality);
+      formDataToSend.append('neighborhood', formData.neighborhood);
+      formDataToSend.append('privateNeighborhood', formData.privateNeighborhood);
+      formDataToSend.append('title', formData.title);
+      formDataToSend.append('description', formData.description);
+      formDataToSend.append('floorPlans', formData.floorPlans);
+      formDataToSend.append('isForSale', formData.isForSale);
+      formDataToSend.append('isForRent', formData.isForRent);
+      formDataToSend.append('isFinished', formData.isFinished);
+      formDataToSend.append('isUnderDevelopment', formData.isUnderDevelopment);
+      formDataToSend.append('sellerId', formData.sellerId);
+      formDataToSend.append('userId', formData.userId);
+      formDataToSend.append('location', formData.location);
+      // Agregar los campos complejos (amenities, environmentsOptions, services, characteristics)
+      Object.keys(formData.amenities).forEach((key) => {
+          formDataToSend.append(`amenities[${key}]`, formData.amenities[key]);
+      });
+      Object.keys(formData.environmentsOptions).forEach((key) => {
+          formDataToSend.append(`environmentsOptions[${key}]`, formData.environmentsOptions[key]);
+      });
+      Object.keys(formData.services).forEach((key) => {
+          formDataToSend.append(`services[${key}]`, formData.services[key]);
+      });
+      Object.keys(formData.characteristics).forEach((key) => {
+          formDataToSend.append(`characteristics[${key}]`, formData.characteristics[key]);
+      });
+      Object.keys(formData.detailsProperty).forEach((key) => {
+          formDataToSend.append(`detailsProperty[${key}]`, formData.detailsProperty[key]);
+      });
+  
+      // Añadir archivos de imágenes (photos) al FormData
+      for (let i = 0; i < photo.length; i++) {
+        formDataToSend.append('photo', photo[i]);
+      }
+      
+      // Añadir archivos de documentación al FormData
+      for (let i = 0; i < documentation.length; i++) {
+        formDataToSend.append('documentation', documentation[i]);
+      }
+  
+      try {
+          // Si estás usando Redux, puedes disparar una acción:
+          dispatch(createProperty(formDataToSend));
+  
+          // Si no usas Redux, puedes hacer la solicitud directamente con axios:
+          /*
+          const config = {
+              headers: {
+                  'Content-Type': 'multipart/form-data',
+              },
+          };
+          await axios.post('http://localhost:3000/property', formDataToSend, config);
+          alert('Propiedad creada exitosamente');
+          */
+      } catch (error) {
+          console.error('Error al enviar el formulario:', error);
+          alert('Error al crear la propiedad');
+      }
+  };
 
 //  const handleSubmit = (e) => {
 //   e.preventDefault();
@@ -632,6 +729,7 @@ const handleChange = (e) => {
 //   dispatch(createProperty(propertyData));
 //   // Resto del código...
 // };
+console.log(formData);
 
   return (
     <form className={style.form} onSubmit={handleSubmit}>
@@ -1035,10 +1133,14 @@ const handleChange = (e) => {
     </label>
  </div>
 
- <MultiplesImagenes
-          initialImages={formData.photo}
-          onImagesChange={(images) => setFormData({ ...formData, photo: images })}
-        />
+ <input
+                type="file"
+                name="photo"
+                multiple
+                onChange={handleFileChange}
+                accept="image/*"
+            />
+
     <div className={style.formGroup}>
 
   <h2 className={style.title}>
@@ -1048,7 +1150,13 @@ const handleChange = (e) => {
       <input className={style.inputText} type="text" name="videoLink" placeholder='Link de YouTube' value={formData.videoLink} onChange={handleChange} />
    
     </div>
-    <Documentacion/>
+    <input
+                type="file"
+                name="documentation"
+                multiple
+                onChange={handleFileChange}
+                accept="application/pdf/image/"
+            />
     <button type="submit">Submit</button>
   </form>
   );

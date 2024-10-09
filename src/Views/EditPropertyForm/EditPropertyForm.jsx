@@ -933,10 +933,7 @@ Video Link
     <input className={style.inputText} type="text" name="videoLink" placeholder='Link de YouTube' value={formData.videoLink} onChange={handleChange} />
  
   </div>
-  <MultiplesImagenes
-            initialImages={formData.photo}
-            onImagesChange={(images) => setFormData({ ...formData, photo: images })}
-          />
+ 
         <button type="submit">Guardar Cambios</button>
       </form>
     </div>

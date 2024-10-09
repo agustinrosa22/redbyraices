@@ -92,16 +92,24 @@ const rootReducer = (state = initialState, action) => {
           userDetails: null,
           error: action.payload
         };
-      case CREATE_PROPERTY_SUCCESS:
-        return {
-        ...state,
-        propertyCreationError: null,
-      };
-      case CREATE_PROPERTY_FAIL:
-        return {
-        ...state,
-        propertyCreationError: action.payload,
-      };
+        case 'CREATE_PROPERTY_REQUEST':
+          return {
+              ...state,
+              loading: true,
+          };
+      case 'CREATE_PROPERTY_SUCCESS':
+          return {
+              ...state,
+              loading: false,
+              property: action.payload,
+              error: null,
+          };
+      case 'CREATE_PROPERTY_FAIL':
+          return {
+              ...state,
+              loading: false,
+              error: action.payload,
+          };
       case GET_ALL_USERS_SUCCESS:
       return {
         ...state,
