@@ -1,0 +1,345 @@
+.form {
+ 
+    display: flex;
+    flex-direction: column;
+    max-width: 1040px;
+    margin: auto;
+  }
+  
+  .formGroup {
+    margin-bottom: 20px;
+  }
+  
+  label {
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+  }
+  
+  input[type="text"],
+  input[type="checkbox"] {
+    padding: 0.5rem;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+  }
+  
+  input[type="checkbox"] {
+    width: auto;
+  }
+
+  .errorBorder {
+    border: 1px solid red;
+  }
+  
+  .errorMessage {
+    color: red;
+    font-size: 12px;
+    margin-top: 5px;
+  }
+  
+  .submitButton {
+    background-color: #3D2F87 ;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .submitButton:hover {
+    background-color: #0056b3;
+  }
+
+  .userList {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    flex-direction: column;
+  }
+  
+  
+  .selected {
+    border-color: #3D2F87 ;
+    box-shadow: 0px 0px 5px 0px rgba(0,0,255,0.2);
+  }
+
+  .Username{
+    font-size: 16px;
+  }
+
+  .Userinfo{
+    font-size: 14px;
+  }
+
+  .centeredContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    
+  }
+ 
+
+  .title{
+    display: flex;
+    text-align: left;
+    padding-left: 25px;
+  }
+  .userListContainer {
+    padding: 20px;
+    border: 2px solid #3D2F87 ; /* Borde para cada tarjeta de usuario */
+    border-radius: 10px;
+    max-height: 300px; /* Altura máxima del contenedor */
+    overflow-y: auto; /* Agregar barra de desplazamiento vertical cuando sea necesario */
+    width: 1000px;
+    flex-wrap: wrap; 
+    align-items: center;
+  justify-content: center;
+  }
+  
+  .userList {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* Dos columnas de tamaño mínimo de 200px, expandiéndose para llenar el espacio disponible */
+    gap: 20px; /* Espacio entre las tarjetas de usuario */
+   
+    
+  }
+  
+  .userCard {
+    border: 1px solid #ccc; /* Borde para cada tarjeta de usuario */
+    width: 200px;
+    padding: 10px;
+    margin: 0 auto;
+  }
+
+  .operationContainer {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+  }
+  
+  .operationButton {
+    width: 45%; /* Ajusta el ancho del botón según tu preferencia */
+    padding: 10px; /* Ajusta el relleno según tu preferencia */
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  
+  .operationButton:focus {
+    outline: none;
+  }
+  
+  .operationButton.sale {
+    background-color: #ffffff; /* Verde para la opción de venta */
+    color: rgb(0, 0, 0);
+    border: 1px solid black;
+  }
+  
+  .operationButton.rent {
+    background-color: #ffffff; /* Rojo para la opción de alquiler */
+    color: rgb(0, 0, 0);
+    border: 1px solid black;
+  }
+  
+  .operationButton.selected {
+    border: 1px solid #3D2F87 !important;
+    color: #3D2F87 ;
+  }
+ 
+  .propertyTypeDropdown {
+    width: 90%; /* Haz que el dropdown ocupe todo el ancho disponible */
+    padding: 15px; /* Ajusta el relleno según tu preferencia */
+    font-size: 18px; /* Ajusta el tamaño de la fuente según tu preferencia */
+    border: 1px solid #3D2F87 ; /* Añade un borde para mejorar la apariencia */
+    border-radius: 5px; /* Añade esquinas redondeadas */
+    background-color: #fff; /* Color de fondo blanco */
+    color: #3D2F87 ; /* Color del texto */
+    align-items: center;
+    box-sizing: border-box; /* Incluye borde y relleno en el ancho especificado */
+    margin-left: 25px;
+    
+
+  }
+  
+  .propertyTypeDropdown:focus {
+    outline: none; /* Elimina el contorno al hacer clic en el dropdown */
+  }
+  
+  .propertyTypeDropdown option[selected] {
+    background-color: #3D2F87 ; /* Color de fondo azul para la opción seleccionada */
+    color: white; /* Color del texto para la opción seleccionada */
+  }
+  
+  .selectInput {
+    width: auto; /* Ancho automático */
+    font-size: 18px; /* Tamaño de fuente */
+    border: 1px solid #3D2F87 !important; /* Borde para mejorar la apariencia */
+    background-color: #fff; /* Fondo blanco */
+    color: #3D2F87 ; /* Color del texto */
+    padding: 10px; /* Ajusta el relleno según tu preferencia */
+    margin-left: 25px;
+    border-top-left-radius: 5px; /* Redondea la esquina superior izquierda */
+    border-bottom-left-radius: 5px; /* Redondea la esquina inferior izquierda */
+  }
+  
+  .inputNumber {
+    width: auto; /* Ancho automático */
+    font-size: 18px; /* Tamaño de fuente */
+    border: 1px solid #3D2F87 !important;/* Borde para mejorar la apariencia */
+    background-color: #fff; /* Fondo blanco */
+    color: #3D2F87 ; /* Color del texto */
+    padding: 10px; /* Ajusta el relleno según tu preferencia */
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+  }
+
+  input[type="date"] {
+    width: 50%; /* Ancho completo del input */
+    margin-left: 25px;
+    height: 40px; /* Altura del input */
+    font-size: 16px; /* Tamaño de fuente */
+    padding: 8px; /* Relleno interior */
+    border: 1px solid #3D2F87 !important; /* Borde */
+    border-radius: 5px; /* Bordes redondeados */
+    box-sizing: border-box; /* Incluir el borde y el relleno en el ancho y alto */
+    color: #3D2F87 ;
+  }
+
+  .formUbication{
+    border: 1px solid #3D2F87;
+  border-radius: 5px;
+  padding: 20px;
+  margin-bottom: 20px;
+  }
+
+  .formRow {
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+    
+  }
+  
+  .formColumn {
+    flex: 1;
+    margin-right: 30px;
+
+  }
+  
+  .subtitle {
+    font-size: 20px;
+    margin-bottom: 10px;
+    margin-left: 25px;
+  }
+  
+  .inputGroup {
+    margin-bottom: 20px;
+    
+  }
+  
+  .inputText {
+    width: calc(100% - 50px); 
+    height: 40px;
+    font-size: 16px;
+    padding: 8px;
+    border: 1px solid #3D2F87 !important;
+    color: #3D2F87;
+    border-radius: 5px;
+    box-sizing: border-box;
+    margin-left: 25px;
+  }
+
+  .formGroupMedidas {
+    border: 1px solid #3D2F87  ;
+    border-radius: 8px;
+    padding: 10px;
+    margin-bottom: 20px;
+    
+  }
+  
+  .inputGroup {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  
+  .inputContainer {
+    flex: 1;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    width: 50%;
+  }
+  
+  .subtitleM {
+    font-size: 16px;
+    margin-bottom: 5px;
+  }
+  
+  .inputM {
+    width: auto; /* Ancho automático */
+    font-size: 18px; /* Tamaño de fuente */
+    border: 1px solid #3D2F87 !important;/* Borde para mejorar la apariencia */
+    background-color: #fff; /* Fondo blanco */
+    color: #3D2F87 ; /* Color del texto */
+    padding: 10px; /* Ajusta el relleno según tu preferencia */
+    border-radius: 5px;
+  }
+  
+  .title {
+    font-size: 20px;
+    margin-bottom: 10px;
+  }
+  
+  .total {
+    margin-top: 10px;
+    font-size: 18px;
+  }
+  
+  .inputAge{
+    width: auto; /* Ancho automático */
+    font-size: 18px; /* Tamaño de fuente */
+    border: 1px solid #3D2F87 !important;/* Borde para mejorar la apariencia */
+    background-color: #fff; /* Fondo blanco */
+    color: #3D2F87 ; /* Color del texto */
+    padding: 10px; /* Ajusta el relleno según tu preferencia */
+    border-radius: 5px;
+    margin-left: 25px;
+  }
+
+  .formGroupChechbox{
+    border: 1px solid #3D2F87 !important;
+    border-radius: 8px;
+    padding: 25px;
+    margin-bottom: 20px;
+  }
+  
+  .detailItem {
+    margin-bottom: 10px; /* Aumenta el espacio entre los elementos de detalle */
+  }
+  input[type="checkbox"] {
+    margin-right: 10px;
+    transform: scale(1.5); /* Aumenta el tamaño del checkbox */
+    border: 2px solid#3D2F87 !important; /* Establece el borde rojo para el checkbox */
+  }
+  
+  input[type="checkbox"]:checked {
+    background-color: #3D2F87 !important; /* Cambia el color de fondo cuando el checkbox está marcado */
+  }
+  
+  .label {
+    font-size: 28px;
+    color: #3D2F87;
+  }
+
+  .inputDescription {
+    width: 100%;
+    padding: 0.5rem;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    resize: vertical; /* Permitir redimensionar verticalmente */
+    margin-left: 25px;
+    border: 1px solid#3D2F87 !important; 
+    box-sizing: border-box;
+  }
+  

@@ -16,8 +16,11 @@ const EditSellerForm = () => {
     phone_number: '',
     photo: '',
     password: '',
+    status: true,
+    martillerId: '',
   });
   
+  const [selectedImage, setSelectedImage] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [showPassword, setShowPassword] = useState(false);
@@ -26,16 +29,18 @@ const EditSellerForm = () => {
   useEffect(() => {
     const fetchSeller = async () => {
       try {
-        const response = await axios.get(`/seller/${id}`);  // Cambia la URL según tu API
+        const response = await axios.get(`/seller/${id}`);
         const seller = response.data.data;
         setFormData({
           name: seller.name,
           last_name: seller.last_name,
           mail: seller.mail,
           phone_number: seller.phone_number,
-          photo: seller.photo || '',
           password: seller.password,
+          status: seller.status,
+          martillerId: seller.martillerId,
         });
+        setSelectedImage(seller.photo || ''); // Establecer la imagen actual si existe
         setLoading(false);
       } catch (error) {
         console.error('Error fetching seller details:', error);
@@ -43,9 +48,13 @@ const EditSellerForm = () => {
         setLoading(false);
       }
     };
-    
     fetchSeller();
   }, [id]);
+
+  const handleImageSelected = (file) => {
+    setSelectedImage(file);
+  };
+
 
   // Función para generar una contraseña aleatoria
   const generatePassword = () => {
@@ -69,23 +78,35 @@ const EditSellerForm = () => {
     });
   };
 
-  const handleImageSelected = (imageUrl) => {
-    setFormData({
-      ...formData,
-      photo: imageUrl,
-    });
-  };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const formDataToSend = new FormData();
+
+    formDataToSend.append('name', formData.name);
+    formDataToSend.append('last_name', formData.last_name);
+    formDataToSend.append('mail', formData.mail);
+    formDataToSend.append('phone_number', formData.phone_number);
+    formDataToSend.append('password', formData.password);
+    formDataToSend.append('status', formData.status);
+    formDataToSend.append('martillerId', formData.martillerId);
+    
+    if (selectedImage) {
+      formDataToSend.append('photo', selectedImage);  // Adjuntar la imagen solo si se seleccionó una nueva
+    }
+
     try {
-      await axios.put(`/seller/${id}`, formData);  // Cambia la URL según tu API
-      navigate(-1);  // Navega de vuelta después de la actualización
+      await axios.put(`/seller/${id}`, formDataToSend, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
+      navigate(-1);
     } catch (error) {
       console.error('Error updating seller details:', error);
       setError('Error al actualizar los datos del vendedor');
     }
   };
+
 
   const handleBack = () => {
     navigate(-1);  // Navegar hacia atrás
@@ -191,8 +212,43 @@ const EditSellerForm = () => {
 
         <FormGroup>
           <Label for="photo">Foto</Label>
-          <ImageSeller onImageSelected={handleImageSelected} currentImage={formData.photo} />
+          <ImageSeller onImageSelected={handleImageSelected} currentImage={selectedImage} />
         </FormGroup>
+
+        
+    <FormGroup>
+      <Label for="martillerId">Martillero</Label>
+      <Input
+        type="select"
+        name="martillerId"
+        id="martillerId"
+        className={styles.inputField}
+        value={formData.martillerId}
+        onChange={handleChange}
+        required
+      >
+        <option value="">Selecciona un Martillero</option>
+        <option value="2">Abi Caon</option>
+        <option value="4">Julieta Garcia</option>
+      </Input>
+    </FormGroup>
+
+    
+    <FormGroup>
+      <Label for="status">Status</Label>
+      <Input
+        type="select"
+        name="status"
+        id="status"
+        className={styles.inputField}
+        value={formData.status}
+        onChange={handleChange}
+        required
+      >
+        <option value="true" >Activo</option>
+        <option value="false">Inactivo</option>
+      </Input>
+    </FormGroup>
 
         <div className={styles.buttonGroup}>
           <Button

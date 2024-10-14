@@ -5,7 +5,8 @@ import { getAllUsers } from '../../Redux/Actions/actions';
 import { GoogleMap, LoadScript, Marker, StandaloneSearchBox  } from '@react-google-maps/api';
 import style from './CreateProperty.module.css'
 import logoEmpresa from '../../Assets/favicon-byraices.png';
-import MultiplesImagenes from '../../Components/MultiplesImagenes/MultiplesImagenes';
+import axios from 'axios';
+import FileUploader from '../../Components/MultiplesImagenes/MultiplesImagenes';
 import Documentacion from '../../Components/Documents/Documentacion';
 
 
@@ -56,6 +57,7 @@ const CreateProperty = () => {
     expirationDate: '',
     location: [],
     photo: [],
+    documentation: [],
     street: '',
     number: '',
     country: '',
@@ -311,7 +313,7 @@ const CreateProperty = () => {
     },
     sellerId: '',
     userId: "1",
-    documentation: [],
+   
   });
 
   const [isValid, setIsValid] = useState(true);
@@ -515,16 +517,15 @@ const handleChange = (e) => {
     }
   };
 
-const handleFileChange = (e) => {
-  const { name, files } = e.target;
-
-  if (name === 'photo') {
-    setPhotos(files);
-  } else if (name === 'documentation') {
-    setDocumentation(files);
-  }
-};
-
+  const handleFileChange = (e) => {
+    const { name, files } = e.target;
+    if (name === 'photo') {
+      setPhotos(files);
+    } else if (name === 'documentation') {
+      setDocumentation(files);
+    }
+  };
+    
   const handleSaleButtonClick = () => {
     const currentIsForSale = formData.isForSale;
     setFormData({
@@ -634,10 +635,10 @@ const handleFileChange = (e) => {
     
     const handleSubmit = async (e) => {
       e.preventDefault();
-  
+    
       // Crear un nuevo FormData para enviar archivos y otros datos
       const formDataToSend = new FormData();
-  
+    
       // Añadir los campos de texto y booleanos al FormData
       formDataToSend.append('propertyType', formData.propertyType);
       formDataToSend.append('statusProperty', formData.statusProperty);
@@ -675,60 +676,60 @@ const handleFileChange = (e) => {
       formDataToSend.append('isUnderDevelopment', formData.isUnderDevelopment);
       formDataToSend.append('sellerId', formData.sellerId);
       formDataToSend.append('userId', formData.userId);
-      formDataToSend.append('location', formData.location);
+    
+           // Guardar la ubicación como un array de coordenadas (latitud, longitud)
+           if (mapLocation) {
+            formDataToSend.append('location[]', mapLocation.lat);  // Latitud
+            formDataToSend.append('location[]', mapLocation.lng);  // Longitud
+          }
       // Agregar los campos complejos (amenities, environmentsOptions, services, characteristics)
       Object.keys(formData.amenities).forEach((key) => {
-          formDataToSend.append(`amenities[${key}]`, formData.amenities[key]);
+        formDataToSend.append(`amenities[${key}]`, formData.amenities[key]);
       });
       Object.keys(formData.environmentsOptions).forEach((key) => {
-          formDataToSend.append(`environmentsOptions[${key}]`, formData.environmentsOptions[key]);
+        formDataToSend.append(`environmentsOptions[${key}]`, formData.environmentsOptions[key]);
       });
       Object.keys(formData.services).forEach((key) => {
-          formDataToSend.append(`services[${key}]`, formData.services[key]);
+        formDataToSend.append(`services[${key}]`, formData.services[key]);
       });
       Object.keys(formData.characteristics).forEach((key) => {
-          formDataToSend.append(`characteristics[${key}]`, formData.characteristics[key]);
+        formDataToSend.append(`characteristics[${key}]`, formData.characteristics[key]);
       });
       Object.keys(formData.detailsProperty).forEach((key) => {
-          formDataToSend.append(`detailsProperty[${key}]`, formData.detailsProperty[key]);
+        formDataToSend.append(`detailsProperty[${key}]`, formData.detailsProperty[key]);
       });
-  
+    
       // Añadir archivos de imágenes (photos) al FormData
       for (let i = 0; i < photo.length; i++) {
         formDataToSend.append('photo', photo[i]);
       }
-      
+    
       // Añadir archivos de documentación al FormData
       for (let i = 0; i < documentation.length; i++) {
         formDataToSend.append('documentation', documentation[i]);
       }
-  
+    
       try {
-          // Si estás usando Redux, puedes disparar una acción:
-          dispatch(createProperty(formDataToSend));
-  
-          // Si no usas Redux, puedes hacer la solicitud directamente con axios:
-          /*
-          const config = {
-              headers: {
-                  'Content-Type': 'multipart/form-data',
-              },
-          };
-          await axios.post('http://localhost:3000/property', formDataToSend, config);
-          alert('Propiedad creada exitosamente');
-          */
+        // Si estás usando Redux, puedes disparar una acción:
+        dispatch(createProperty(formDataToSend));
+    
+        // Si no usas Redux, puedes hacer la solicitud directamente con axios:
+        /*
+        const config = {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        };
+        await axios.post('http://localhost:3000/property', formDataToSend, config);
+        alert('Propiedad creada exitosamente');
+        */
       } catch (error) {
-          console.error('Error al enviar el formulario:', error);
-          alert('Error al crear la propiedad');
+        console.error('Error al enviar el formulario:', error);
+        alert('Error al crear la propiedad');
       }
-  };
+    };
+    
 
-//  const handleSubmit = (e) => {
-//   e.preventDefault();
-//   const propertyData = { ...formData, location: mapLocation };
-//   dispatch(createProperty(propertyData));
-//   // Resto del código...
-// };
 console.log(formData);
 
   return (
@@ -1133,14 +1134,12 @@ console.log(formData);
     </label>
  </div>
 
- <input
-                type="file"
-                name="photo"
-                multiple
-                onChange={handleFileChange}
-                accept="image/*"
-            />
-
+ <FileUploader
+        name="photo"
+        handleFileChange={handleFileChange}
+        accept="image/*"
+        multiple={true}
+      />
     <div className={style.formGroup}>
 
   <h2 className={style.title}>
@@ -1150,13 +1149,12 @@ console.log(formData);
       <input className={style.inputText} type="text" name="videoLink" placeholder='Link de YouTube' value={formData.videoLink} onChange={handleChange} />
    
     </div>
-    <input
-                type="file"
-                name="documentation"
-                multiple
-                onChange={handleFileChange}
-                accept="application/pdf/image/"
-            />
+    <FileUploader
+        name="documentation"
+        handleFileChange={handleFileChange}
+        accept="application/pdf"
+        multiple={true}
+      />
     <button type="submit">Submit</button>
   </form>
   );

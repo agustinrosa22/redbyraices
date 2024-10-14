@@ -24,6 +24,7 @@ const CardAprobar = ({ property }) => {
       </div>
       <div className={style.cardContent}>
         <h5 className={style.cardTitle}>{property.title}</h5>
+        <h5 className={style.cardTitle}>{property.id}</h5>
         <h5 className={style.cardTitle}>$ {property.currency} {property.price}</h5>
         <p className={style.cardText}>{property.description}</p>
         <Link to={`https://byraices.com/detail/${property.id}`} className={style.detailsLink}>

@@ -78,24 +78,33 @@ const FormUsuarios = () => {
   };
   
 
-  const handleImageSelected = (imageUrl) => {
+  const handleImageSelected = (imageFile) => {
     setFormData({
       ...formData,
-      photo: imageUrl,
+      photo: imageFile, // Asignar el archivo de imagen seleccionado al formData
     });
   };
-  // Manejar el submit del formulario
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    const dataToSubmit = {
-      ...formData,
-      mail: `${formData.mail}@byraices.com`, // Concatenar la terminación al enviar
-    };
+    const dataToSubmit = new FormData();
+    dataToSubmit.append('mail', `${formData.mail}@byraices.com`); // Concatenar la terminación al enviar
+    dataToSubmit.append('password', formData.password);
+    dataToSubmit.append('name', formData.name);
+    dataToSubmit.append('last_name', formData.last_name);
+    dataToSubmit.append('phone_number', formData.phone_number);
+    dataToSubmit.append('type', formData.type);
+    dataToSubmit.append('status', formData.status);
+    dataToSubmit.append('martillerId', formData.martillerId);
+    dataToSubmit.append('officeId', formData.officeId);
 
-    dispatch(createUserSeller(dataToSubmit));
+    if (formData.photo) {
+      dataToSubmit.append('photo', formData.photo); // Solo añadir si hay imagen
+    }
+
+    dispatch(createUserSeller(dataToSubmit)); // Acción Redux para crear un vendedor
   };
-
   return (
     <Form onSubmit={handleSubmit} className={style.formContainer}>
     <FormGroup>
@@ -185,7 +194,7 @@ const FormUsuarios = () => {
     </FormGroup>
 
     <div className={style.imageContainer}>
-      <ImageSeller onImageSelected={handleImageSelected} />
+       <ImageSeller onImageSelected={handleImageSelected} />
     </div>
 
     <FormGroup>

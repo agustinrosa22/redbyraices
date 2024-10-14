@@ -81,6 +81,8 @@ const EditPropertyForm = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
   const user = useSelector(state => state.user);
+  const [selectedPhotos, setSelectedPhotos] = useState([]);
+
   const [formData, setFormData] = useState({
     propertyType: '',
     statusProperty: false,
@@ -523,10 +525,42 @@ const EditPropertyForm = () => {
     setFormData(updatedFormData);
   };
   
+  const handlePhotoChange = (e) => {
+    setSelectedPhotos([...e.target.files]);
+  };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    dispatch(editProperty(id, formData));
+
+    const formDataToSend = new FormData();
+    for (const key in formData) {
+      if (formData[key] instanceof Array) {
+        formData[key].forEach((item) => {
+          formDataToSend.append(`${key}[]`, item);
+        });
+      } else {
+        formDataToSend.append(key, formData[key]);
+      }
+    }
+
+    // Agregar las fotos seleccionadas al FormData
+    for (const photo of selectedPhotos) {
+      formDataToSend.append('photo', photo);
+    }
+
+    // // Agregar la documentación seleccionada al FormData
+    // for (const doc of selectedDocumentation) {
+    //   formDataToSend.append('documentation', doc);
+    // }
+
+    // Enviar la propiedad editada
+    try {
+      await dispatch(editProperty(id, formDataToSend)); // Usando Redux para editar la propiedad
+      alert('Propiedad actualizada correctamente.');
+    } catch (error) {
+      console.error('Error al actualizar la propiedad:', error);
+      alert('Error al actualizar la propiedad.');
+    }
   };
 
   const handleSaleButtonClick = () => {
@@ -925,7 +959,7 @@ const EditPropertyForm = () => {
     </label>
  </div>
  <div className={style.formGroup}>
-
+ <input type="file" multiple onChange={handlePhotoChange} />
 <h2 className={style.title}>
 Video Link
 </h2>
