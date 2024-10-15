@@ -108,7 +108,7 @@ export const createProperty = (formData) => async (dispatch) => {
       };
 
       // Enviar la solicitud POST al backend con los datos del formulario y las imágenes/documentos
-      const { data } = await axios.post('http://localhost:3000/property', formData, config);
+      const { data } = await axios.post('https://server.byraices.com/property', formData, config);
 
       dispatch({
           type: 'CREATE_PROPERTY_SUCCESS',
