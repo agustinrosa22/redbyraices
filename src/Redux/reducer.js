@@ -41,6 +41,8 @@ import {  LOGIN_SUCCESS,
           GET_VISITAS_BY_PROPERTY_REQUEST,
           GET_VISITAS_BY_PROPERTY_SUCCESS,
           GET_VISITAS_BY_PROPERTY_FAIL,
+          GET_PROPERTIES_BY_SELLER,
+          GET_PROPERTIES_BY_SELLER_ERROR,
          } from './Actions/actionTypes';
 
 const initialState = {
@@ -59,6 +61,7 @@ const initialState = {
   activeProperties: [], 
   seller: null,
   sellers: [],
+  sellerProperties: {},
   selleredit: null,
   loading: false,
   error: null,
@@ -281,7 +284,17 @@ const rootReducer = (state = initialState, action) => {
                         loading: false,
                         error: action.payload, // Manejo de errores
                       };
-                
+                      case GET_PROPERTIES_BY_SELLER:
+                        return {
+                          ...state,
+                          sellerProperties: {
+                            ...state.sellerProperties,
+                            [action.payload.sellerId]: action.payload.properties, // Asigna las propiedades por sellerId
+                          },
+                        };
+                      case GET_PROPERTIES_BY_SELLER_ERROR:
+                        // Maneja otros errores si es necesario
+                        return state; 
                   
     default:
       return state;

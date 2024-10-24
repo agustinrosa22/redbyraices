@@ -2,19 +2,19 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from './CardSellers.module.css';
 
-const CardSellers = ({ seller }) => {
+const CardSellers = ({ seller, propertiesCount }) => {
   const { name, last_name, mail, phone_number, photo, type, status, officeId } = seller;
-  const navigate = useNavigate(); // Reemplaza useHistory con useNavigate
+  const navigate = useNavigate();
 
   const handleEditClick = () => {
-    navigate(`/edit-seller/${seller.id}`); // Navega al formulario de edición
+    navigate(`/edit-seller/${seller.id}`);
   };
 
   return (
     <div className={styles.card} onClick={handleEditClick}>
       <div className={styles.header}>
         <img 
-          src={photo || '/default-avatar.png'} // Usar una imagen por defecto si no hay foto
+          src={photo || '/default-avatar.png'} 
           alt={`${name} ${last_name}`} 
           className={styles.photo}
         />
@@ -29,6 +29,7 @@ const CardSellers = ({ seller }) => {
         <p><strong>Teléfono:</strong> {phone_number}</p>
         <p><strong>Estado:</strong> {status ? 'Activo' : 'Inactivo'}</p>
         <p><strong>Oficina ID:</strong> {officeId}</p>
+        <p><strong>Cantidad de Propiedades:</strong> {propertiesCount}</p> {/* Mostrar cantidad de propiedades */}
       </div>
     </div>
   );

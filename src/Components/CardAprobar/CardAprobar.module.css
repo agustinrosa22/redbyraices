@@ -76,6 +76,23 @@
     background-color: #45a049; /* Color de fondo verde más oscuro al pasar el cursor */
   }
 
+  .deleteButton{
+    background-color: #A83E52; /* Color de fondo verde */
+    border: none; /* Sin borde */
+    color: white; /* Texto blanco */
+    padding: 10px 20px; /* Espaciado */
+    text-align: center; /* Centrar texto */
+    text-decoration: none; /* Sin subrayado */
+    display: inline-block; /* Mostrar como un bloque en línea */
+    font-size: 16px; /* Tamaño de fuente */
+    margin: 10px 2px; /* Margen */
+    cursor: pointer; /* Cursor en forma de mano */
+  }
+
+  .deleteButton:hover {
+    background-color: #ff002f; /* Color de fondo verde más oscuro al pasar el cursor */
+  }
+
   /* Estilos Responsivos */
 @media (max-width: 768px) {
   .card {

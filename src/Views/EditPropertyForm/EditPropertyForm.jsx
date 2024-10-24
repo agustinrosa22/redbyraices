@@ -133,6 +133,8 @@ const EditPropertyForm = () => {
       try {
         const response = await axios.get(`/property/${id}`);
         const propertyData = response.data.data;
+  
+        // Convertir booleanos a strings
         setFormData({
           price: propertyData.price,
           description: propertyData.description,
@@ -154,7 +156,7 @@ const EditPropertyForm = () => {
           availableDate: propertyData.availableDate,
           expirationDate: propertyData.expirationDate,
           location: [
-            propertyData.location[0].toString(), // Asegúrate de que location sea un array de strings
+            propertyData.location[0].toString(), 
             propertyData.location[1].toString()
           ],
           street: propertyData.street,
@@ -172,134 +174,27 @@ const EditPropertyForm = () => {
           garages: propertyData.garages,
           title: propertyData.title,
           floorPlans: propertyData.floorPlans,
-          isForSale: propertyData.isForSale,
-          isForRent: propertyData.isForRent,
-          isFinished: propertyData.isFinished,
-          isUnderDevelopment: propertyData.isUnderDevelopment,
-          amenities: propertyData.amenities || {
-            aireAcondicionado: false,
-            portonAutomatico: false,
-            gimnasio: false,
-            losaRadiante: false,
-            chimenea: false,
-            hidromasaje: false,
-            seguridad: false,
-            pileta: false,
-            caldera: false,
-            businessCenter: false,
-            areaCine: false,
-            cisterna: false,
-            laundry: false,
-            estacionamientoVisitas: false,
-            ascensor: false,
-            salonUsosMultiples: false,
-            areaDeJuegosInfantiles: false,
-            canchaTenis: false,
-            recepcion: false,
-            areasVerdes: false,
-            valetParking: false,
-            canchaBasquetbol: false,
-            canchaFutbol: false,
-            canchaPaddle: false,
-            solarium: false,
-            jardinDeInvierno: false,
-            piletaCubierta: false,
-            piletaClimatizada: false,
-            sauna: false,
-            bar: false,
-            calefaccion: false,
-          },
-          environmentsOptions: propertyData.environmentsOptions || {
-            dormitorio: false,
-            comedor: false,
-            vestidor: false,
-            jardin: false,
-            baño: false,
-            patio: false,
-            terraza: false,
-            estudio: false,
-            lavadero: false,
-            altillo: false,
-            playroom: false,
-            lobby: false,
-            quincho: false,
-            salaDeReuniones: false,
-            balcon: false,
-            pileta: false,
-            cocina: false,
-            toilette: false,
-            habitacion: false,
-            living: false,
-            otro: false,
-          },
-          services: propertyData.services || {
-            electricidad: false,
-            agua: false,
-            gas: false,
-            internet: false,
-            telefono: false,
-            desagueCloacal: false,
-            televisionPorCable: false,
-            alarma: false,
-            televisionSatelital: false,
-            aguaCorriente: false,
-          },
-          characteristics: propertyData.characteristics || {
-            placard: false,
-            parilla: false,
-            desayunador: false,
-            orientacionSur: false,
-            orientacionOeste: false,
-            orientacionNorte: false,
-            orientacionEste: false,
-            accesoDeCocheraRampaFija: false,
-            accesoDeCocheraRampaMovil: false,
-            accesoDeCocheraAscensor: false,
-            accesoDeCocheraHorizontal: false,
-            disposicionContrafrente: false,
-            disposicionFrente: false,
-            disposicionInterno: false,
-            disposicionLateral: false,
-            amoblado: false,
-            orientacionNoroeste: false,
-            orientacionNoreste: false,
-            orientacionSuroeste: false,
-            orientacionSureste: false,
-            deck: false,
-            tipoDeCampoOtro: false,
-            tipoDeCampoFruticula: false,
-            tipoDeCampoAgricola: false,
-            tipoDeCampoChara: false,
-            tipoDeCampoCriadero: false,
-            tipoDeCampoTambero: false,
-            tipoDeCampoFloricultura: false,
-            tipoDeCampoForestal: false,
-            tipoDeCampoGanadero: false,
-            tipoDeCampoHaras: false,
-            bodegas: false,
-            tipoDeBodegaComercial: false,
-            tipoDeBodegaNaveIndustrial: false,
-            tipoDeBodegaAlmacen: false,
-            biblioteca: false,
-            galpon: false,
-            sotano: false,
-            baulera: false,
-            permiteMascota: false,
-            aptoTuristico: false,
-          },
-          detailsProperty: propertyData.detailsProperty || {
-            exclusiveContract: false,
-            cartel: false,
-            financing: false,
-            suitableCredit: false,
-            commercialSuitable: false,
-            professionalSuitable: false,
-            suitableForReducedMobility: false,
-            pozo: false,
-            CountryOrPrivateNeighborhood: false,
-          },
-          statusProperty: false,
-          photo: propertyData.photo 
+          isForSale: propertyData.isForSale ? 'true' : 'false',
+          isForRent: propertyData.isForRent ? 'true' : 'false',
+          isFinished: propertyData.isFinished ? 'true' : 'false',
+          isUnderDevelopment: propertyData.isUnderDevelopment ? 'true' : 'false',
+          amenities: Object.fromEntries(
+            Object.entries(propertyData.amenities || {}).map(([key, value]) => [key, value ? 'true' : 'false'])
+          ),
+          environmentsOptions: Object.fromEntries(
+            Object.entries(propertyData.environmentsOptions || {}).map(([key, value]) => [key, value ? 'true' : 'false'])
+          ),
+          services: Object.fromEntries(
+            Object.entries(propertyData.services || {}).map(([key, value]) => [key, value ? 'true' : 'false'])
+          ),
+          characteristics: Object.fromEntries(
+            Object.entries(propertyData.characteristics || {}).map(([key, value]) => [key, value ? 'true' : 'false'])
+          ),
+          detailsProperty: Object.fromEntries(
+            Object.entries(propertyData.detailsProperty || {}).map(([key, value]) => [key, value ? 'true' : 'false'])
+          ),
+          statusProperty: false, // Si quieres manejarlo como string
+          photo: propertyData.photo
         });
         setLoading(false);
       } catch (error) {
@@ -448,7 +343,7 @@ const EditPropertyForm = () => {
       ...formData,
       amenities: {
         ...formData.amenities,
-        [name]: checked,
+        [name]: checked ? "true" : "false",  // Almacenar como string
       },
     });
   };
@@ -458,18 +353,19 @@ const EditPropertyForm = () => {
       ...formData,
       environmentsOptions: {
         ...formData.environmentsOptions,
-        [option]: !formData.environmentsOptions[option]
-      }
+        [option]: formData.environmentsOptions[option] === "false" ? "true" : "false", // Cambiar entre strings
+      },
     });
   };
+  
 
   const handleCharacteristicOptionChange = (option) => {
     setFormData({
       ...formData,
       characteristics: {
         ...formData.characteristics,
-        [option]: !formData.characteristics[option]
-      }
+        [option]: formData.characteristics[option] === "false" ? "true" : "false",  // Cambiar entre strings
+      },
     });
   };
   
@@ -479,22 +375,21 @@ const EditPropertyForm = () => {
       ...formData,
       detailsProperty: {
         ...formData.detailsProperty,
-        [option]: !formData.detailsProperty[option]
-      }
+        [option]: formData.detailsProperty[option] === "false" ? "true" : "false",  // Cambiar entre strings
+      },
     });
   };
   
-
   const handleServiceOptionChange = (service) => {
     setFormData({
       ...formData,
       services: {
         ...formData.services,
-        [service]: !formData.services[service]
-      }
+        [service]: formData.services[service] === "false" ? "true" : "false",  // Cambiar entre strings
+      },
     });
   };
-
+  
   const handleLocationChange = (newLocation) => {
     setFormData(prevData => ({
       ...prevData,
@@ -608,7 +503,7 @@ const EditPropertyForm = () => {
 
   // Componente del mapa
 
-  console.log(formData.location)
+  console.log(formData)
 
   return (
     <div className={style.container}>
@@ -875,7 +770,7 @@ const EditPropertyForm = () => {
       <input
         type="checkbox"
         id={detail}
-        checked={value}
+        checked={value === "true"}  
         onChange={() => handleDetailPropertyOptionChange(detail)}
       />
       <label htmlFor={detail}>{detailLabels[detail]}</label>
@@ -892,7 +787,7 @@ const EditPropertyForm = () => {
         <input
           type="checkbox"
           name={amenity}
-          checked={value}
+          checked={value === "true"}  
           onChange={handleAmenityChange}
         />
         {amenityLabels[amenity]}
@@ -908,7 +803,7 @@ const EditPropertyForm = () => {
             <input
               type="checkbox"
               id={option}
-              checked={value}
+              checked={value === "true"}  
               onChange={() => handleCharacteristicOptionChange(option)}
             />
               <label htmlFor={option}>{characteristicLabels[option]}</label>
@@ -922,7 +817,7 @@ const EditPropertyForm = () => {
     <input
       type="checkbox"
       id={option}
-      checked={value}
+      checked={value === "true"}  
       onChange={() => handleEnvironmentOptionChange(option)}
     />
     <label htmlFor={option}>{environmentLabels[option]}</label>
@@ -937,7 +832,7 @@ const EditPropertyForm = () => {
     <input
       type="checkbox"
       id={service}
-      checked={value}
+      checked={value === "true"}  
       onChange={() => handleServiceOptionChange(service)}
     />
    <label htmlFor={service}>{serviceLabels[service]}</label>

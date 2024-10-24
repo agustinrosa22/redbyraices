@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import style from './CardAprobar.module.css';
 import { useDispatch } from 'react-redux'; // Importar useDispatch
-import { editProperty } from '../../Redux/Actions/actions'; // Importar la acción
+import { editProperty, deleteProperty } from '../../Redux/Actions/actions'; // Importar la acción
 
 const CardAprobar = ({ property }) => {
   const dispatch = useDispatch();
@@ -14,6 +14,21 @@ const CardAprobar = ({ property }) => {
       dispatch(editProperty(property.id, { ...property, statusProperty: true }));
     }
   };
+
+// Función para manejar la eliminación de la propiedad
+const handleDelete = () => {
+  const confirmed = window.confirm('¿Estás seguro de que deseas eliminar esta propiedad? Esta acción no se puede deshacer.');
+  if (confirmed) {
+    dispatch(deleteProperty(property.id))
+      .then(() => {
+        // Después de que la propiedad se haya eliminado, recargar la página
+        window.location.reload();
+      })
+      .catch((error) => {
+        console.error('Error al eliminar la propiedad:', error);
+      });
+  }
+};
 
   return (
     <div className={style.card}>
@@ -30,8 +45,14 @@ const CardAprobar = ({ property }) => {
         <Link to={`https://byraices.com/detail/${property.id}`} className={style.detailsLink}>
           <button className={style.detailsButton}>Ver detalles</button>
         </Link>
+        <Link to={`/detalles/${property.id}`} className={style.detailsLink}>
+            <button className={style.detailsButton}>Editar</button>
+          </Link>
         <button onClick={handleEdit} className={style.editButton}>
           Aprobar Propiedad
+        </button>
+        <button onClick={handleDelete} className={style.deleteButton}>
+          Eliminar Propiedad
         </button>
       </div>
     </div>

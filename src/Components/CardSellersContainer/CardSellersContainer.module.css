@@ -23,6 +23,12 @@
     gap: 20px; /* Espacio entre las tarjetas */
     justify-items: center; /* Centrar las tarjetas horizontalmente */
   }
+
+  .totalPropertiesTitle {
+    margin-top: 20px;
+    font-size: 1.2em;
+    color: #333; /* Color del texto */
+  }
   
   /* Ajuste de columnas en pantallas más pequeñas */
   @media (max-width: 1200px) {

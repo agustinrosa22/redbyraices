@@ -37,7 +37,8 @@ import {
   GET_VISITAS_BY_PROPERTY_REQUEST,
   GET_VISITAS_BY_PROPERTY_SUCCESS,
   GET_VISITAS_BY_PROPERTY_FAIL,
-  
+  GET_PROPERTIES_BY_SELLER,
+  GET_PROPERTIES_BY_SELLER_ERROR,
  } from './actionTypes';
 
 export const login = ({ mail, password }) => async dispatch => {
@@ -381,3 +382,48 @@ export const getVisitasByPropertyId = (propertyId) => async (dispatch) => {
   }
 };
 
+export const deleteProperty = (id) => {
+  return async (dispatch) => {
+    try {
+      await axios.delete(`/property/delete/${id}`);
+      dispatch({
+        type: 'DELETE_PROPERTY',
+        payload: id,
+      });
+    } catch (error) {
+      console.error('Error eliminando la propiedad:', error);
+    }
+  };
+};
+
+export const getPropertiesBySeller = (sellerId) => async (dispatch) => {
+  try {
+    const response = await axios.get(`/properties/seller/true/${sellerId}`);
+    // Suponiendo que la respuesta tiene un formato de 'data' para las propiedades
+    dispatch({
+      type: GET_PROPERTIES_BY_SELLER,
+      payload: {
+        sellerId,
+        properties: response.data.data, // Ajusta según el formato de respuesta real
+      },
+    });
+  } catch (error) {
+    if (error.response && error.response.status === 404) {
+      // Si no hay propiedades, simplemente despachamos una acción con un conteo de 0
+      dispatch({
+        type: GET_PROPERTIES_BY_SELLER,
+        payload: {
+          sellerId,
+          properties: [], // Asignar un array vacío si no se encuentran propiedades
+        },
+      });
+    } else {
+      // Manejar otros errores
+      console.error('Error al obtener propiedades:', error);
+      dispatch({
+        type: GET_PROPERTIES_BY_SELLER_ERROR,
+        payload: error.message,
+      });
+    }
+  }
+};
