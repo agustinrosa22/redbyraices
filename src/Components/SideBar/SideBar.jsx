@@ -18,7 +18,8 @@ import menuIcon from '../../Assets/comentario.png';
 const allowedEmails = [
   'arosa@byraices.com',
   'tsanesteban@byraices.com',
-  'dsanesteban@byraices.com'
+  'dsanesteban@byraices.com',
+  'jgarcia@byraices.com'
 ];
 
 const listButtonEmail = 'lyunes@byraices.com';
