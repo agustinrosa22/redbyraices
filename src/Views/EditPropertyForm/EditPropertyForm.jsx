@@ -82,6 +82,7 @@ const EditPropertyForm = () => {
   const dispatch = useDispatch();
   const user = useSelector(state => state.user);
   const [selectedPhotos, setSelectedPhotos] = useState([]);
+  const sellerId = useSelector(state => state.userId);
 
   const [formData, setFormData] = useState({
     propertyType: '',
@@ -134,7 +135,6 @@ const EditPropertyForm = () => {
         const response = await axios.get(`/property/${id}`);
         const propertyData = response.data.data;
   
-        // Convertir booleanos a strings
         setFormData({
           price: propertyData.price,
           description: propertyData.description,
@@ -174,26 +174,16 @@ const EditPropertyForm = () => {
           garages: propertyData.garages,
           title: propertyData.title,
           floorPlans: propertyData.floorPlans,
-          isForSale: propertyData.isForSale ? 'true' : 'false',
-          isForRent: propertyData.isForRent ? 'true' : 'false',
-          isFinished: propertyData.isFinished ? 'true' : 'false',
-          isUnderDevelopment: propertyData.isUnderDevelopment ? 'true' : 'false',
-          amenities: Object.fromEntries(
-            Object.entries(propertyData.amenities || {}).map(([key, value]) => [key, value ? 'true' : 'false'])
-          ),
-          environmentsOptions: Object.fromEntries(
-            Object.entries(propertyData.environmentsOptions || {}).map(([key, value]) => [key, value ? 'true' : 'false'])
-          ),
-          services: Object.fromEntries(
-            Object.entries(propertyData.services || {}).map(([key, value]) => [key, value ? 'true' : 'false'])
-          ),
-          characteristics: Object.fromEntries(
-            Object.entries(propertyData.characteristics || {}).map(([key, value]) => [key, value ? 'true' : 'false'])
-          ),
-          detailsProperty: Object.fromEntries(
-            Object.entries(propertyData.detailsProperty || {}).map(([key, value]) => [key, value ? 'true' : 'false'])
-          ),
-          statusProperty: false, // Si quieres manejarlo como string
+          isForSale: propertyData.isForSale,
+          isForRent: propertyData.isForRent,
+          isFinished: propertyData.isFinished,
+          isUnderDevelopment: propertyData.isUnderDevelopment,
+          amenities: propertyData.amenities || {},
+          environmentsOptions: propertyData.environmentsOptions || {},
+          services: propertyData.services || {},
+          characteristics: propertyData.characteristics || {},
+          detailsProperty: propertyData.detailsProperty || {},
+          statusProperty: false,
           photo: propertyData.photo
         });
         setLoading(false);
@@ -204,7 +194,7 @@ const EditPropertyForm = () => {
     };
     fetchProperty();
   }, [id]);
-
+  
   const detailLabels = {
     exclusiveContract: 'Contrato Exclusivo',
     cartel: 'Cartel',
@@ -336,59 +326,55 @@ const EditPropertyForm = () => {
     const { value } = e.target;
     setFormData({ ...formData, propertyType: value });
   };
-
   const handleAmenityChange = (e) => {
     const { name, checked } = e.target;
-    setFormData({
-      ...formData,
+    setFormData((prevData) => ({
+      ...prevData,
       amenities: {
-        ...formData.amenities,
-        [name]: checked ? "true" : "false",  // Almacenar como string
+        ...prevData.amenities,
+        [name]: checked ? "true" : "false", // Asigna "true" o "false" basado en el estado del checkbox
       },
-    });
+    }));
   };
-
+  
   const handleEnvironmentOptionChange = (option) => {
-    setFormData({
-      ...formData,
+    setFormData((prevData) => ({
+      ...prevData,
       environmentsOptions: {
-        ...formData.environmentsOptions,
-        [option]: formData.environmentsOptions[option] === "false" ? "true" : "false", // Cambiar entre strings
+        ...prevData.environmentsOptions,
+        [option]: prevData.environmentsOptions[option] === "true" ? "false" : "true", // Alterna el valor
       },
-    });
+    }));
   };
   
-
   const handleCharacteristicOptionChange = (option) => {
-    setFormData({
-      ...formData,
+    setFormData((prevData) => ({
+      ...prevData,
       characteristics: {
-        ...formData.characteristics,
-        [option]: formData.characteristics[option] === "false" ? "true" : "false",  // Cambiar entre strings
+        ...prevData.characteristics,
+        [option]: prevData.characteristics[option] === "true" ? "false" : "true", // Alterna el valor
       },
-    });
+    }));
   };
-  
-
   const handleDetailPropertyOptionChange = (option) => {
-    setFormData({
-      ...formData,
+    setFormData((prevData) => ({
+      ...prevData,
       detailsProperty: {
-        ...formData.detailsProperty,
-        [option]: formData.detailsProperty[option] === "false" ? "true" : "false",  // Cambiar entre strings
+        ...prevData.detailsProperty,
+        [option]: prevData.detailsProperty[option] === "true" ? "false" : "true", // Alterna el valor
       },
-    });
+    }));
   };
-  
-  const handleServiceOptionChange = (service) => {
-    setFormData({
-      ...formData,
-      services: {
-        ...formData.services,
-        [service]: formData.services[service] === "false" ? "true" : "false",  // Cambiar entre strings
-      },
-    });
-  };
+
+const handleServiceOptionChange = (service) => {
+  setFormData((prevData) => ({
+    ...prevData,
+    services: {
+      ...prevData.services,
+      [service]: prevData.services[service] === "true" ? "false" : "true", // Alterna el valor
+    },
+  }));
+};
   
   const handleLocationChange = (newLocation) => {
     setFormData(prevData => ({
@@ -426,37 +412,83 @@ const EditPropertyForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+  
+    // Crear un nuevo FormData para la solicitud de edición
     const formDataToSend = new FormData();
-    for (const key in formData) {
-      if (formData[key] instanceof Array) {
-        formData[key].forEach((item) => {
-          formDataToSend.append(`${key}[]`, item);
-        });
-      } else {
-        formDataToSend.append(key, formData[key]);
-      }
-    }
+  
+    // Añadir los campos de texto y booleanos al FormData
+    formDataToSend.append('propertyType', formData.propertyType);
+    formDataToSend.append('statusProperty', formData.statusProperty);
+    formDataToSend.append('videoLink', formData.videoLink);
+    formDataToSend.append('currency', formData.currency);
+    formDataToSend.append('price', formData.price);
+    formDataToSend.append('currencyExpenses', formData.currencyExpenses);
+    formDataToSend.append('expenses', formData.expenses);
+    formDataToSend.append('totalSquareMeters', formData.totalSquareMeters);
+    formDataToSend.append('coveredSquareMeters', formData.coveredSquareMeters);
+    formDataToSend.append('semiCoveredSquareMeters', formData.semiCoveredSquareMeters);
+    formDataToSend.append('uncovered', formData.uncovered);
+    formDataToSend.append('land', formData.land);
+    formDataToSend.append('age', formData.age);
+    formDataToSend.append('commissionSellerType', formData.commissionSellerType);
+    formDataToSend.append('commissionBuyerType', formData.commissionBuyerType);
+    formDataToSend.append('sellerCommission', formData.sellerCommission);
+    formDataToSend.append('buyerCommission', formData.buyerCommission);
+    formDataToSend.append('availableDate', formData.availableDate);
+    formDataToSend.append('expirationDate', formData.expirationDate);
+    formDataToSend.append('street', formData.street);
+    formDataToSend.append('number', formData.number);
+    formDataToSend.append('country', formData.country);
+    formDataToSend.append('province', formData.province);
+    formDataToSend.append('departments', formData.departments);
+    formDataToSend.append('locality', formData.locality);
+    formDataToSend.append('neighborhood', formData.neighborhood);
+    formDataToSend.append('privateNeighborhood', formData.privateNeighborhood);
+    formDataToSend.append('title', formData.title);
+    formDataToSend.append('description', formData.description);
+    formDataToSend.append('floorPlans', formData.floorPlans);
+    formDataToSend.append('isForSale', formData.isForSale);
+    formDataToSend.append('isForRent', formData.isForRent);
+    formDataToSend.append('isFinished', formData.isFinished);
+    formDataToSend.append('isUnderDevelopment', formData.isUnderDevelopment);
+    // Guardar la ubicación como un array de coordenadas (latitud, longitud)
 
-    // Agregar las fotos seleccionadas al FormData
+      formDataToSend.append('location[]', formData.location[0]); // Latitud
+      formDataToSend.append('location[]', formData.location[1]); // Longitud
+
+  
+    // Añadir los campos complejos (amenities, environmentsOptions, services, characteristics)
+    Object.keys(formData.amenities || {}).forEach((key) => {
+      formDataToSend.append(`amenities[${key}]`, formData.amenities[key]);
+    });
+    Object.keys(formData.environmentsOptions || {}).forEach((key) => {
+      formDataToSend.append(`environmentsOptions[${key}]`, formData.environmentsOptions[key]);
+    });
+    Object.keys(formData.services || {}).forEach((key) => {
+      formDataToSend.append(`services[${key}]`, formData.services[key]);
+    });
+    Object.keys(formData.characteristics || {}).forEach((key) => {
+      formDataToSend.append(`characteristics[${key}]`, formData.characteristics[key]);
+    });
+    Object.keys(formData.detailsProperty || {}).forEach((key) => {
+      formDataToSend.append(`detailsProperty[${key}]`, formData.detailsProperty[key]);
+    });
+  
+    // Añadir archivos de imágenes (photos) al FormData para la edición
     for (const photo of selectedPhotos) {
       formDataToSend.append('photo', photo);
     }
-
-    // // Agregar la documentación seleccionada al FormData
-    // for (const doc of selectedDocumentation) {
-    //   formDataToSend.append('documentation', doc);
-    // }
-
-    // Enviar la propiedad editada
+  
     try {
-      await dispatch(editProperty(id, formDataToSend)); // Usando Redux para editar la propiedad
+      // Usando Redux para editar la propiedad
+      await dispatch(editProperty(id, formDataToSend));
       alert('Propiedad actualizada correctamente.');
     } catch (error) {
       console.error('Error al actualizar la propiedad:', error);
       alert('Error al actualizar la propiedad.');
     }
   };
+  
 
   const handleSaleButtonClick = () => {
     const currentIsForSale = formData.isForSale;
@@ -764,13 +796,13 @@ const EditPropertyForm = () => {
       <input className={style.inputAge} type="number" name="age" placeholder='Ej: 2010' value={formData.age} onChange={handleChange} />
     </div>
     <h2 className={style.title}>Detalles de la propiedad</h2>
-    <div className={style.formGroupChechbox}>
+<div className={style.formGroupChechbox}>
   {Object.entries(formData.detailsProperty).map(([detail, value]) => (
     <div key={detail}>
       <input
         type="checkbox"
         id={detail}
-        checked={value === "true"}  
+        checked={value === "true"} // Verifica si el valor es "true" para marcar el checkbox
         onChange={() => handleDetailPropertyOptionChange(detail)}
       />
       <label htmlFor={detail}>{detailLabels[detail]}</label>
@@ -778,16 +810,15 @@ const EditPropertyForm = () => {
   ))}
 </div>
 
-      
-  <h2 className={style.title}>Comodidades</h2>
-  <div className={style.formGroupChechbox}>
+<h2 className={style.title}>Comodidades</h2>
+<div className={style.formGroupChechbox}>
   {Object.entries(formData.amenities).map(([amenity, value]) => (
     <div key={amenity} className={style.checkboxContainer}>
       <label>
         <input
           type="checkbox"
           name={amenity}
-          checked={value === "true"}  
+          checked={value === "true"} // Verifica si el valor es "true" para marcar el checkbox
           onChange={handleAmenityChange}
         />
         {amenityLabels[amenity]}
@@ -795,50 +826,52 @@ const EditPropertyForm = () => {
     </div>
   ))}
 </div>
-        
-          <h2 className={style.title}>Caracteristicas</h2>
-          <div className={style.formGroupChechbox}>
-          {Object.entries(formData.characteristics).map(([option, value]) => (
-         <div key={option} className={style.checkboxContainer}>
-            <input
-              type="checkbox"
-              id={option}
-              checked={value === "true"}  
-              onChange={() => handleCharacteristicOptionChange(option)}
-            />
-              <label htmlFor={option}>{characteristicLabels[option]}</label>
-          </div>
-        ))}
-        </div>
-        <h2 className={style.title}>Ambientes</h2>
-        <div className={style.formGroupChechbox}>
-       {Object.entries(formData.environmentsOptions).map(([option, value]) => (
-  <div key={option}>
-    <input
-      type="checkbox"
-      id={option}
-      checked={value === "true"}  
-      onChange={() => handleEnvironmentOptionChange(option)}
-    />
-    <label htmlFor={option}>{environmentLabels[option]}</label>
-  </div>
-))}
+
+<h2 className={style.title}>Características</h2>
+<div className={style.formGroupChechbox}>
+  {Object.entries(formData.characteristics).map(([option, value]) => (
+    <div key={option} className={style.checkboxContainer}>
+      <input
+        type="checkbox"
+        id={option}
+        checked={value === "true"} // Verifica si el valor es "true" para marcar el checkbox
+        onChange={() => handleCharacteristicOptionChange(option)}
+      />
+      <label htmlFor={option}>{characteristicLabels[option]}</label>
+    </div>
+  ))}
 </div>
 
-<h2 className={style.title}>servicios</h2>
+<h2 className={style.title}>Ambientes</h2>
 <div className={style.formGroupChechbox}>
-{Object.entries(formData.services).map(([service, value]) => (
-  <div key={service}>
-    <input
-      type="checkbox"
-      id={service}
-      checked={value === "true"}  
-      onChange={() => handleServiceOptionChange(service)}
-    />
-   <label htmlFor={service}>{serviceLabels[service]}</label>
-  </div>
-))}
+  {Object.entries(formData.environmentsOptions).map(([option, value]) => (
+    <div key={option}>
+      <input
+        type="checkbox"
+        id={option}
+        checked={value === "true"} // Verifica si el valor es "true" para marcar el checkbox
+        onChange={() => handleEnvironmentOptionChange(option)}
+      />
+      <label htmlFor={option}>{environmentLabels[option]}</label>
+    </div>
+  ))}
 </div>
+
+<h2 className={style.title}>Servicios</h2>
+<div className={style.formGroupChechbox}>
+  {Object.entries(formData.services).map(([service, value]) => (
+    <div key={service}>
+      <input
+        type="checkbox"
+        id={service}
+        checked={value === "true"} // Verifica si el valor es "true" para marcar el checkbox
+        onChange={() => handleServiceOptionChange(service)}
+      />
+      <label htmlFor={service}>{serviceLabels[service]}</label>
+    </div>
+  ))}
+</div>
+
 <div className={style.formGroup}>
 
     <label>
