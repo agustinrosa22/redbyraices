@@ -516,16 +516,50 @@ const handleChange = (e) => {
       setIsValid(true);
     }
   };
-
   const handleFileChange = (e) => {
     const { name, files } = e.target;
+    const newFiles = Array.from(files).map((file) => ({
+      file,
+      previewUrl: URL.createObjectURL(file), // Crear URL temporal para la vista previa
+      id: `${file.name}-${Date.now()}`,
+    }));
+
     if (name === 'photo') {
-      setPhotos(files);
-    } else if (name === 'documentation') {
-      setDocumentation(files);
+      setPhotos((prevPhotos) => [...prevPhotos, ...newFiles]);
+    }  else if (name === 'documentation') {
+      setDocumentation((prevDocs) => [...prevDocs, ...newFiles]);
     }
   };
-    
+
+  // Función para eliminar archivos por ID (para fotos y documentos)
+const handleFileDelete = (id, type) => {
+  if (type === 'photo') {
+    setPhotos((prevPhotos) => prevPhotos.filter((photo) => photo.id !== id));
+  } else if (type === 'documentation') {
+    setDocumentation((prevDocs) => prevDocs.filter((doc) => doc.id !== id));
+  }
+};
+
+// Función para cambiar el orden de los archivos
+const handleFileReorder = (type, fromIndex, toIndex) => {
+  const list = type === 'photo' ? [...photo] : [...documentation];
+  const [movedFile] = list.splice(fromIndex, 1); // Remover archivo de la posición original
+  list.splice(toIndex, 0, movedFile); // Insertar archivo en la nueva posición
+
+  // Actualizar el orden de todos los archivos después de reorganizar
+  const updatedList = list.map((file, index) => ({
+    ...file,
+    order: index,
+  }));
+
+  if (type === 'photo') {
+    setPhotos(updatedList);
+  } else if (type === 'documentation') {
+    setDocumentation(updatedList);
+  }
+};
+
+
   const handleSaleButtonClick = () => {
     const currentIsForSale = formData.isForSale;
     setFormData({
@@ -698,11 +732,13 @@ const handleChange = (e) => {
       Object.keys(formData.detailsProperty).forEach((key) => {
         formDataToSend.append(`detailsProperty[${key}]`, formData.detailsProperty[key]);
       });
-    
-      // Añadir archivos de imágenes (photos) al FormData
-      for (let i = 0; i < photo.length; i++) {
-        formDataToSend.append('photo', photo[i]);
-      }
+   
+  // Añadir archivos si existen
+  if (Array.isArray(photo) && photo.length > 0) {
+    photo.forEach((fileObj) => {
+      formDataToSend.append('photo', fileObj.file);
+    });
+  }
     
       // Añadir archivos de documentación al FormData
       for (let i = 0; i < documentation.length; i++) {
@@ -1134,12 +1170,22 @@ console.log(formData);
     </label>
  </div>
 
- <FileUploader
-        name="photo"
-        handleFileChange={handleFileChange}
-        accept="image/*"
-        multiple={true}
-      />
+ <h2>Fotos</h2>
+    <FileUploader name="photo" handleFileChange={handleFileChange} accept="image/*" multiple={true} />
+    <ul>
+      {photo.map((photo, index) => (
+        <li key={photo.id}>
+             <img
+              src={photo.previewUrl}
+              alt="Vista previa"
+              style={{ width: '100px', height: '100px', objectFit: 'cover' }}
+            />
+          <button onClick={() => handleFileDelete(photo.id, 'photo')}>Eliminar</button>
+          <button disabled={index === 0} onClick={() => handleFileReorder('photo', index, index - 1)}>Subir</button>
+          <button disabled={index === photo.length - 1} onClick={() => handleFileReorder('photo', index, index + 1)}>Bajar</button>
+        </li>
+      ))}
+    </ul>
     <div className={style.formGroup}>
 
   <h2 className={style.title}>

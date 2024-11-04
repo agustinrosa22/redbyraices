@@ -1,6 +1,13 @@
 import React from 'react';
 
-const FileUploader = ({ name, handleFileChange, accept, multiple = false }) => {
+const FileUploader = ({
+  name,
+  handleFileChange,
+  accept,
+  multiple = false,
+  files = [], // Archivos seleccionados
+  onFileDelete, // Función para eliminar un archivo
+}) => {
   return (
     <div>
       <input
@@ -10,11 +17,22 @@ const FileUploader = ({ name, handleFileChange, accept, multiple = false }) => {
         onChange={handleFileChange}
         accept={accept}
       />
+
+      {/* Mostrar archivos seleccionados */}
+      <ul>
+        {files.map((file, index) => (
+          <li key={file.id}>
+            {file.file.name}
+            <button onClick={() => onFileDelete(file.id)}>Eliminar</button>
+          </li>
+        ))}
+      </ul>
     </div>
   );
 };
 
 export default FileUploader;
+  
 
 
 // import React, { useState, useRef } from "react";
