@@ -516,20 +516,22 @@ const handleChange = (e) => {
       setIsValid(true);
     }
   };
-  const handleFileChange = (e) => {
-    const { name, files } = e.target;
-    const newFiles = Array.from(files).map((file) => ({
-      file,
-      previewUrl: URL.createObjectURL(file), // Crear URL temporal para la vista previa
-      id: `${file.name}-${Date.now()}`,
-    }));
 
-    if (name === 'photo') {
-      setPhotos((prevPhotos) => [...prevPhotos, ...newFiles]);
-    }  else if (name === 'documentation') {
-      setDocumentation((prevDocs) => [...prevDocs, ...newFiles]);
-    }
-  };
+
+ const handleFileChange = (e) => {
+  const { name, files } = e.target;
+  const newFiles = Array.from(files).map((file) => ({
+    file,
+    previewUrl: URL.createObjectURL(file),
+    id: `${file.name}-${Date.now()}`,
+  }));
+
+  if (name === 'photo') {
+    setPhotos((prevPhotos) => [...prevPhotos, ...newFiles]);
+  } else if (name === 'documentation') {
+    setDocumentation((prevDocs) => [...prevDocs, ...newFiles]);
+  }
+};
 
   // Función para eliminar archivos por ID (para fotos y documentos)
 const handleFileDelete = (id, type) => {
@@ -540,22 +542,15 @@ const handleFileDelete = (id, type) => {
   }
 };
 
-// Función para cambiar el orden de los archivos
 const handleFileReorder = (type, fromIndex, toIndex) => {
   const list = type === 'photo' ? [...photo] : [...documentation];
-  const [movedFile] = list.splice(fromIndex, 1); // Remover archivo de la posición original
-  list.splice(toIndex, 0, movedFile); // Insertar archivo en la nueva posición
-
-  // Actualizar el orden de todos los archivos después de reorganizar
-  const updatedList = list.map((file, index) => ({
-    ...file,
-    order: index,
-  }));
+  const [movedFile] = list.splice(fromIndex, 1);
+  list.splice(toIndex, 0, movedFile);
 
   if (type === 'photo') {
-    setPhotos(updatedList);
+    setPhotos(list);
   } else if (type === 'documentation') {
-    setDocumentation(updatedList);
+    setDocumentation(list);
   }
 };
 
@@ -768,8 +763,14 @@ const handleFileReorder = (type, fromIndex, toIndex) => {
 
 console.log(formData);
 
+const handleKeyPress = (e) => {
+  if (e.key === "Enter") {
+    e.preventDefault();
+  }
+};
+
   return (
-    <form className={style.form} onSubmit={handleSubmit}>
+    <form className={style.form} onSubmit={handleSubmit} onKeyPress={handleKeyPress}>
          <div className={style.formGroup}>
    {/* <h2 className={style.title}>Clientes</h2>
          <div className={style.centeredContainer}>
@@ -809,6 +810,7 @@ console.log(formData);
 </div>
 <h2 className={style.title}>Tipo de propiedad</h2>
   <select className={style.propertyTypeDropdown} onChange={handleChangePropertyType}>
+  <option value="">Selecciona un tipo</option>
     <option value="departamento">Departamento</option>
     <option value="casa">Casa</option>
     <option value="ph">PH</option>
@@ -1171,21 +1173,38 @@ console.log(formData);
  </div>
 
  <h2>Fotos</h2>
-    <FileUploader name="photo" handleFileChange={handleFileChange} accept="image/*" multiple={true} />
-    <ul>
-      {photo.map((photo, index) => (
-        <li key={photo.id}>
-             <img
-              src={photo.previewUrl}
-              alt="Vista previa"
-              style={{ width: '100px', height: '100px', objectFit: 'cover' }}
-            />
-          <button onClick={() => handleFileDelete(photo.id, 'photo')}>Eliminar</button>
-          <button disabled={index === 0} onClick={() => handleFileReorder('photo', index, index - 1)}>Subir</button>
-          <button disabled={index === photo.length - 1} onClick={() => handleFileReorder('photo', index, index + 1)}>Bajar</button>
-        </li>
-      ))}
-    </ul>
+<FileUploader name="photo" handleFileChange={handleFileChange} accept="image/*" multiple={true} files={photo} onFileDelete={(id) => handleFileDelete(id, 'photo')} />
+
+<ul>
+  {photo.map((photo, index) => (
+    <li key={photo.id}>
+      <img
+        src={photo.previewUrl}
+        alt="Vista previa"
+        style={{ width: '100px', height: '100px', objectFit: 'cover' }}
+      />
+      <button onClick={() => handleFileDelete(photo.id, 'photo')}>Eliminar</button>
+      <button
+        disabled={index === 0}
+        onClick={(e) => {
+          e.preventDefault();
+          handleFileReorder('photo', index, index - 1);
+        }}
+      >
+        Subir
+      </button>
+      <button
+        disabled={index === photo.length - 1}
+        onClick={(e) => {
+          e.preventDefault();
+          handleFileReorder('photo', index, index + 1);
+        }}
+      >
+        Bajar
+      </button>
+    </li>
+  ))}
+</ul>
     <div className={style.formGroup}>
 
   <h2 className={style.title}>

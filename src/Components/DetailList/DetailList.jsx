@@ -4,6 +4,14 @@ import { Carousel, Col, Row } from 'react-bootstrap';
 import MapContainer from '../Maps/MapContainer';
 import style from './DetailList.module.css';
 
+// Helper function to convert string to boolean if necessary
+const isTruthy = (value) => {
+  if (typeof value === 'string') {
+    return value.toLowerCase() === 'true'; // Convierte "true"/"false" strings a booleano
+  }
+  return Boolean(value); // Si ya es booleano, lo deja igual
+};
+
 
 
 const renderDetails = (details) => {
@@ -53,12 +61,12 @@ const renderDetails = (details) => {
   };
 
   const trueCharacteristics = Object.entries(details)
-  .filter(([key, value]) => value)
-  .map(([key]) => characteristicText[key]);
+    .filter(([key, value]) => isTruthy(value)) // Aquí convertimos string "true"/"false" a booleano si es necesario
+    .map(([key]) => characteristicText[key]);
 
-if (trueCharacteristics.length === 0) {
-  return null;
-}
+  if (trueCharacteristics.length === 0) {
+    return null;
+  }
 
 return (
   <div className={style.dataContainer}>
@@ -111,12 +119,10 @@ const renderDetailsAmenities = (details) => {
     calefaccion: "Calefacción"
   };
 
-  // Filtra las amenidades que son true y obtiene su representación en texto
   const trueAmenities = Object.entries(details)
-    .filter(([key, value]) => value)
+    .filter(([key, value]) => isTruthy(value)) // Convertir string a boolean si es necesario
     .map(([key]) => amenityText[key]);
 
-  // Si no hay amenidades verdaderas, no renderiza nada
   if (trueAmenities.length === 0) {
     return null;
   }
@@ -163,15 +169,13 @@ const renderDetailsAmbientes = (details) => {
     otro: "Otro"
   };
 
-  // Filtra las opciones de entornos que son true y obtiene su representación en texto
   const trueEnvironmentOptions = Object.entries(details)
-    .filter(([key, value]) => value)
-    .map(([key]) => environmentOptionText[key]);
+  .filter(([key, value]) => isTruthy(value)) // Convertir string a boolean si es necesario
+  .map(([key]) => environmentOptionText[key]);
 
-  // Si no hay opciones de entornos verdaderas, no renderiza nada
-  if (trueEnvironmentOptions.length === 0) {
-    return null;
-  }
+if (trueEnvironmentOptions.length === 0) {
+  return null;
+}
 
   return (
     <div>
@@ -205,15 +209,13 @@ const renderDetailsServicios = (details) => {
     aguaCorriente: "Agua Corriente"
   };
 
-  // Filtra las opciones de servicios que son true y obtiene su representación en texto
   const trueServices = Object.entries(details)
-    .filter(([key, value]) => value)
-    .map(([key]) => serviceText[key]);
+  .filter(([key, value]) => isTruthy(value)) // Convertir string a boolean si es necesario
+  .map(([key]) => serviceText[key]);
 
-  // Si no hay opciones de servicios verdaderas, no renderiza nada
-  if (trueServices.length === 0) {
-    return null;
-  }
+if (trueServices.length === 0) {
+  return null;
+}
 
   return (
     <div>

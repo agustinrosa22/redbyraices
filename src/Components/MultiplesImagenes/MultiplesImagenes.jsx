@@ -5,8 +5,8 @@ const FileUploader = ({
   handleFileChange,
   accept,
   multiple = false,
-  files = [], // Archivos seleccionados
-  onFileDelete, // Función para eliminar un archivo
+  files = [],
+  onFileDelete,
 }) => {
   return (
     <div>
@@ -17,19 +17,20 @@ const FileUploader = ({
         onChange={handleFileChange}
         accept={accept}
       />
-
-      {/* Mostrar archivos seleccionados */}
       <ul>
         {files.map((file, index) => (
           <li key={file.id}>
             {file.file.name}
-            <button onClick={() => onFileDelete(file.id)}>Eliminar</button>
+            <button onClick={(e) => { e.preventDefault(); onFileDelete(file.id); }}>
+              Eliminar
+            </button>
           </li>
         ))}
       </ul>
     </div>
   );
 };
+
 
 export default FileUploader;
   
