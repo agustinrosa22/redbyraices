@@ -457,22 +457,22 @@ const handleServiceOptionChange = (service) => {
       formDataToSend.append('location[]', formData.location[1]); // Longitud
 
   
-    // Añadir los campos complejos (amenities, environmentsOptions, services, characteristics)
-    Object.keys(formData.amenities || {}).forEach((key) => {
-      formDataToSend.append(`amenities[${key}]`, formData.amenities[key]);
-    });
-    Object.keys(formData.environmentsOptions || {}).forEach((key) => {
-      formDataToSend.append(`environmentsOptions[${key}]`, formData.environmentsOptions[key]);
-    });
-    Object.keys(formData.services || {}).forEach((key) => {
-      formDataToSend.append(`services[${key}]`, formData.services[key]);
-    });
-    Object.keys(formData.characteristics || {}).forEach((key) => {
-      formDataToSend.append(`characteristics[${key}]`, formData.characteristics[key]);
-    });
-    Object.keys(formData.detailsProperty || {}).forEach((key) => {
-      formDataToSend.append(`detailsProperty[${key}]`, formData.detailsProperty[key]);
-    });
+    // // Añadir los campos complejos (amenities, environmentsOptions, services, characteristics)
+    // Object.keys(formData.amenities || {}).forEach((key) => {
+    //   formDataToSend.append(`amenities[${key}]`, formData.amenities[key]);
+    // });
+    // Object.keys(formData.environmentsOptions || {}).forEach((key) => {
+    //   formDataToSend.append(`environmentsOptions[${key}]`, formData.environmentsOptions[key]);
+    // });
+    // Object.keys(formData.services || {}).forEach((key) => {
+    //   formDataToSend.append(`services[${key}]`, formData.services[key]);
+    // });
+    // Object.keys(formData.characteristics || {}).forEach((key) => {
+    //   formDataToSend.append(`characteristics[${key}]`, formData.characteristics[key]);
+    // });
+    // Object.keys(formData.detailsProperty || {}).forEach((key) => {
+    //   formDataToSend.append(`detailsProperty[${key}]`, formData.detailsProperty[key]);
+    // });
   
     // Añadir archivos de imágenes (photos) al FormData para la edición
     for (const photo of selectedPhotos) {
@@ -795,7 +795,7 @@ const handleServiceOptionChange = (service) => {
       <h2 className={style.title}>Antiguedad</h2>
       <input className={style.inputAge} type="number" name="age" placeholder='Ej: 2010' value={formData.age} onChange={handleChange} />
     </div>
-    <h2 className={style.title}>Detalles de la propiedad</h2>
+    {/* <h2 className={style.title}>Detalles de la propiedad</h2>
 <div className={style.formGroupChechbox}>
   {Object.entries(formData.detailsProperty).map(([detail, value]) => (
     <div key={detail}>
@@ -870,7 +870,7 @@ const handleServiceOptionChange = (service) => {
       <label htmlFor={service}>{serviceLabels[service]}</label>
     </div>
   ))}
-</div>
+</div> */}
 
 <div className={style.formGroup}>
 
