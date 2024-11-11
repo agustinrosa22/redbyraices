@@ -483,20 +483,20 @@ const CreateProperty = () => {
   };
 
 
-const handleChange = (e) => {
-  const { name, value } = e.target;
-
-  if (name === 'price') {
-    // Formatear el valor con puntos como separadores de miles
-    const formattedValue = formatPrice(value);
-
-    // Actualizar el estado del formulario para 'price'
-    setFormData({ ...formData, price: formattedValue });
-    setDisplayPrice(formattedValue); // Mostrar el valor formateado en tiempo real
-    setIsValid(!!formattedValue);
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+  
+    if (name === 'price') {
+      // Filtrar el valor para permitir solo números (sin puntos, comas o espacios)
+      const numericValue = value.replace(/[^0-9]/g, '');
+  
+      // Actualizar el estado del formulario para 'price' con el valor numérico
+      setFormData({ ...formData, price: numericValue });
+      setDisplayPrice(numericValue); // Mostrar el valor en tiempo real sin puntos
+      setIsValid(!!numericValue);
     } else {
-      // Para otros campos como 'description' o 'title', no eliminar puntos ni comas
-      let updatedFormData = { ...formData, [name]: value }; // Mantener el valor original con puntos y comas
+      // Para otros campos como 'description' o 'title', permitir el valor original
+      let updatedFormData = { ...formData, [name]: value };
   
       // Si los campos modificados son metros cuadrados, recalcular el total
       if (name === "coveredSquareMeters" || name === "semiCoveredSquareMeters" || name === "uncovered" || name === "land") {
