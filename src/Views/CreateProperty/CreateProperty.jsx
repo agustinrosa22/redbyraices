@@ -470,8 +470,7 @@ const CreateProperty = () => {
   const calculateTotalSquareMeters = (data) => {
     const { coveredSquareMeters, semiCoveredSquareMeters, uncovered, land } = data;
     return (parseFloat(coveredSquareMeters) || 0) +
-           (parseFloat(semiCoveredSquareMeters) || 0) +
-           (parseFloat(uncovered) || 0) 
+           (parseFloat(semiCoveredSquareMeters) || 0) 
   };
 
 

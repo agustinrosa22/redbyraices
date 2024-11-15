@@ -386,8 +386,7 @@ const handleServiceOptionChange = (service) => {
   const calculateTotalSquareMeters = (data) => {
     const { coveredSquareMeters, semiCoveredSquareMeters, uncovered, land } = data;
     return (parseFloat(coveredSquareMeters) || 0) +
-           (parseFloat(semiCoveredSquareMeters) || 0) +
-           (parseFloat(uncovered) || 0) 
+           (parseFloat(semiCoveredSquareMeters) || 0) 
   };
 
   const handleChange = (e) => {
@@ -451,6 +450,12 @@ const handleServiceOptionChange = (service) => {
     formDataToSend.append('isForRent', formData.isForRent);
     formDataToSend.append('isFinished', formData.isFinished);
     formDataToSend.append('isUnderDevelopment', formData.isUnderDevelopment);
+    formDataToSend.append('environments', formData.environments);
+    formDataToSend.append('rooms', formData.rooms);
+    formDataToSend.append('bathrooms', formData.bathrooms);
+    formDataToSend.append('toilettes', formData.toilettes);
+    formDataToSend.append('garages', formData.garages);
+ 
     // Guardar la ubicación como un array de coordenadas (latitud, longitud)
 
       formDataToSend.append('location[]', formData.location[0]); // Latitud
