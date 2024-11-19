@@ -18,6 +18,7 @@ import Sellers from './Views/Sellers/Sellers'
 import EditSellerForm from './Components/EditSellerForm/EditSellerForm'
 import VisitaForm from './Views/VisitaForm/VisitaForm'
 import CardContainerVisitas from './Components/CardContainerVisitas/CardContainerVisitas';
+import CloseProperty from './Views/closeProperty/closeProperty';
 
 
 
@@ -53,7 +54,7 @@ function App() {
             <Route path="/edit-seller/:id" element={<EditSellerForm />} />
             <Route path="/visita/:id" element={<VisitaForm />} />
             <Route path="/historial/visitas/:id" element={<CardContainerVisitas />} />
-
+            <Route path="/cierre-property/:id" element={<CloseProperty />} />
 
             
           </Routes>

@@ -44,6 +44,7 @@ const handleDelete = () => {
           <Link to={`/detalles/${property.id}`} className={style.detailsLink}>
             <button className={style.detailsButton}>Editar</button>
           </Link>
+        
           <button onClick={handleDelete} className={style.deleteButton}>
           Eliminar Propiedad
         </button>

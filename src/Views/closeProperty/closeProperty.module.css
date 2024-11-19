@@ -1,0 +1,85 @@
+/* Contenedor principal */
+.container {
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  
+  /* Títulos */
+  .title {
+    color: #3D2F87;
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+  
+  .subtitle {
+    color: #555;
+    font-size: 16px;
+    margin-bottom: 20px;
+  }
+  
+  /* Formulario */
+  .form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  /* Labels y legend */
+  .label {
+    font-size: 14px;
+    color: #3D2F87;
+  }
+  
+  .legend {
+    font-size: 16px;
+    font-weight: bold;
+    color: #A83E52;
+  }
+  
+  /* Input, select y botones */
+  .input,
+  .select {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  .button {
+    background-color: #A83E52;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+  }
+  
+  .button:hover {
+    background-color: #922d44;
+  }
+  
+  /* Fieldset */
+  .fieldset {
+    border: 1px solid #3D2F87;
+    border-radius: 4px;
+    padding: 10px;
+  }
+  
+  /* Mensajes */
+  .loading {
+    color: #3D2F87;
+    font-size: 16px;
+  }
+  
+  .error {
+    color: #A83E52;
+    font-size: 16px;
+  }
+  
