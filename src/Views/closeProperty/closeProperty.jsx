@@ -74,24 +74,6 @@ const CloseProperty = () => {
       Una vez cerrada la propiedad dejará de figurar en las plataformas de comercialización y dejará de estar en su pantalla principal.
     </p>
     <form onSubmit={handleSubmit} className={style.form}>
-      {/* Campo statusProperty */}
-      <label className={style.label}>
-        Estado de la Propiedad:
-        <select
-          name="statusProperty"
-          className={style.select}
-          value={propertyData.statusProperty ? true : false}
-          onChange={(e) =>
-            setPropertyData({
-              ...propertyData,
-              statusProperty: e.target.value === "true",
-            })
-          }
-        >
-          <option value="true">Activa</option>
-          <option value="false">Inactiva</option>
-        </select>
-      </label>
 
       {/* Campos de cerrado */}
       <fieldset className={style.fieldset}>
