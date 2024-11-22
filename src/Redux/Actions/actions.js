@@ -5,8 +5,6 @@ import {
   LOGIN_FAIL, 
   GET_USER_SUCCESS, 
   GET_USER_FAIL, 
-  CREATE_PROPERTY_SUCCESS, 
-  CREATE_PROPERTY_FAIL, 
   GET_ALL_USERS_SUCCESS, 
   GET_ALL_USERS_FAIL, 
   UPDATE_MAP_LOCATION,
@@ -39,6 +37,9 @@ import {
   GET_VISITAS_BY_PROPERTY_FAIL,
   GET_PROPERTIES_BY_SELLER,
   GET_PROPERTIES_BY_SELLER_ERROR,
+  GET_PROPERTIES_CLOSED_BY_SELLER_ID_SUCCESS,
+  GET_PROPERTIES_CLOSED_BY_SELLER_ID_FAIL,
+
  } from './actionTypes';
 
 export const login = ({ mail, password }) => async dispatch => {
@@ -188,6 +189,48 @@ export const getPropertiesBySellerId = (userId) => async (dispatch) => {
     });
   }
 };
+
+
+// Acción para obtener las propiedades CERRADAS relacionadas al vendedor por su id
+export const getPropertiesClosedBySellerId = (userId) => async (dispatch) => {
+  if (!userId) {
+    dispatch({
+      type: GET_PROPERTIES_BY_SELLER_ID_FAIL,
+      payload: 'El ID del usuario no está definido',
+    });
+    return; // Salir de la función si no hay userId
+  }
+
+  const userType = localStorage.getItem('userType'); // Recuperar el tipo de usuario desde localStorage
+
+  try {
+    let response;
+    if (userType === 'MARTILLER') {
+      response = await axios.get(`/properties/martiller/closed/${userId}`);
+    } else if (userType === 'Vendedor') {
+      response = await axios.get(`/properties/closed/${userId}`);
+    } else {
+      throw new Error('Tipo de usuario desconocido');
+    }
+console.log(response);
+
+    dispatch({
+      type: GET_PROPERTIES_CLOSED_BY_SELLER_ID_SUCCESS,
+      payload: response.data.data,
+    });
+    // console.log('Propiedades obtenidas:', response.data.data);
+  } catch (error) {
+    console.error('Error al obtener las propiedades del vendedor:', error);
+    dispatch({
+      type: GET_PROPERTIES_CLOSED_BY_SELLER_ID_FAIL,
+      payload: 'Error al obtener las propiedades del vendedor',
+    });
+  }
+};
+
+
+
+
 
 export const editProperty = (propertyId, propertyData) => async (dispatch) => {
   try {

@@ -43,6 +43,8 @@ import {  LOGIN_SUCCESS,
           GET_VISITAS_BY_PROPERTY_FAIL,
           GET_PROPERTIES_BY_SELLER,
           GET_PROPERTIES_BY_SELLER_ERROR,
+          GET_PROPERTIES_CLOSED_BY_SELLER_ID_SUCCESS,
+          GET_PROPERTIES_CLOSED_BY_SELLER_ID_FAIL,
          } from './Actions/actionTypes';
 
 const initialState = {
@@ -56,6 +58,7 @@ const initialState = {
   mapLocation: null,
   imageUploadError: null,
   propertiesBySellerId: [],
+  propertiesClosedBySellerId: [],
   property: null,
   pendingProperties: [], 
   activeProperties: [], 
@@ -151,6 +154,18 @@ const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         propertiesBySellerId: [],
+        error: action.payload
+      };
+      case GET_PROPERTIES_CLOSED_BY_SELLER_ID_SUCCESS:
+      return {
+        ...state,
+        propertiesClosedBySellerId: action.payload,
+        error: null
+      };
+    case GET_PROPERTIES_CLOSED_BY_SELLER_ID_FAIL:
+      return {
+        ...state,
+        propertiesClosedBySellerId: [],
         error: action.payload
       };
       case EDIT_PROPERTY_REQUEST:

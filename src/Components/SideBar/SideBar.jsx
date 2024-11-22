@@ -66,8 +66,10 @@ const Sidebar = () => {
       <div className={`${style.sidebar} ${isExpanded ? style.expanded : ''}`}>
         <ul className={style['sidebar-menu']}>
           <li>
+          <Link to="/properties" className={style.link}>
             <img src={home} alt="Home" className={style.icon} />
             Propiedades
+            </Link>
           </li>
           <li>
             <img src={consult} alt="Consult" className={style.icon} />
