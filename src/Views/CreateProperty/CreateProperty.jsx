@@ -476,6 +476,59 @@ const CreateProperty = () => {
   //   setFormData({ ...formData, userId: user.id });
   // };
 
+  const provincesArgentina = [
+    // 'Buenos Aires',
+    // 'Catamarca',
+    // 'Chaco',
+    // 'Chubut',
+    // 'Córdoba',
+    // 'Corrientes',
+    // 'Entre Ríos',
+    // 'Formosa',
+    // 'Jujuy',
+    // 'La Pampa',
+    // 'La Rioja',
+    'Mendoza',
+    // 'Misiones',
+    // 'Neuquén',
+    // 'Río Negro',
+    // 'Salta',
+    // 'San Juan',
+    // 'San Luis',
+    // 'Santa Cruz',
+    // 'Santa Fe',
+    // 'Santiago del Estero',
+    // 'Tierra del Fuego',
+    // 'Tucumán'
+  ];
+
+  // Datos de departamentos por provincia
+  const departmentsByProvince = {
+    Mendoza: [
+      'Capital',
+      'General Alvear',
+      'Godoy Cruz',
+      'Guaymallén',
+      'Junín',
+      'La Paz',
+      'Las Heras',
+      'Lavalle',
+      'Luján de Cuyo',
+      'Maipú',
+      'Malargüe',
+      'Rivadavia',
+      'San Carlos',
+      'San Martín',
+      'San Rafael',
+      'Santa Rosa',
+      'Tunuyán',
+      'Tupungato'
+    ],
+    // Puedes agregar más provincias y sus respectivos departamentos aquí
+  };
+  
+
+
   const calculateTotalSquareMeters = (data) => {
     const { coveredSquareMeters, semiCoveredSquareMeters, uncovered, land } = data;
     return (parseFloat(coveredSquareMeters) || 0) +
@@ -490,6 +543,7 @@ const CreateProperty = () => {
     return  cleanedValue;
   };
 
+  const [availableDepartments, setAvailableDepartments] = useState([]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -511,6 +565,23 @@ const CreateProperty = () => {
         const totalSquareMeters = calculateTotalSquareMeters(updatedFormData);
         updatedFormData = { ...updatedFormData, totalSquareMeters };
       }
+
+          // Lógica para país y provincia
+    if (name === 'country') {
+      // Si cambia el país, reiniciar el campo 'province' si no es Argentina
+      updatedFormData = {
+        ...updatedFormData,
+        province: value === 'Argentina' ? formData.province : '', // Solo mantener la provincia si es Argentina
+      };
+    }
+
+    if (name === 'province') {
+      if (departmentsByProvince[value]) {
+        setAvailableDepartments(departmentsByProvince[value]);
+      } else {
+        setAvailableDepartments([]);
+      }
+    }
   
       // Actualizar el estado del formulario
       setFormData(updatedFormData);
@@ -918,20 +989,55 @@ const handleKeyPress = (e) => {
     </div>
     <div className={style.formColumn}>
       <div className={style.inputGroup}>
-        <h3 className={style.subtitle}>País</h3>
-        <input type="text" name="country" value={formData.country} onChange={handleChange} className={style.inputText} />
+      <h3 className={style.subtitle}>País</h3>
+            <select
+              name="country"
+              value={formData.country}
+              onChange={handleChange}
+              className={style.inputText}
+            >
+              <option value="">Selecciona un país</option>
+              <option value="Argentina">Argentina</option>
+              {/* Añade más países según sea necesario */}
+            </select>
       </div>
       <div className={style.inputGroup}>
-        <h3 className={style.subtitle}>Provincia</h3>
-        <input type="text" name="province" value={formData.province} onChange={handleChange} className={style.inputText} />
+      <h3 className={style.subtitle}>Provincia</h3>
+            <select
+              name="province"
+              value={formData.province}
+              onChange={handleChange}
+              className={style.inputText}
+              disabled={formData.country !== 'Argentina'} // Deshabilitar si no es Argentina
+            >
+              <option value="">Selecciona una provincia</option>
+              {provincesArgentina.map((province, index) => (
+                <option key={index} value={province}>
+                  {province}
+                </option>
+              ))}
+            </select>
       </div>
     </div>
   </div>
   <div className={style.formRow}>
     <div className={style.formColumn}>
       <div className={style.inputGroup}>
-        <h3 className={style.subtitle}>Departamento</h3>
-        <input type="text" name="departments" value={formData.departments} onChange={handleChange} className={style.inputText} />
+      <h3 className={style.subtitle}>Departamento</h3>
+            <select
+              name="departments"
+              value={formData.departments}
+              onChange={handleChange}
+              className={style.inputText}
+              disabled={!formData.province || availableDepartments.length === 0}
+            >
+              <option value="">Seleccione un departamento</option>
+              {availableDepartments.map((department) => (
+                <option key={department} value={department}>
+                  {department}
+                </option>
+              ))}
+            </select>
       </div>
       <div className={style.inputGroup}>
         <h3 className={style.subtitle}>Localidad</h3>
