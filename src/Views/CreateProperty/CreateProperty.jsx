@@ -13,6 +13,7 @@ import Documentacion from '../../Components/Documents/Documentacion';
 const CreateProperty = () => {
   const dispatch = useDispatch();
   const sellerId = useSelector(state => state.userId);
+  const user = useSelector(state => state.user);
   // const users = useSelector(state => state.users);
   // const [selectedUser, setSelectedUser] = useState(null);
   const [mapLocation, setMapLocation] = useState({ lat: -32.8908, lng: -68.8272 });
@@ -311,7 +312,8 @@ const CreateProperty = () => {
       pozo: false,
       CountryOrPrivateNeighborhood: false,
     },
-    sellerId: '',
+    martillerId: null,
+    sellerId: null,
     userId: "1",
    
   });
@@ -450,16 +452,23 @@ const CreateProperty = () => {
 
 
   useEffect(() => {
-    dispatch(getAllUsers());
-    
-    // Verificar si el sellerId está disponible en el estado después de cargar los usuarios
-    if (sellerId) {
-      setFormData(prevFormData => ({
-        ...prevFormData,
-        sellerId: sellerId,
-      }));
+    if (user.user?.type) {
+      if (user.user.type === 'MARTILLER') {
+        setFormData(prevFormData => ({
+          ...prevFormData,
+          martillerId: user.user.id, // El ID del usuario tipo MARTILLER
+          sellerId: null,
+        }));
+      } else if (user.user.type === 'Vendedor') {
+        setFormData(prevFormData => ({
+          ...prevFormData,
+          martillerId: null,
+          sellerId: user.user.id, // El ID del usuario tipo VENDEDOR
+        }));
+      }
     }
-  }, [dispatch, sellerId]);
+  }, [user]);
+
   
 
   // const handleUserSelect = (user) => {
@@ -702,7 +711,12 @@ const handleFileReorder = (type, fromIndex, toIndex) => {
       formDataToSend.append('isForRent', formData.isForRent);
       formDataToSend.append('isFinished', formData.isFinished);
       formDataToSend.append('isUnderDevelopment', formData.isUnderDevelopment);
-      formDataToSend.append('sellerId', formData.sellerId);
+      if (formData.martillerId !== null) {
+        formDataToSend.append('martillerId', formData.martillerId);
+      }
+      if (formData.sellerId !== null) {
+        formDataToSend.append('sellerId', formData.sellerId);
+      }
       formDataToSend.append('userId', formData.userId);
     
            // Guardar la ubicación como un array de coordenadas (latitud, longitud)
@@ -760,7 +774,7 @@ const handleFileReorder = (type, fromIndex, toIndex) => {
     };
     
 
-console.log(formData);
+// console.log(formData);
 
 const handleKeyPress = (e) => {
   if (e.key === "Enter") {
