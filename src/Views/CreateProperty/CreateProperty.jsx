@@ -711,6 +711,12 @@ const handleFileReorder = (type, fromIndex, toIndex) => {
       formDataToSend.append('isForRent', formData.isForRent);
       formDataToSend.append('isFinished', formData.isFinished);
       formDataToSend.append('isUnderDevelopment', formData.isUnderDevelopment);
+
+      formDataToSend.append('environments', formData.environments);
+      formDataToSend.append('rooms', formData.rooms);
+      formDataToSend.append('bathrooms', formData.bathrooms);
+      formDataToSend.append('toilettes', formData.toilettes);
+      formDataToSend.append('garages', formData.garages);
       if (formData.martillerId !== null) {
         formDataToSend.append('martillerId', formData.martillerId);
       }
