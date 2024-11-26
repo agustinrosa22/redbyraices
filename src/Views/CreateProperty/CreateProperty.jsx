@@ -526,6 +526,231 @@ const CreateProperty = () => {
     ],
     // Puedes agregar más provincias y sus respectivos departamentos aquí
   };
+
+  const localitiesByDepartment = {
+    Mendoza: {
+      Capital: [
+        'Barrio Cano',
+        'Barrio San Martín',
+        'Bombal',
+        'Centro',
+        'Ciudad',
+        'Cuarta Sección',
+        'Quinta Sección',
+        'Sexta Sección',
+        'Parque Central',
+        'Villa Nueva'
+      ],
+      'General Alvear': [
+      'Alvear Oeste',
+      'Bowen',
+      'Carmensa',
+      'El Juncalito',
+      'La Escandinava',
+      'Los Compartos',
+      'Posta del Agua',
+      'San Pedro del Atuel',
+      'Soitué'
+      ],
+      'Godoy Cruz': [
+        'Andino',
+        'Benegas',
+        'Carrodilla',
+        'Las Tortugas',
+        'Pueblo Nuevo',
+        'San Francisco del Monte',
+        'Trapiche',
+        'Villa del Parque',
+        'Villa Hipódromo',
+        'Villa Marini',
+        'Villa San Ignacio'
+      ],
+      'Guaymallén': [
+      'Villa Nueva',
+      'Las Cañas',
+      'El Bermejo',
+      'Dorrego',
+      'Pedro Molina',
+      'San José',
+      'Rodeo de la Cruz',
+      'El Sauce',
+      'Colonia Segovia',
+      'Buena Nueva',
+      'Kilómetro 8',
+      'Kilómetro 11',
+      'Kilómetro 5',
+      'Puente de Hierro',
+      'Los Corralitos'
+    ],
+    'Junín': [
+      'Los Barriales',
+      'Medrano',
+      'Philipps',
+      'Algarrobo Grande',
+      'Rodríguez Peña',
+      'La Colonia',
+      'Mundo Nuevo',
+      'Alto Verde'
+    ],
+     'La Paz': [
+      'Desaguadero',
+      'Villa Antigua',
+      'Villa de La Paz',
+      'El Atuel',
+      'La Armonía',
+      'El Carmen',
+      'La Primavera',
+      'Barrancas',
+      'Tres Esquinas'
+    ],
+      'Las Heras': [
+      'El Challao',
+      'Panquehua',
+      'El Resguardo',
+      'La Carrera',
+      'Las Heras',
+      'El Algarrobal',
+      'El Plumerillo',
+      'La Candelaria',
+      'Los Cerrillos',
+      'Punta de Vines',
+      'Las Compuertas',
+      'Chacras de Coria',
+      'El Salto'
+    ],
+      'Lavalle': [
+      'Costa de Araujo',
+      'El Vergel',
+      'Jocolí',
+      'Jocolí Viejo',
+      'La Libertad',
+      'La Candelaria',
+      'Los Corralitos',
+      'San Luis',
+      'Tres Esquinas',
+      'Villa Tulumaya'
+    ],
+      'Luján de Cuyo': [
+      'Chacras de Coria',
+      'Las Compuertas',
+      'Perdriel',
+      'Carrodilla',
+      'Vistalba',
+      'Agrelo',
+      'El Salto',
+      'La Primavera',
+      'Mayor Drummond',
+      'Ugarteche',
+      'Los Árboles',
+      'La Puntilla'
+    ],
+      'Maipú': [
+      'General Gutiérrez',
+      'Luzuriaga',
+      'Rodeo del Medio',
+      'Barrancas',
+      'Russel',
+      'La Pega',
+      'El Carril',
+      'El Rosario',
+      'San José',
+      'Maipú Centro',
+      'Coquimbito',
+      'Villa del Parque'
+    ],
+     'Maipú': [
+      'General Gutiérrez',
+      'Luzuriaga',
+      'Rodeo del Medio',
+      'Barrancas',
+      'Russel',
+      'La Pega',
+      'El Carril',
+      'El Rosario',
+      'San José',
+      'Maipú Centro',
+      'Coquimbito',
+      'Villa del Parque'
+    ],
+      'Rivadavia': [
+      'Santa María de Oro',
+      'Los Árboles',
+      'La Libertad',
+      'La Reducción',
+      'Villa Seca',
+      'Tres Esquinas',
+      'El Mirador',
+      'El Pimiento'
+    ],
+      'San Carlos': [
+      'La Consulta',
+      'Chilecito',
+      'Eugenio Bustos',
+      'San Carlos Centro',
+      'El Algarrobal',
+      'Los Sauces',
+      'Pareditas',
+      'El Zampal',
+      'Tunuyán',
+      'La Carrera'
+    ],
+      'San Martín': [
+      'Palmira',
+      'Tres Porteñas',
+      'Montecaseros',
+      'La Colonia',
+      'San Martín Centro',
+      'Alto Salvador',
+      'El Solado',
+      'Rivadavia',
+      'Jocolí Viejo',
+      'Fray Luis Beltrán'
+    ],
+      'San Rafael': [
+      'El Nihuil',
+      'Salto de las Rosas',
+      'Villa 25 de Mayo',
+      'Las Malvinas',
+      'Cañón del Atuel',
+      'Alvear',
+      'Villa Atuel',
+      'La Llave',
+      'Monte Comán',
+      'San Rafael Centro',
+      'El Sosneado',
+      'Real del Padre'
+    ],
+      'Santa Rosa': [
+      'Las Catitas',
+      'La Dormida',
+      'Villa Cabecera',
+      'Las Tinajas',
+      'El Mirador',
+      'La Reducción',
+      'Las Compuertas'
+    ],
+     'Tunuyán': [
+      'Vista Flores',
+      'Colonia Las Rosas',
+      'Los Sauces',
+      'Tunuyán',
+      'El Algarrobal',
+      'San Carlos',
+      'La Consulta',
+      'La Dormida'
+    ],
+      'Tupungato': [
+      'El Peral',
+      'San José',
+      'Villa Bastías',
+      'Ugarteche',
+      'La Arboleda',
+      'Los Claveles',
+      'La Consulta',
+      'El Zampal'
+    ],
+    },
+  };
   
 
 
@@ -544,49 +769,89 @@ const CreateProperty = () => {
   };
 
   const [availableDepartments, setAvailableDepartments] = useState([]);
+const [availableLocalities, setAvailableLocalities] = useState([]);
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-  
-    if (name === 'price') {
-      // Filtrar el valor para permitir solo números (sin puntos, comas o espacios)
-      const numericValue = value.replace(/[^0-9]/g, '');
-  
-      // Actualizar el estado del formulario para 'price' con el valor numérico
-      setFormData({ ...formData, price: numericValue });
-      setDisplayPrice(numericValue); // Mostrar el valor en tiempo real sin puntos
-      setIsValid(!!numericValue);
-    } else {
-      // Para otros campos como 'description' o 'title', permitir el valor original
-      let updatedFormData = { ...formData, [name]: value };
-  
-      // Si los campos modificados son metros cuadrados, recalcular el total
-      if (name === "coveredSquareMeters" || name === "semiCoveredSquareMeters" || name === "uncovered" || name === "land") {
-        const totalSquareMeters = calculateTotalSquareMeters(updatedFormData);
-        updatedFormData = { ...updatedFormData, totalSquareMeters };
-      }
+const handleChange = (e) => {
+  const { name, value } = e.target;
 
-          // Lógica para país y provincia
+  if (name === 'price') {
+    // Filtrar el valor para permitir solo números (sin puntos, comas o espacios)
+    const numericValue = value.replace(/[^0-9]/g, '');
+
+    // Actualizar el estado del formulario para 'price' con el valor numérico
+    setFormData({ ...formData, price: numericValue });
+    setDisplayPrice(numericValue); // Mostrar el valor en tiempo real sin puntos
+    setIsValid(!!numericValue);
+  } else {
+    let updatedFormData = { ...formData, [name]: value };
+
+    // Si los campos modificados son metros cuadrados, recalcular el total
+    if (
+      name === 'coveredSquareMeters' ||
+      name === 'semiCoveredSquareMeters' ||
+      name === 'uncovered' ||
+      name === 'land'
+    ) {
+      const totalSquareMeters = calculateTotalSquareMeters(updatedFormData);
+      updatedFormData = { ...updatedFormData, totalSquareMeters };
+    }
+
+    // Lógica para cambios en el país
     if (name === 'country') {
-      // Si cambia el país, reiniciar el campo 'province' si no es Argentina
       updatedFormData = {
         ...updatedFormData,
-        province: value === 'Argentina' ? formData.province : '', // Solo mantener la provincia si es Argentina
+        province: '', // Reiniciar provincia al cambiar país
+        departments: '', // Reiniciar departamento
+        locality: '', // Reiniciar localidad
       };
-    }
 
-    if (name === 'province') {
-      if (departmentsByProvince[value]) {
-        setAvailableDepartments(departmentsByProvince[value]);
+      // Si es Argentina, habilitar selección de provincias
+      if (value === 'Argentina') {
+        setAvailableDepartments([]); // Reiniciar departamentos
+        setAvailableLocalities([]); // Reiniciar localidades
       } else {
         setAvailableDepartments([]);
+        setAvailableLocalities([]);
       }
     }
-  
-      // Actualizar el estado del formulario
-      setFormData(updatedFormData);
+
+    // Lógica para cambios en la provincia
+    if (name === 'province') {
+      updatedFormData = {
+        ...updatedFormData,
+        departments: '', // Reiniciar departamento al cambiar provincia
+        locality: '', // Reiniciar localidad
+      };
+
+      if (departmentsByProvince[value]) {
+        setAvailableDepartments(departmentsByProvince[value]); // Actualizar departamentos disponibles
+        setAvailableLocalities([]); // Reiniciar localidades
+      } else {
+        setAvailableDepartments([]); // Si no hay departamentos, reiniciar
+        setAvailableLocalities([]);
+      }
     }
-  };
+
+    // Lógica para cambios en el departamento
+    if (name === 'departments') {
+      updatedFormData = {
+        ...updatedFormData,
+        locality: '', // Reiniciar localidad al cambiar departamento
+      };
+
+      if (localitiesByDepartment[formData.province]?.[value]) {
+        setAvailableLocalities(
+          localitiesByDepartment[formData.province][value]
+        ); // Actualizar localidades disponibles
+      } else {
+        setAvailableLocalities([]); // Si no hay localidades, reiniciar
+      }
+    }
+
+    // Actualizar el estado del formulario
+    setFormData(updatedFormData);
+  }
+};
 
   const handleBlur = () => {
     if (!formData.price) {
@@ -1040,8 +1305,21 @@ const handleKeyPress = (e) => {
             </select>
       </div>
       <div className={style.inputGroup}>
-        <h3 className={style.subtitle}>Localidad</h3>
-        <input type="text" name="locality" value={formData.locality} onChange={handleChange} className={style.inputText} />
+      <h3 className={style.subtitle}>Localidad</h3>
+<select
+  name="locality"
+  value={formData.locality}
+  onChange={handleChange}
+  className={style.inputText}
+  disabled={!formData.departments || availableLocalities.length === 0}
+>
+  <option value="">Seleccione una localidad</option>
+  {availableLocalities.map((locality) => (
+    <option key={locality} value={locality}>
+      {locality}
+    </option>
+  ))}
+</select>
       </div>
     </div>
     <div className={style.formColumn}>
