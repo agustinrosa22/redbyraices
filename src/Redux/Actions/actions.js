@@ -324,12 +324,16 @@ export const createUserSeller = (userData) => async (dispatch) => {
 };
 
 // Action para obtener todos los vendedores
-export const getAllSellers = () => async (dispatch) => {
+// Action para obtener todos los vendedores
+export const getAllSellers = (status) => async (dispatch) => {
   try {
-    const response = await axios.get('/sellers');
+    // Construye la URL con el query param 'status' si se proporciona
+    const query = status ? `?status=${status}` : '';
+    const response = await axios.get(`/sellers${query}`);
+    
     dispatch({
       type: GET_ALL_SELLERS_SUCCESS,
-      payload: response.data // Asume que el servidor devuelve una lista de vendedores
+      payload: response.data// Asegúrate de acceder al array de vendedores en 'data.data' si sigue el formato del servidor
     });
   } catch (error) {
     console.error('Error al obtener los vendedores:', error);
@@ -339,7 +343,6 @@ export const getAllSellers = () => async (dispatch) => {
     });
   }
 };
-
 // Acción para actualizar un vendedor
 export const updateSeller = (id, sellerData) => async (dispatch) => {
   try {

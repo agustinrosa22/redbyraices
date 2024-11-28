@@ -2,6 +2,29 @@
 .containerWrapper {
     padding: 20px; /* Espaciado interno del contenedor principal */
   }
+
+  .containerButton {
+    display: flex;                /* Usamos flexbox para distribuir los botones */
+    justify-content: center;      /* Centra los botones horizontalmente */
+    gap: 20px;                    /* Espacio entre los botones */
+    margin-bottom: 20px;          /* Espacio inferior para separar del contenido */
+  }
+  
+  .filterButton {
+    padding: 10px 20px;           /* Añadir padding para que los botones sean más grandes */
+    background-color: #007BFF;    /* Color de fondo */
+    color: white;                 /* Color del texto */
+    border: none;                 /* Sin borde */
+    border-radius: 5px;           /* Bordes redondeados */
+    cursor: pointer;              /* Cambiar el cursor al pasar sobre los botones */
+    font-size: 16px;              /* Tamaño de la fuente */
+    transition: background-color 0.3s ease; /* Animación suave de cambio de color */
+  }
+  
+  .filterButton:hover {
+    background-color: #0056b3;    /* Color de fondo al pasar el cursor */
+  }
+  
   
   /* Estilo para la cantidad de vendedores */
   .quantityTitle {
