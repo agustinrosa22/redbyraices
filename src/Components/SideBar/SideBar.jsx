@@ -14,6 +14,9 @@ import lupa from '../../Assets/busqueda-de-lupa.png';
 import spanner from '../../Assets/llave-inglesa.png';
 import report from '../../Assets/comentario.png';
 import menuIcon from '../../Assets/comentario.png';
+import usuarios from '../../Assets/agregar-usuario.png'
+import lista from '../../Assets/lista-de-verificacion.png'
+import aprobar from '../../Assets/aprobar.png'
 
 const allowedEmails = [
   'arosa@byraices.com',
@@ -115,7 +118,7 @@ const Sidebar = () => {
           {showApproveButton && (
             <li>
               <Link to="/aprobar" className={style.link}>
-                <img src={report} alt="Approve" className={style.icon} />
+                <img src={aprobar} alt="Approve" className={style.icon} />
                 Aprobar
               </Link>
             </li>
@@ -123,7 +126,7 @@ const Sidebar = () => {
             {showApproveButton && (
             <li>
               <Link to="/usuarios" className={style.link}>
-                <img src={report} alt="Approve" className={style.icon} />
+                <img src={usuarios} alt="Approve" className={style.icon} />
                Usuarios
               </Link>
             </li>
@@ -131,7 +134,7 @@ const Sidebar = () => {
           {showApproveButton && (
             <li>
               <Link to="/lista-administrador" className={style.link}>
-                <img src={report} alt="Approve" className={style.icon} />
+                <img src={lista} alt="Approve" className={style.icon} />
                 Lista
               </Link>
             </li>
@@ -139,7 +142,7 @@ const Sidebar = () => {
           {showListButton && (
             <li>
               <Link to="/lista" className={style.link}>
-                <img src={report} alt="List" className={style.icon} />
+                <img src={lista} alt="List" className={style.icon} />
                 Lista
               </Link>
             </li>
