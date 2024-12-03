@@ -34,7 +34,7 @@
 }
 
 .submitButton {
-    background-color: #007bff; /* Color de fondo */
+    background-color: #3D2F87; /* Color de fondo */
     color: white; /* Color del texto */
     padding: 10px 15px; /* Espaciado interno */
     border: none; /* Sin borde */
@@ -42,3 +42,45 @@
     font-size: 16px; /* Tamaño de fuente */
     cursor: pointer; /* Cambiar cursor a puntero */
 }
+
+.submitButton:hover {
+    background-color: #A83E52;
+}
+.fieldset {
+    border-radius: 5px;
+    margin: 15px 0;
+    padding: 10px 15px;
+    display: flex;
+    flex-direction: column; /* Asegura que el legend quede arriba de los checkboxes */
+    align-items: stretch; /* Estira los elementos para ocupar el ancho completo */
+}
+
+.legend {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-bottom: 10px; /* Margen inferior para separar el legend de los checkboxes */
+    text-align: left; /* Alinea el texto del legend a la izquierda */
+}
+
+.checkboxGroup {
+    display: flex;
+    justify-content: space-between; /* Distribuye los checkboxes uniformemente */
+    gap: 20px; /* Espaciado entre los checkboxes */
+    flex-wrap: wrap; /* Permite que los checkboxes pasen a la siguiente línea si es necesario */
+}
+
+.checkboxLabel {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    font-size: 1rem;
+    cursor: pointer;
+    flex: 1; /* Hace que los checkboxes ocupen el mismo espacio */
+    min-width: 120px; /* Ancho mínimo para cada checkbox */
+    justify-content: center; /* Centra los elementos dentro de cada label */
+}
+
+.checkboxInput {
+    margin-right: 5px; /* Espacio entre el checkbox y el texto */
+}
+

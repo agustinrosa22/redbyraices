@@ -4,49 +4,65 @@ import { useParams, useNavigate } from 'react-router-dom';
 import style from './VisitaForm.module.css';
 
 const VisitaForm = () => {
-  const { id } = useParams();  // Obtener el propertyId de los parámetros de la URL
-  const navigate = useNavigate();  // useNavigate hook
+  const { id } = useParams(); // Obtener el propertyId de los parámetros de la URL
+  const navigate = useNavigate(); // useNavigate hook
 
   const [formData, setFormData] = useState({
     visitante: '',
     agente: '',
     fecha: '',
     descripcion: '',
-    propertyId: '',  // Campo para propertyId
+    propertyId: '', // Campo para propertyId
+    gusto: { yes: false, no: false },
+    calificacionUbicacion: { excelente: false, buena: false, regular: false, mala: false },
+    espaciosYComodidades: { muySatisfactorio: false, satisfactorio: false, insatisfactorio: false },
+    calidadPrecio: { excelente: false, buena: false, regular: false, mala: false },
+    estado: { excelente: false, buena: false, regular: false, mala: false },
+    general: { excelente: false, muyBuena: false, buena: false, regular: false, mala: false },
+    comprar: { yes: false, no: false },
+    verOtras: { yes: false, no: false, maybe: false },
+    
   });
 
   // Usar useEffect para cargar el propertyId en el formData cuando el componente se monte
   useEffect(() => {
     setFormData((prevFormData) => ({
       ...prevFormData,
-      propertyId: id  // Asignar el id de los parámetros a propertyId
+      propertyId: id, // Asignar el id de los parámetros a propertyId
     }));
   }, [id]);
 
   const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value
-    });
+    const { name, value, type, checked } = e.target;
+  
+    if (name.includes('.')) {
+      const [section, field] = name.split('.');
+      
+      setFormData((prev) => ({
+        ...prev,
+        [section]: {
+          ...Object.fromEntries(Object.keys(prev[section]).map((key) => [key, false])), // Desmarcar todos
+          [field]: checked, // Marcar el seleccionado
+        },
+      }));
+    } else {
+      setFormData({
+        ...formData,
+        [name]: value,
+      });
+    }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
-      const newVisita = {
-        ...formData,
-        propertyId: id  // Asegurar que el propertyId se envía correctamente
-      };
-
       // Enviar los datos de la visita al backend
-      const response = await axios.post('/visita', newVisita);
+      const response = await axios.post('/visita', formData);
 
       // Manejar el éxito
       console.log('Visita creada:', response.data);
-      navigate(`/home`);  // Redireccionar a la página de inicio o donde desees
-
+      navigate(`/home`); // Redireccionar a la página de inicio o donde desees
     } catch (error) {
       console.error('Error al crear la visita:', error);
     }
@@ -56,6 +72,7 @@ const VisitaForm = () => {
     <div className={style.visitaFormContainer}>
       <h2 className={style.title}>Anotar Visita para la propiedad</h2>
       <form onSubmit={handleSubmit} className={style.form}>
+        {/* Información básica */}
         <div className={style.formGroup}>
           <label htmlFor="visitante" className={style.label}>Visitante:</label>
           <input
@@ -88,7 +105,7 @@ const VisitaForm = () => {
             type="date"
             id="fecha"
             name="fecha"
-            className={style.fecha}
+            className={style.input}
             value={formData.fecha}
             onChange={handleInputChange}
             required
@@ -103,9 +120,177 @@ const VisitaForm = () => {
             className={style.textarea}
             value={formData.descripcion}
             onChange={handleInputChange}
-            required
           ></textarea>
         </div>
+
+        {/* Gusto */}
+        <fieldset className={style.fieldset}>
+          <legend>¿Te gustó la propiedad?</legend>
+          <label>
+            <input
+              type="checkbox"
+              name="gusto.yes"
+              checked={formData.gusto.yes}
+              onChange={handleInputChange}
+            />
+            Si
+          </label>
+          <label>
+            <input
+              type="checkbox"
+              name="gusto.no"
+              checked={formData.gusto.no}
+              onChange={handleInputChange}
+            />
+            No
+          </label>
+        </fieldset>
+
+        {/* Calificación Ubicación */}
+        <fieldset className={style.fieldset}>
+        <legend>¿Qué le pareció la ubicación de la propiedad?
+        </legend>
+        {['excelente', 'buena', 'regular', 'mala'].map((option) => (
+          <label key={option}>
+            <input
+              type="checkbox"
+              name={`calificacionUbicacion.${option}`}
+              checked={formData.calificacionUbicacion[option]}
+              onChange={handleInputChange}
+            />
+            {option.charAt(0).toUpperCase() + option.slice(1)}
+          </label>
+        ))}
+      </fieldset>
+
+      <fieldset className={style.fieldset}>
+          <legend>¿Cómo calificaría el estado general de la propiedad?</legend>
+          {['excelente', 'buena', 'regular', 'mala'].map((option) => (
+            <label key={option}>
+              <input
+                type="checkbox"
+                name={`estado.${option}`}
+                checked={formData.estado[option]}
+                onChange={handleInputChange}
+              />
+              {option.charAt(0).toUpperCase() + option.slice(1)}
+            </label>
+          ))}
+        </fieldset>
+
+        {/* Espacios y Comodidades */}
+        <fieldset className={style.fieldset}>
+  <legend>¿Qué le parecieron los espacios y comodidades de la propiedad?</legend>
+  {[
+    { key: 'muySatisfactorio', label: 'Muy satisfactorio' },
+    { key: 'satisfactorio', label: 'Satisfactorio' },
+    { key: 'insatisfactorio', label: 'Insatisfactorio' },
+  ].map(({ key, label }) => (
+    <label key={key}>
+      <input
+        type="checkbox"
+        name={`espaciosYComodidades.${key}`}
+        checked={formData.espaciosYComodidades[key]}
+        onChange={handleInputChange}
+      />
+      {label}
+    </label>
+  ))}
+</fieldset>
+
+
+        {/* Calidad Precio */}
+        <fieldset className={style.fieldset}>
+          <legend>¿Cómo considera la relación calidad/precio de la propiedad?</legend>
+          {['excelente', 'buena', 'regular', 'mala'].map((option) => (
+            <label key={option}>
+              <input
+                type="checkbox"
+                name={`calidadPrecio.${option}`}
+                checked={formData.calidadPrecio[option]}
+                onChange={handleInputChange}
+              />
+              {option.charAt(0).toUpperCase() + option.slice(1)}
+            </label>
+          ))}
+        </fieldset>
+
+        {/* General */}
+        <fieldset className={style.fieldset}>
+  <legend>Calificación General de la Propiedad</legend>
+  {[
+    { key: 'excelente', label: 'Excelente' },
+    { key: 'muyBuena', label: 'Muy buena' },
+    { key: 'buena', label: 'Buena' },
+    { key: 'regular', label: 'Regular' },
+    { key: 'mala', label: 'Mala' },
+  ].map(({ key, label }) => (
+    <label key={key}>
+      <input
+        type="checkbox"
+        name={`general.${key}`}
+        checked={formData.general[key]}
+        onChange={handleInputChange}
+      />
+      {label}
+    </label>
+  ))}
+</fieldset>
+
+        {/* Comprar */}
+        <fieldset className={style.fieldset}>
+          <legend>¿Comprarías esta propiedad?</legend>
+          <label>
+            <input
+              type="checkbox"
+              name="comprar.yes"
+              checked={formData.comprar.yes}
+              onChange={handleInputChange}
+            />
+            Si
+          </label>
+          <label>
+            <input
+              type="checkbox"
+              name="comprar.no"
+              checked={formData.comprar.no}
+              onChange={handleInputChange}
+            />
+            No
+          </label>
+        </fieldset>
+
+
+        <fieldset className={style.fieldset}>
+          <legend>¿Desea ver otras propiedades similares?</legend>
+          <label>
+            <input
+              type="checkbox"
+              name="verOtras.yes"
+              checked={formData.verOtras.yes}
+              onChange={handleInputChange}
+            />
+            Si
+          </label>
+          <label>
+            <input
+              type="checkbox"
+              name="verOtras.no"
+              checked={formData.verOtras.no}
+              onChange={handleInputChange}
+            />
+            No
+          </label>
+          <label>
+            <input
+              type="checkbox"
+              name="verOtras.maybe"
+              checked={formData.verOtras.maybe}
+              onChange={handleInputChange}
+            />
+            Tal vez
+          </label>
+        </fieldset>
 
         <button type="submit" className={style.submitButton}>Crear Visita</button>
       </form>
@@ -114,3 +299,4 @@ const VisitaForm = () => {
 };
 
 export default VisitaForm;
+

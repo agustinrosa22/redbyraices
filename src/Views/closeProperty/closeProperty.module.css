@@ -5,6 +5,16 @@
   gap: 15px; /* Espaciado uniforme entre los elementos */
 }
 
+.formGroup {
+  margin-bottom: 20px;
+}
+
+.title{
+  margin-left: 35px;
+  
+}
+
+
 /* Labels */
 .label {
   display: flex;
@@ -13,6 +23,35 @@
   font-size: 14px;
   color: #3D2F87;
 }
+
+.selectInput {
+  width: auto; /* Ancho automático */
+  font-size: 18px; /* Tamaño de fuente */
+  border: 1px solid #3D2F87 !important; /* Borde para mejorar la apariencia */
+  background-color: #fff; /* Fondo blanco */
+  color: #3D2F87 ; /* Color del texto */
+  padding: 10px; /* Ajusta el relleno según tu preferencia */
+  margin-left: 25px;
+  border-top-left-radius: 5px; /* Redondea la esquina superior izquierda */
+  border-bottom-left-radius: 5px; /* Redondea la esquina inferior izquierda */
+}
+
+.subtitle{
+  text-align: center;
+  color: #8d8d8d;
+}
+
+.inputNumber {
+  width: auto; /* Ancho automático */
+  font-size: 18px; /* Tamaño de fuente */
+  border: 1px solid #3D2F87 !important;/* Borde para mejorar la apariencia */
+  background-color: #fff; /* Fondo blanco */
+  color: #3D2F87 ; /* Color del texto */
+  padding: 10px; /* Ajusta el relleno según tu preferencia */
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+
 
 /* Input, select y botones */
 .input,
@@ -44,7 +83,7 @@
 .fieldset {
   display: flex;
   flex-direction: column; /* Coloca todos los elementos dentro del fieldset en columna */
-  border: 1px solid #3D2F87;
+ 
   border-radius: 4px;
   padding: 10px;
 }
@@ -58,4 +97,12 @@
 .error {
   color: #A83E52;
   font-size: 16px;
+}
+
+.legend{
+  margin-left: 25px;
+}
+
+.title{
+  margin-left: 25px;
 }

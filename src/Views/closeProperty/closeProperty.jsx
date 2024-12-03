@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import { editProperty } from "../../Redux/Actions/actions"; // Asegúrate de que la ruta es correcta
 import { useParams } from "react-router-dom";
 import axios from "axios";
-import style from './closeProperty.module.css'
+import style from './closeProperty.module.css';
 
 const CloseProperty = () => {
   const { id } = useParams(); // Obtiene el ID de la propiedad desde la URL
@@ -11,7 +11,7 @@ const CloseProperty = () => {
 
   const [propertyData, setPropertyData] = useState({
     cerrado: {
-      cierre: false,
+      cierre: true, // Siempre se establece en true por defecto
       precioCierre: "",
       currencyCierre: "",
       fecha: "",
@@ -40,7 +40,7 @@ const CloseProperty = () => {
   }, [id]);
 
   const handleChange = (e) => {
-    const { name, value, type, checked } = e.target;
+    const { name, value, type } = e.target;
 
     if (name.includes("cerrado.")) {
       const field = name.split(".")[1];
@@ -48,20 +48,27 @@ const CloseProperty = () => {
         ...prevData,
         cerrado: {
           ...prevData.cerrado,
-          [field]: type === "checkbox" ? checked : value,
+          [field]: value,
         },
       }));
     } else {
       setPropertyData((prevData) => ({
         ...prevData,
-        [name]: type === "checkbox" ? checked : value,
+        [name]: value,
       }));
     }
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(editProperty(id, propertyData));
+    const updatedData = {
+      ...propertyData,
+      cerrado: {
+        ...propertyData.cerrado,
+        cierre: true, // Siempre true
+      },
+    };
+    dispatch(editProperty(id, updatedData));
   };
 
   if (loading) return <p>Cargando datos de la propiedad...</p>;
@@ -69,69 +76,49 @@ const CloseProperty = () => {
 
   return (
     <div className={style.container}>
-    <h2 className={style.title}>Cerrar la Propiedad</h2>
-    <p className={style.subtitle}>
-      Una vez cerrada la propiedad dejará de figurar en las plataformas de comercialización y dejará de estar en su pantalla principal.
-    </p>
-    <form onSubmit={handleSubmit} className={style.form}>
+      <h2 className={style.title}>Cerrar la Propiedad</h2>
+      <p className={style.subtitle}>
+        Una vez cerrada la propiedad dejará de figurar en las plataformas de comercialización y dejará de estar en su pantalla principal.
+      </p>
+      <form onSubmit={handleSubmit} className={style.form}>
+        {/* Campos de cerrado */}
+        <fieldset className={style.fieldset}> 
+          <div className={`${style.formGroup}`}>
+  <h2 className={`${style.title}`}>Precio</h2>
+  <select
+ name="cerrado.currencyCierre"
+ className={`${style.selectInput}`}
+ value={propertyData.cerrado.currencyCierre || ""}
+ onChange={handleChange}
+  >
+    <option value="USD">USD</option>
+    <option value="ARG">ARG</option>
+  </select>
+  <input
+   type="text"
+   name="cerrado.precioCierre"
+   className={style.inputNumber}
+   value={propertyData.cerrado.precioCierre || ""}
+   onChange={handleChange}
+      />
+      </div>
+          
+      <h2 className={`${style.title}`}>Fecha de Cierre:</h2>
+            <input
+              type="date"
+              name="cerrado.fecha"
+              className={style.fecha}
+              value={propertyData.cerrado.fecha || ""}
+              onChange={handleChange}
+            />
+        
+        </fieldset>
 
-      {/* Campos de cerrado */}
-      <fieldset className={style.fieldset}>
-        <legend className={style.legend}>Información de Cierre</legend>
-
-        <label className={style.label}>
-          Cierre Realizado:
-          <input
-            type="checkbox"
-            name="cerrado.cierre"
-            className={style.input}
-            checked={propertyData.cerrado.cierre}
-            onChange={handleChange}
-          />
-        </label>
-
-        <label className={style.label}>
-          Precio de Cierre:
-          <input
-            type="text"
-            name="cerrado.precioCierre"
-            className={style.input}
-            value={propertyData.cerrado.precioCierre || ""}
-            onChange={handleChange}
-          />
-        </label>
-
-        <label className={style.label}>
-          Moneda de Cierre:
-          <select
-            name="cerrado.currencyCierre"
-            className={style.select}
-            value={propertyData.cerrado.currencyCierre || ""}
-            onChange={handleChange}
-          >
-            <option value="">Seleccionar</option>
-            <option value="USD">USD</option>
-            <option value="ARS">ARS</option>
-          </select>
-        </label>
-
-        <label className={style.label}>
-          Fecha de Cierre:
-          <input
-            type="date"
-            name="cerrado.fecha"
-            className={style.input}
-            value={propertyData.cerrado.fecha || ""}
-            onChange={handleChange}
-          />
-        </label>
-      </fieldset>
-
-      <button type="submit" className={style.button}>
-        Guardar Cambios
-      </button>
-    </form>
-  </div>
+        <button type="submit" className={style.button}>
+          Guardar Cambios
+        </button>
+      </form>
+    </div>
   );
 };
 

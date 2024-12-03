@@ -553,9 +553,10 @@ const CreateProperty = () => {
       'Soitué'
       ],
       'Godoy Cruz': [
-        'Andino',
+        'Andino', 
         'Benegas',
         'Carrodilla',
+        'Ciudad', 
         'Las Tortugas',
         'Pueblo Nuevo',
         'San Francisco del Monte',
