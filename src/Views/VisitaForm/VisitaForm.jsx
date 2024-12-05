@@ -239,7 +239,7 @@ const VisitaForm = () => {
 
         {/* Comprar */}
         <fieldset className={style.fieldset}>
-          <legend>¿Comprarías esta propiedad?</legend>
+          <legend>¿Comprarías/Alquilarias esta propiedad?</legend>
           <label>
             <input
               type="checkbox"

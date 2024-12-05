@@ -73,11 +73,15 @@
     background-color: #A83E52;
   }
 
+
   .buttonContainer {
     display: flex;
-    justify-content:end; /* Centra ambos botones horizontalmente */
-    gap: 10px; /* Añade espacio entre los botones */
+    flex-wrap: wrap; /* Permitir que los botones se ajusten a la siguiente fila */
+    justify-content: center; /* Centrar los botones */
+    gap: 10px; /* Añadir espacio entre los botones */
   }
+
+  
     /* Estilos Responsivos */
 @media (max-width: 768px) {
   .card {
@@ -108,9 +112,13 @@
   }
 
   .detailsButton,
-  .editButton {
-    width: 100%; /* Hacer que los botones ocupen todo el ancho en pantallas pequeñas */
-    text-align: center; /* Centrar el texto dentro del botón */
+  .closeButton {
+    flex: 1 1 calc(50% - 10px); /* Cada botón ocupa el 50% del ancho menos el espacio entre ellos */
+    max-width: calc(50% - 10px); /* Limitar el ancho máximo */
+  }
+
+  .buttonContainer {
+    justify-content: space-between; /* Separar los botones horizontalmente */
   }
 }
 
@@ -124,9 +132,9 @@
     }
   
     .detailsButton,
-    .editButton {
-      padding: 8px 12px; /* Reducir el padding en pantallas pequeñas */
-      font-size: 14px; /* Reducir el tamaño de la fuente en los botones */
+    .closeButton {
+      flex: 1 1 100%; /* Los botones ocupan todo el ancho en pantallas muy pequeñas */
+      max-width: 100%;
     }
   }
   
