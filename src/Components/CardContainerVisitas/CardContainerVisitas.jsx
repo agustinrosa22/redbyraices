@@ -517,8 +517,9 @@ const promedioVerOtras =
            
           </div>
           </div>
-          <div className={style.estadisticas}>
+          <div className={style.estadisticasGeneral}>
   <h3  className={style.title}>Estadísticas Generales</h3>
+    <div className={style.circularProgressContainer}>
   <div className={style.circularProgress}>
       <svg viewBox="0 0 36 36" className={style.circularSvg}>
         <path
@@ -544,6 +545,7 @@ const promedioVerOtras =
           {calculatedPercentageGeneralFinal}%
         </text>
       </svg>
+    </div>
     </div>
 </div>
         </div>

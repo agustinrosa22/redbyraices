@@ -66,3 +66,82 @@
     font-weight: bold;
   }
 
+.estadisticasGeneral{
+  text-align: center;
+}
+
+.circularProgressContainer {
+  display: flex;
+  justify-content: center; /* Centra el círculo horizontalmente */
+  align-items: center; /* Asegura que el contenido esté alineado verticalmente */
+  position: relative;
+}
+
+.circularProgress {
+  position: relative;
+  width: 120px; /* Ajusta el tamaño del círculo */
+  height: 120px;
+}
+
+/* Responsivo para dispositivos medianos */
+@media (max-width: 768px) {
+  .title {
+    font-size: 32px; /* Tamaño más pequeño */
+  }
+
+  .flexContainer {
+    flex-direction: column; /* Ajustar los elementos en columna */
+    align-items: center;
+  }
+
+  .stats h4 {
+    font-size: 1rem; /* Reducir tamaño del título */
+  }
+
+  .stats p {
+    font-size: 0.9rem;
+  }
+
+  .circularProgress {
+    width: 90px; /* Reducir tamaño del círculo */
+    height: 90px;
+  }
+
+  .percentageText {
+    font-size: 0.4rem; /* Ajustar el tamaño del texto */
+  }
+}
+
+/* Responsivo para dispositivos pequeños */
+@media (max-width: 480px) {
+  .title {
+    font-size: 24px; /* Texto aún más pequeño */
+  }
+
+  .gustoContainer {
+    padding: 12px;
+    margin: 16px 0;
+  }
+
+  .flexContainer {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .stats h4 {
+    font-size: 0.9rem;
+  }
+
+  .stats p {
+    font-size: 0.8rem;
+  }
+
+  .circularProgress {
+    width: 80px;
+    height: 80px;
+  }
+
+  .percentageText {
+    font-size: 0.35rem;
+  }
+}
