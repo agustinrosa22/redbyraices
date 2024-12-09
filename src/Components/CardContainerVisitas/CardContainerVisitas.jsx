@@ -195,81 +195,356 @@ const promedioVerOtras =
     }
   }, [id]);
 
+  const calculatedPercentageGusto = ((estadisticas?.gusto?.yes / (estadisticas?.gusto?.yes + estadisticas?.gusto?.no)) * 100).toFixed(2);
+  const calculatedPercentageEstado = (estadisticas?.promedioEstado?.toFixed(2))
+  const calculatedPercentageUbicacion = (estadisticas?.promedioUbicacion?.toFixed(2))
+  const calculatedPercentageEspacios = (estadisticas?.promedioEspacios?.toFixed(2))
+  const calculatedPercentageCalidadPrecio = (estadisticas?.promedioCalidadPrecio?.toFixed(2))
+  const calculatedPercentagePromedioGeneral = (estadisticas?.promedioGeneral?.toFixed(2))
+  const calculatedPercentageComprar = (estadisticas?.promedioComprar?.toFixed(2))
+  const calculatedPercentageVerOtras = ( estadisticas?.promedioVerOtras?.toFixed(2))
+  const calculatedPercentageGeneralFinal = (estadisticas?.promedioGeneralFinal?.toFixed(2))
+  
+ 
+  
   return (
     <div className={style.container}>
       {loading && <p>Cargando visitas...</p>}
       {error && <p>Error: {error}</p>}
       {estadisticas && (
         <div className={style.estadisticas}>
-          <h3>Estadísticas</h3>
-          <div>
-            <h4>¿Te gustó la propiedad?</h4>
-            <p>
-              Sí: {estadisticas.gusto.yes}
-            </p>
-            <p>
-              No: {estadisticas.gusto.no} 
-            </p>
-            <p>
-              Promedio: {((estadisticas.gusto.yes / (estadisticas.gusto.yes + estadisticas.gusto.no)) * 100)?.toFixed(2)}%
-            </p>
-          </div>
-            <div>
+          <h3 className={style.title}>Estadísticas</h3>
+          <div className={style.gustoContainer}>
+  <div className={style.flexContainer}>
+    <div className={style.stats}>
+      <h4>¿Te gustó la propiedad?</h4>
+      <p>Sí: {estadisticas?.gusto?.yes}</p>
+      <p>No: {estadisticas?.gusto?.no}</p>
+    </div>
+    <div className={style.circularProgress}>
+      <svg viewBox="0 0 36 36" className={style.circularSvg}>
+        <path
+          className={style.circleBackground}
+          d="M18 2.0845
+            a 15.9155 15.9155 0 0 1 0 31.831
+            a 15.9155 15.9155 0 0 1 0 -31.831"
+        />
+        <path
+          className={style.circleProgress}
+          d="M18 2.0845
+            a 15.9155 15.9155 0 0 1 0 31.831
+            a 15.9155 15.9155 0 0 1 0 -31.831"
+          strokeDasharray={`${calculatedPercentageGusto}, 100`}
+        />
+        <text
+          x="50%"
+          y="50%"
+          dominantBaseline="middle"
+          textAnchor="middle"
+          className={style.percentageText}
+        >
+          {calculatedPercentageGusto}%
+        </text>
+      </svg>
+    </div>
+  </div>
+</div>
+            <div className={style.gustoContainer}>
+            <div  className={style.flexContainer}>
+            <div className={style.stats}>
             <h4>¿Cómo calificaría el estado general de la propiedad?</h4>
             <p>Excelente: {estadisticas.estado.excelente}</p>
             <p>Buena: {estadisticas.estado.buena}</p>
             <p>Regular: {estadisticas.estado.regular}</p>
             <p>Mala: {estadisticas.estado.mala}</p>
-            <p>Promedio: {estadisticas.promedioEstado.toFixed(2)}%</p>
+            </div>
+            <div className={style.circularProgress}>
+      <svg viewBox="0 0 36 36" className={style.circularSvg}>
+        <path
+          className={style.circleBackground}
+          d="M18 2.0845
+            a 15.9155 15.9155 0 0 1 0 31.831
+            a 15.9155 15.9155 0 0 1 0 -31.831"
+        />
+        <path
+          className={style.circleProgress}
+          d="M18 2.0845
+            a 15.9155 15.9155 0 0 1 0 31.831
+            a 15.9155 15.9155 0 0 1 0 -31.831"
+          strokeDasharray={`${calculatedPercentageEstado}, 100`}
+        />
+        <text
+          x="50%"
+          y="50%"
+          dominantBaseline="middle"
+          textAnchor="middle"
+          className={style.percentageText}
+        >
+          {calculatedPercentageEstado}%
+        </text>
+      </svg>
+    </div>
+           
+          </div>
           </div>
           <div>
+          <div className={style.gustoContainer}>
+  <div className={style.flexContainer}>
+    <div className={style.stats}>
             <h4>¿Qué le pareció la ubicación de la propiedad?</h4>
             <p>Excelente: {estadisticas.calificacionUbicacion.excelente}</p>
             <p>Buena: {estadisticas.calificacionUbicacion.buena}</p>
             <p>Regular: {estadisticas.calificacionUbicacion.regular}</p>
             <p>Mala: {estadisticas.calificacionUbicacion.mala}</p>
-            <p>Promedio: {estadisticas.promedioUbicacion.toFixed(2)}%</p>
-          </div>
-          <div>
+            </div>
+          
+          <div className={style.circularProgress}>
+      <svg viewBox="0 0 36 36" className={style.circularSvg}>
+        <path
+          className={style.circleBackground}
+          d="M18 2.0845
+            a 15.9155 15.9155 0 0 1 0 31.831
+            a 15.9155 15.9155 0 0 1 0 -31.831"
+        />
+        <path
+          className={style.circleProgress}
+          d="M18 2.0845
+            a 15.9155 15.9155 0 0 1 0 31.831
+            a 15.9155 15.9155 0 0 1 0 -31.831"
+          strokeDasharray={`${calculatedPercentageUbicacion}, 100`}
+        />
+        <text
+          x="50%"
+          y="50%"
+          dominantBaseline="middle"
+          textAnchor="middle"
+          className={style.percentageText}
+        >
+          {calculatedPercentageUbicacion}%
+        </text>
+      </svg>
+    </div>
+    </div>
+    </div>
+    </div>
+
+          <div className={style.gustoContainer}>
+  <div className={style.flexContainer}>
+    <div className={style.stats}>
             <h4>¿Qué le parecieron los espacios y comodidades de la propiedad?</h4>
             <p>Muy Satisfactorio: {estadisticas.espaciosYComodidades.muySatisfactorio}</p>
             <p>Satisfactorio: {estadisticas.espaciosYComodidades.satisfactorio}</p>
             <p>Insatisfactorio: {estadisticas.espaciosYComodidades.insatisfactorio}</p>
-             <p>Promedio: {estadisticas.promedioEspacios.toFixed(2)}%</p>
+             </div>
+            <div className={style.circularProgress}>
+      <svg viewBox="0 0 36 36" className={style.circularSvg}>
+        <path
+          className={style.circleBackground}
+          d="M18 2.0845
+            a 15.9155 15.9155 0 0 1 0 31.831
+            a 15.9155 15.9155 0 0 1 0 -31.831"
+        />
+        <path
+          className={style.circleProgress}
+          d="M18 2.0845
+            a 15.9155 15.9155 0 0 1 0 31.831
+            a 15.9155 15.9155 0 0 1 0 -31.831"
+          strokeDasharray={`${calculatedPercentageEspacios}, 100`}
+        />
+        <text
+          x="50%"
+          y="50%"
+          dominantBaseline="middle"
+          textAnchor="middle"
+          className={style.percentageText}
+        >
+          {calculatedPercentageEspacios}%
+        </text>
+      </svg>
+    </div>
+           
           </div>
-          <div>
+          </div>
+          <div className={style.gustoContainer}>
+  <div className={style.flexContainer}>
+    <div className={style.stats}>
             <h4>¿Cómo considera la relación calidad/precio de la propiedad?</h4>
             <p>Excelente: {estadisticas.calidadPrecio.excelente}</p>
             <p>Buena: {estadisticas.calidadPrecio.buena}</p>
             <p>Regular: {estadisticas.calidadPrecio.regular}</p>
             <p>Mala: {estadisticas.calidadPrecio.mala}</p>
-            <p>Promedio: {estadisticas.promedioCalidadPrecio.toFixed(2)}%</p>
+            <p>Promedio: {calculatedPercentageCalidadPrecio}%</p>
+            </div>
+            <div className={style.circularProgress}>
+      <svg viewBox="0 0 36 36" className={style.circularSvg}>
+        <path
+          className={style.circleBackground}
+          d="M18 2.0845
+            a 15.9155 15.9155 0 0 1 0 31.831
+            a 15.9155 15.9155 0 0 1 0 -31.831"
+        />
+        <path
+          className={style.circleProgress}
+          d="M18 2.0845
+            a 15.9155 15.9155 0 0 1 0 31.831
+            a 15.9155 15.9155 0 0 1 0 -31.831"
+          strokeDasharray={`${calculatedPercentageCalidadPrecio}, 100`}
+        />
+        <text
+          x="50%"
+          y="50%"
+          dominantBaseline="middle"
+          textAnchor="middle"
+          className={style.percentageText}
+        >
+          {calculatedPercentageCalidadPrecio}%
+        </text>
+      </svg>
+    </div>
+           
           </div>
-          <div>
+          </div>
+          <div className={style.gustoContainer}>
+  <div className={style.flexContainer}>
+    <div className={style.stats}>
             <h4>¿Cómo calificaría el estado general de la propiedad?</h4>
             <p>Excelente: {estadisticas.general.excelente}</p>
             <p>Muy Buena: {estadisticas.general.muyBuena}</p>
             <p>Buena: {estadisticas.general.buena}</p>
             <p>Regular: {estadisticas.general.regular}</p>
             <p>Mala: {estadisticas.general.mala}</p>
-            <p>Promedio: {estadisticas.promedioGeneral.toFixed(2)}%</p>
+            </div>
+            <div className={style.circularProgress}>
+      <svg viewBox="0 0 36 36" className={style.circularSvg}>
+        <path
+          className={style.circleBackground}
+          d="M18 2.0845
+            a 15.9155 15.9155 0 0 1 0 31.831
+            a 15.9155 15.9155 0 0 1 0 -31.831"
+        />
+        <path
+          className={style.circleProgress}
+          d="M18 2.0845
+            a 15.9155 15.9155 0 0 1 0 31.831
+            a 15.9155 15.9155 0 0 1 0 -31.831"
+          strokeDasharray={`${calculatedPercentagePromedioGeneral}, 100`}
+        />
+        <text
+          x="50%"
+          y="50%"
+          dominantBaseline="middle"
+          textAnchor="middle"
+          className={style.percentageText}
+        >
+          {calculatedPercentagePromedioGeneral}%
+        </text>
+      </svg>
+    </div>
+           
           </div>
-          <div>
+          </div>
+          <div className={style.gustoContainer}>
+  <div className={style.flexContainer}>
+    <div className={style.stats}>
             <h4>¿Comprarías/Alquilarias esta propiedad?</h4>
             <p>Sí: {estadisticas.comprar.yes}</p>
             <p>No: {estadisticas.comprar.no}</p>
-            <p>Porcentaje: {estadisticas.promedioComprar.toFixed(2)}%</p>
+            </div>
+            <div className={style.circularProgress}>
+      <svg viewBox="0 0 36 36" className={style.circularSvg}>
+        <path
+          className={style.circleBackground}
+          d="M18 2.0845
+            a 15.9155 15.9155 0 0 1 0 31.831
+            a 15.9155 15.9155 0 0 1 0 -31.831"
+        />
+        <path
+          className={style.circleProgress}
+          d="M18 2.0845
+            a 15.9155 15.9155 0 0 1 0 31.831
+            a 15.9155 15.9155 0 0 1 0 -31.831"
+          strokeDasharray={`${calculatedPercentageComprar}, 100`}
+        />
+        <text
+          x="50%"
+          y="50%"
+          dominantBaseline="middle"
+          textAnchor="middle"
+          className={style.percentageText}
+        >
+          {calculatedPercentageComprar}%
+        </text>
+      </svg>
+    </div>
+           
           </div>
-          <div>
+          </div>
+          <div className={style.gustoContainer}>
+  <div className={style.flexContainer}>
+    <div className={style.stats}>
             <h4>¿Desea ver otras propiedades similares?</h4>
             <p>Sí: {estadisticas.verOtras.yes}</p>
             <p>No: {estadisticas.verOtras.no}</p>
             <p>Tal vez: {estadisticas.verOtras.maybe}</p>
-            <p>Porcentaje Promedio: {estadisticas.promedioVerOtras.toFixed(2)}%</p>
+            <p>Porcentaje Promedio: {calculatedPercentageVerOtras}%</p>
+            </div>
+            <div className={style.circularProgress}>
+      <svg viewBox="0 0 36 36" className={style.circularSvg}>
+        <path
+          className={style.circleBackground}
+          d="M18 2.0845
+            a 15.9155 15.9155 0 0 1 0 31.831
+            a 15.9155 15.9155 0 0 1 0 -31.831"
+        />
+        <path
+          className={style.circleProgress}
+          d="M18 2.0845
+            a 15.9155 15.9155 0 0 1 0 31.831
+            a 15.9155 15.9155 0 0 1 0 -31.831"
+          strokeDasharray={`${calculatedPercentageVerOtras}, 100`}
+        />
+        <text
+          x="50%"
+          y="50%"
+          dominantBaseline="middle"
+          textAnchor="middle"
+          className={style.percentageText}
+        >
+          {calculatedPercentageVerOtras}%
+        </text>
+      </svg>
+    </div>
+           
+          </div>
           </div>
           <div className={style.estadisticas}>
-  <h3>Estadísticas Generales</h3>
-  <p>Promedio General: {estadisticas.promedioGeneralFinal.toFixed(2)}%</p>
+  <h3  className={style.title}>Estadísticas Generales</h3>
+  <div className={style.circularProgress}>
+      <svg viewBox="0 0 36 36" className={style.circularSvg}>
+        <path
+          className={style.circleBackground}
+          d="M18 2.0845
+            a 15.9155 15.9155 0 0 1 0 31.831
+            a 15.9155 15.9155 0 0 1 0 -31.831"
+        />
+        <path
+          className={style.circleProgress}
+          d="M18 2.0845
+            a 15.9155 15.9155 0 0 1 0 31.831
+            a 15.9155 15.9155 0 0 1 0 -31.831"
+          strokeDasharray={`${calculatedPercentageGeneralFinal}, 100`}
+        />
+        <text
+          x="50%"
+          y="50%"
+          dominantBaseline="middle"
+          textAnchor="middle"
+          className={style.percentageText}
+        >
+          {calculatedPercentageGeneralFinal}%
+        </text>
+      </svg>
+    </div>
 </div>
         </div>
 
