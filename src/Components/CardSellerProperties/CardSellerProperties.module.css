@@ -71,6 +71,7 @@
   
   .detailsButton:hover {
     background-color: #A83E52;
+    transform: translateY(-2px);
   }
 
 

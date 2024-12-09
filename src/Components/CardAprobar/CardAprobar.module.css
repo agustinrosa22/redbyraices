@@ -57,6 +57,7 @@
   
   .detailsButton:hover {
     background-color: #A83E52;
+    transform: translateY(-2px);
   }
   
   .editButton {
@@ -74,6 +75,7 @@
   
   .editButton:hover {
     background-color: #45a049; /* Color de fondo verde más oscuro al pasar el cursor */
+    transform: translateY(-2px);
   }
 
   .deleteButton{
@@ -91,6 +93,7 @@
 
   .deleteButton:hover {
     background-color: #ff002f; /* Color de fondo verde más oscuro al pasar el cursor */
+    transform: translateY(-2px);
   }
 
   /* Estilos Responsivos */
