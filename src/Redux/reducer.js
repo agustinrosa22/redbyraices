@@ -45,6 +45,21 @@ import {  LOGIN_SUCCESS,
           GET_PROPERTIES_BY_SELLER_ERROR,
           GET_PROPERTIES_CLOSED_BY_SELLER_ID_SUCCESS,
           GET_PROPERTIES_CLOSED_BY_SELLER_ID_FAIL,
+          FETCH_RENTALS_REQUEST,
+          FETCH_RENTALS_SUCCESS,
+          FETCH_RENTALS_FAILURE,
+          FETCH_RENTAL_REQUEST,
+          FETCH_RENTAL_SUCCESS,
+          FETCH_RENTAL_FAILURE,
+          CREATE_RENTAL_REQUEST,
+          CREATE_RENTAL_SUCCESS,
+          CREATE_RENTAL_FAILURE,
+          UPDATE_RENTAL_REQUEST,
+          UPDATE_RENTAL_SUCCESS,
+          UPDATE_RENTAL_FAILURE,
+          DELETE_RENTAL_REQUEST,
+          DELETE_RENTAL_SUCCESS,
+          DELETE_RENTAL_FAILURE,   
          } from './Actions/actionTypes';
 
 const initialState = {
@@ -69,6 +84,8 @@ const initialState = {
   loading: false,
   error: null,
   visitas: [],
+  rentals: [], 
+  rental: null, 
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -310,6 +327,109 @@ const rootReducer = (state = initialState, action) => {
                       case GET_PROPERTIES_BY_SELLER_ERROR:
                         // Maneja otros errores si es necesario
                         return state; 
+                        case FETCH_RENTALS_REQUEST:
+                          return {
+                            ...state,
+                            loading: true,
+                            error: null,
+                          };
+                        case FETCH_RENTALS_SUCCESS:
+                          return {
+                            ...state,
+                            loading: false,
+                            rentals: action.payload, // Supongamos que payload es un array de rentas
+                            error: null,
+                          };
+                        case FETCH_RENTALS_FAILURE:
+                          return {
+                            ...state,
+                            loading: false,
+                            error: action.payload,
+                          };
+                    
+                        case FETCH_RENTAL_REQUEST:
+                          return {
+                            ...state,
+                            loading: true,
+                            error: null,
+                          };
+                        case FETCH_RENTAL_SUCCESS:
+                          return {
+                            ...state,
+                            loading: false,
+                            rental: action.payload, // Supongamos que payload es un objeto de renta
+                            error: null,
+                          };
+                        case FETCH_RENTAL_FAILURE:
+                          return {
+                            ...state,
+                            loading: false,
+                            error: action.payload,
+                          };
+                    
+                        case CREATE_RENTAL_REQUEST:
+                          return {
+                            ...state,
+                            loading: true,
+                            error: null,
+                          };
+                        case CREATE_RENTAL_SUCCESS:
+                          return {
+                            ...state,
+                            loading: false,
+                            rentals: [...state.rentals, action.payload], // Agregar la nueva renta a la lista
+                            error: null,
+                          };
+                        case CREATE_RENTAL_FAILURE:
+                          return {
+                            ...state,
+                            loading: false,
+                            error: action.payload,
+                          };
+                    
+                        case UPDATE_RENTAL_REQUEST:
+                          return {
+                            ...state,
+                            loading: true,
+                            error: null,
+                          };
+                        case UPDATE_RENTAL_SUCCESS:
+                          return {
+                            ...state,
+                            loading: false,
+                            rentals: state.rentals.map((rental) =>
+                              rental.id === action.payload.id ? action.payload : rental
+                            ), // Actualizar la renta modificada
+                            error: null,
+                          };
+                        case UPDATE_RENTAL_FAILURE:
+                          return {
+                            ...state,
+                            loading: false,
+                            error: action.payload,
+                          };
+                    
+                        case DELETE_RENTAL_REQUEST:
+                          return {
+                            ...state,
+                            loading: true,
+                            error: null,
+                          };
+                        case DELETE_RENTAL_SUCCESS:
+                          return {
+                            ...state,
+                            loading: false,
+                            rentals: state.rentals.filter((rental) => rental.id !== action.payload), // Eliminar la renta
+                            error: null,
+                          };
+                        case DELETE_RENTAL_FAILURE:
+                          return {
+                            ...state,
+                            loading: false,
+                            error: action.payload,
+                          };
+                    
+
                   
     default:
       return state;

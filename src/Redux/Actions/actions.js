@@ -39,6 +39,21 @@ import {
   GET_PROPERTIES_BY_SELLER_ERROR,
   GET_PROPERTIES_CLOSED_BY_SELLER_ID_SUCCESS,
   GET_PROPERTIES_CLOSED_BY_SELLER_ID_FAIL,
+  FETCH_RENTALS_REQUEST,
+  FETCH_RENTALS_SUCCESS,
+  FETCH_RENTALS_FAILURE,
+  FETCH_RENTAL_REQUEST,
+  FETCH_RENTAL_SUCCESS,
+  FETCH_RENTAL_FAILURE,
+  CREATE_RENTAL_REQUEST,
+  CREATE_RENTAL_SUCCESS,
+  CREATE_RENTAL_FAILURE,
+  UPDATE_RENTAL_REQUEST,
+  UPDATE_RENTAL_SUCCESS,
+  UPDATE_RENTAL_FAILURE,
+  DELETE_RENTAL_REQUEST,
+  DELETE_RENTAL_SUCCESS,
+  DELETE_RENTAL_FAILURE,             
 
  } from './actionTypes';
 
@@ -471,5 +486,125 @@ export const getPropertiesBySeller = (sellerId) => async (dispatch) => {
         payload: error.message,
       });
     }
+  }
+};
+
+
+export const fetchRentals = () => async (dispatch) => {
+  try {
+    dispatch({ type: FETCH_RENTALS_REQUEST });
+
+    const { data } = await axios.get('/rentals'); // Cambia la URL según tu backend
+
+    dispatch({
+      type: FETCH_RENTALS_SUCCESS,
+      payload: data, // Suponemos que 'data' es un array de rentas
+    });
+  } catch (error) {
+    console.error('Error al obtener las rentas:', error);
+    dispatch({
+      type: FETCH_RENTALS_FAILURE,
+      payload: error.response?.data?.message || error.message,
+    });
+  }
+};
+
+export const fetchRental = (rentalId) => async (dispatch) => {
+  try {
+    dispatch({ type: FETCH_RENTAL_REQUEST });
+
+    const { data } = await axios.get(`/rentals/${rentalId}`); // Cambia la URL según tu backend
+
+    dispatch({
+      type: FETCH_RENTAL_SUCCESS,
+      payload: data, // Suponemos que 'data' es el objeto de una renta
+    });
+  } catch (error) {
+    console.error('Error al obtener los detalles de la renta:', error);
+    dispatch({
+      type: FETCH_RENTAL_FAILURE,
+      payload: error.response?.data?.message || error.message,
+    });
+  }
+};
+
+export const createRental = (rentalData) => async (dispatch) => {
+  try {
+    dispatch({ type: CREATE_RENTAL_REQUEST });
+
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
+
+    const { data } = await axios.post('/rental', rentalData, config); // Cambia la URL según tu backend
+
+    dispatch({
+      type: CREATE_RENTAL_SUCCESS,
+      payload: data,
+    });
+
+    alert('Renta creada exitosamente!');
+  } catch (error) {
+    console.error('Error al crear la renta:', error);
+    dispatch({
+      type: CREATE_RENTAL_FAILURE,
+      payload: error.response?.data?.message || error.message,
+    });
+
+    alert('Error al crear la renta');
+  }
+};
+
+export const updateRental = (rentalId, rentalData) => async (dispatch) => {
+  try {
+    dispatch({ type: UPDATE_RENTAL_REQUEST });
+
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
+
+    const { data } = await axios.put(`/rentals/${rentalId}`, rentalData, config); // Cambia la URL según tu backend
+
+    dispatch({
+      type: UPDATE_RENTAL_SUCCESS,
+      payload: data,
+    });
+
+    alert('Renta actualizada exitosamente!');
+  } catch (error) {
+    console.error('Error al actualizar la renta:', error);
+    dispatch({
+      type: UPDATE_RENTAL_FAILURE,
+      payload: error.response?.data?.message || error.message,
+    });
+
+    alert('Error al actualizar la renta');
+  }
+};
+
+export const deleteRental = (rentalId) => async (dispatch) => {
+  try {
+    dispatch({ type: DELETE_RENTAL_REQUEST });
+
+    await axios.delete(`/rentals/${rentalId}`); // Cambia la URL según tu backend
+
+    dispatch({
+      type: DELETE_RENTAL_SUCCESS,
+      payload: rentalId,
+    });
+
+    alert('Renta eliminada exitosamente!');
+  } catch (error) {
+    console.error('Error al eliminar la renta:', error);
+    dispatch({
+      type: DELETE_RENTAL_FAILURE,
+      payload: error.response?.data?.message || error.message,
+    });
+
+    alert('Error al eliminar la renta');
   }
 };

@@ -20,7 +20,7 @@ import VisitaForm from './Views/VisitaForm/VisitaForm'
 import CardContainerVisitas from './Components/CardContainerVisitas/CardContainerVisitas';
 import CloseProperty from './Views/closeProperty/closeProperty';
 import Properties from './Views/Properties/Properties'
-
+import GenerarAlquiler from './Views/GenerarAlquiler/GenerarAlquiler';
 
 
 function App() {
@@ -57,7 +57,8 @@ function App() {
             <Route path="/historial/visitas/:id" element={<CardContainerVisitas />} />
             <Route path="/cierre-property/:id" element={<CloseProperty />} />
             <Route path="/properties" element={<Properties />} />
-            
+            <Route path="/generar-alquiler/:propertyId" element={<GenerarAlquiler />} />
+
           </Routes>
         </div>
       </div>

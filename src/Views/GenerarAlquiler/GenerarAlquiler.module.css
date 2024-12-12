@@ -1,0 +1,78 @@
+/* GenerarAlquiler.module.css */
+
+.container {
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .title {
+    text-align: center;
+    color: #3D2F87; /* Azul oscuro */
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+  }
+  
+  .form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .formGroup {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  
+  .label {
+    font-size: 16px;
+    color: #3D2F87;
+    font-weight: bold;
+  }
+  
+  .input,
+  .select {
+    padding: 10px;
+    border: 1px solid #3D2F87;
+    border-radius: 5px;
+    font-size: 16px;
+    color: #3D2F87;
+  }
+  
+  .inputNumber {
+    width: 100%;
+  }
+  
+  .button {
+    background-color: #A83E52;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+  }
+  
+  .button:hover {
+    background-color: #922d44;
+    transform: translateY(-2px);
+    box-shadow: 0px 6px 12px rgba(146, 45, 68, 0.3);
+  }
+  
+  .error {
+    color: #A83E52;
+    font-size: 16px;
+    text-align: center;
+    font-weight: bold;
+  }
+  

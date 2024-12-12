@@ -30,6 +30,9 @@ const CardSellerProperties = ({ property }) => {
   <Link to={`/cierre-property/${property.id}`} className={style.detailsLink}>
             <button className={style.closeButton}>Cerrar Propiedad</button>
           </Link>
+          <Link to={`/generar-alquiler/${property.id}`} className={style.detailsLink}>
+            <button className={style.rentalButton}>Generar Alquiler</button>
+          </Link>
 </div>
       </div>
     </div>
