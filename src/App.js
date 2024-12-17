@@ -21,6 +21,7 @@ import CardContainerVisitas from './Components/CardContainerVisitas/CardContaine
 import CloseProperty from './Views/closeProperty/closeProperty';
 import Properties from './Views/Properties/Properties'
 import GenerarAlquiler from './Views/GenerarAlquiler/GenerarAlquiler';
+import PlacaPublicitaria from './Views/PlacaPublicitaria/PlacaPublicitaria'
 
 
 function App() {
@@ -58,7 +59,7 @@ function App() {
             <Route path="/cierre-property/:id" element={<CloseProperty />} />
             <Route path="/properties" element={<Properties />} />
             <Route path="/generar-alquiler/:propertyId" element={<GenerarAlquiler />} />
-
+            <Route path="/placas" element={<PlacaPublicitaria />} />
           </Routes>
         </div>
       </div>

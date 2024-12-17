@@ -1,0 +1,196 @@
+/* Contenedor principal */
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 1080px;
+    margin: 20px auto;
+    background-color: #fff;
+    border: 2px solid #ccc;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+}
+
+/* Controles de edición */
+.editControls {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.editControls label {
+    display: flex;
+    flex-direction: column;
+    font-weight: bold;
+    font-size: 14px;
+    color: #333;
+}
+
+.input {
+    margin-top: 5px;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 200px;
+}
+
+/* Título */
+.title {
+    font-size: 36px;
+    font-weight: bold;
+    color: #3e2f87;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+/* Contenido principal */
+.content {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 20px;
+    width: 100%;
+}
+
+.mainImage {
+    padding: 3px; /* Espacio pequeño alrededor del contenedor */
+    width: 650px; /* Ancho fijo del contenedor */
+    height: 400px; /* Alto fijo del contenedor */
+    box-sizing: border-box; /* Incluye el padding en el tamaño total */
+    display: flex; /* Centra la imagen si no cubre todo */
+    justify-content: center;
+    align-items: center;
+    background-color: #A83E52; /* Fondo visible incluso sin imagen */
+    overflow: hidden; /* Oculta partes que se salgan */
+    border: 1px solid #ccc; /* Borde para resaltar el área del contenedor */
+}
+
+.mainImage img {
+    max-width: 100%; /* Ancho máximo que la imagen puede ocupar */
+    width: 100%; /* La imagen ocupa el ancho completo del contenedor */
+    height: 100%; /* La imagen ocupa todo el alto del contenedor */
+    object-fit: cover; /* Ajusta la imagen sin deformarla */
+    display: block; /* Evita el espacio adicional alrededor */
+    border: none; /* Elimina el borde de la imagen si no es necesario */
+}
+.secondaryImages {
+    width: 300px; /* Ancho fijo del contenedor principal */
+    height: 400px; /* Alto fijo del contenedor principal */
+    position: relative; /* Posición relativa para encerrar los elementos hijos */
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.secondaryImage, .secondaryImage2 {
+    background-color: #3e2f87; /* Fondo visible incluso sin imagen */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    width: 100%; /* Ocupa todo el ancho del contenedor padre */
+    height: 150px; /* Altura fija de cada imagen secundaria */
+    border: 1px solid #ccc; /* Borde para delimitar el espacio */
+    position: absolute; /* Mantiene el posicionamiento absoluto */
+    left: 50%; /* Centrado horizontalmente */
+    transform: translateX(-50%); /* Ajusta para centrar */
+}
+
+.secondaryImage {
+    top: 150px; /* Posición vertical específica */
+    z-index: 2; /* Imagen en el frente */
+}
+
+.secondaryImage2 {
+    top: 320px; /* Posición vertical específica */
+    z-index: 1; /* Imagen detrás */
+}
+
+.secondaryImage img, .secondaryImage2 img {
+    width: 100%; /* Imagen ocupa todo el ancho del contenedor */
+    height: 100%; /* Imagen ocupa todo el alto del contenedor */
+    object-fit: cover; /* Ajusta la imagen sin deformarla */
+    display: block; /* Evita espacios alrededor */
+    border: none; /* Sin bordes para las imágenes */
+}
+
+
+.info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #3e2f87;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 10px;
+    margin-top: 20px;
+    width: 65%; /* Ancho del 65% del contenedor padre */
+}
+
+.price {
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.details {
+    text-align: right;
+}
+
+.footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #3e2f87;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 10px;
+    margin-top: 10px;
+    width: 100%;
+}
+
+.footer p {
+    margin: 0;
+}
+
+.downloadButton {
+    margin-top: 20px;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #fff;
+    background-color: #3e2f87;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.downloadButton:hover {
+    background-color: #6a1b9a;
+}
+
+.placa {
+    position: relative;
+    background-color: white;
+    padding: 20px;
+    border: 2px solid #ddd;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    max-width: 1080px;
+    width: 100%;
+    margin: 0 auto;
+}
+
+.logo {
+    position: absolute;
+    top: 10px; /* Ajusta según el espacio que desees */
+    right: 100px; /* Ajusta según el espacio que desees */
+    width: 200px; /* Define el tamaño del logo */
+    height: auto; /* Mantén las proporciones */
+  }
+  
+  .logo img {
+    width: 100%;
+    height: auto;
+  }
