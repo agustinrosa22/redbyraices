@@ -2,6 +2,9 @@ import React, { useState, useRef } from "react";
 import html2canvas from "html2canvas";
 import style from "./PlacaPublicitaria.module.css";
 import logo from '../../Assets/tituloConFondo.png'
+import ubicacion from '../../Assets/ubicacion.png'
+import grifo from '../../Assets/agua-del-grifo.png'
+import zona from '../../Assets/zona.png'
 
 const PlacaPublicitaria = () => {
   const [images, setImages] = useState({
@@ -11,6 +14,7 @@ const PlacaPublicitaria = () => {
   });
   const [title, setTitle] = useState("LOTE EN VENTA");
   const [price, setPrice] = useState("U$D 230.000");
+  const [metros, setMetros] = useState("100 m2");
   const [location, setLocation] = useState("General Paz, Godoy Cruz");
   const [services, setServices] = useState("💡 💧 🔥");
 
@@ -96,6 +100,15 @@ const PlacaPublicitaria = () => {
           />
         </label>
         <label>
+          Metraje:
+          <input
+            type="text"
+            value={metros}
+            onChange={(e) => setMetros(e.target.value)}
+            className={style.input}
+          />
+        </label>
+        <label>
           Servicios:
           <input
             type="text"
@@ -108,6 +121,7 @@ const PlacaPublicitaria = () => {
 
       {/* Contenedor de la placa que se exportará */}
       <div ref={placaRef} className={style.placa}>
+        <div className={style.secondPlaca}>
         <h1 className={style.title}>{title}</h1>
         <div className={style.logo}>
     <img src={logo} alt="Logo" />
@@ -165,18 +179,26 @@ const PlacaPublicitaria = () => {
             </div>
           </div>
         </div>
+        <div className={style.price}>{price}</div>
+<div className={style.info}>
+  <div className={style.infoLeft}>
+<div className={`${style.containerUbicacion} left`}>
+    <img src={zona} alt="" /><p className={style.location}>{metros}</p>
+</div>
 
-        <div className={style.info}>
-          <div className={style.price}>{price}</div>
-          <div className={style.details}>
-            <p>{location}</p>
-            <p>Servicios: {services}</p>
-          </div>
-        </div>
+<div className={`${style.containerUbicacion} left`}>
+    <img src={ubicacion} alt="" /><p className={style.location}>{location}</p>
+</div>
+</div>
+<div className={`${style.containerServicios} right`}>
+    <img src={grifo} alt="" /><p className={style.location}>Servicios: {services}</p>
+</div>
+</div>
 
         <div className={style.footer}>
           <p>www.byraices.com</p>
           <p>Julieta Garcia C.C.P.I.M Mat 2009</p>
+        </div>
         </div>
       </div>
 

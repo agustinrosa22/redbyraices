@@ -42,7 +42,8 @@
     font-weight: bold;
     color: #3e2f87;
     margin-bottom: 20px;
-    text-align: center;
+    font-weight: 800;   
+    text-align: flex-start;
 }
 
 /* Contenido principal */
@@ -89,7 +90,7 @@
     justify-content: center;
     align-items: center;
     overflow: hidden;
-    width: 100%; /* Ocupa todo el ancho del contenedor padre */
+    width: 72%; /* Ocupa todo el ancho del contenedor padre */
     height: 150px; /* Altura fija de cada imagen secundaria */
     border: 1px solid #ccc; /* Borde para delimitar el espacio */
     position: absolute; /* Mantiene el posicionamiento absoluto */
@@ -115,7 +116,7 @@
     border: none; /* Sin bordes para las imágenes */
 }
 
-
+/* 
 .info {
     display: flex;
     justify-content: space-between;
@@ -126,11 +127,17 @@
     border-radius: 10px;
     margin-top: 20px;
     width: 65%; /* Ancho del 65% del contenedor padre */
-}
 
 .price {
+    background-color: #A83E52;
     font-size: 28px;
     font-weight: bold;
+    width: 20%;
+    color: white;
+    margin-left: 15px;
+    margin-top: 5px;
+    border-radius: 15px;
+    text-align: center;
 }
 
 .details {
@@ -180,7 +187,50 @@
     max-width: 1080px;
     width: 100%;
     margin: 0 auto;
-}
+  }
+  
+  /* Esquina inferior izquierda (forma de L) */
+  .secondPlaca::before {
+    content: "";
+    position: absolute;
+    bottom: 5px;
+    left: 5px;
+    background-color: #A83E52;
+    width: 500px; /* Horizontal */
+    height: 8px; /* Grosor */
+  }
+  
+  .secondPlaca::after {
+    content: "";
+    position: absolute;
+    bottom: 5px;
+    left: 5px;
+    background-color: #A83E52;
+    width: 8px; /* Grosor */
+    height: 450px; /* Vertical */
+  }
+  
+  /* Forma de L en la esquina superior derecha */
+  .placa::before {
+    content: "";
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    background-color: #3E2F87;
+    width: 500px; /* Horizontal */
+    height: 8px; /* Grosor */
+  }
+  
+  .placa::after{
+    content: "";
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    background-color: #3E2F87;
+    width: 8px; /* Grosor */
+    height: 450px; /* Vertical */
+  }
+  
 
 .logo {
     position: absolute;
@@ -194,3 +244,34 @@
     width: 100%;
     height: auto;
   }
+
+  .containerUbicacion {
+    display: flex;
+    align-items: center; /* Centra verticalmente los elementos */
+    gap: 8px; /* Añade un pequeño espacio entre imagen y texto */
+}
+
+.containerServicios{
+    display: flex;
+    align-items: center; /* Centra verticalmente los elementos */
+    gap: 8px; /* Añade un pequeño espacio entre imagen y texto */
+    margin-top: -70px;
+    margin-left: 20px;
+}
+
+.containerUbicacion.left {
+    justify-content: flex-start; /* Alinea a la izquierda */
+}
+
+.containerUbicacion.right {
+    justify-content: flex-end; /* Alinea a la derecha */
+}
+
+.info{
+    display: flex;
+}
+
+.location{
+    margin-top: 30px;
+    font-weight: bold;
+}
