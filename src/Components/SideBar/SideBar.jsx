@@ -108,8 +108,10 @@ const Sidebar = () => {
             </ul>
           </li> */}
           <li>
+          <Link to="/placas" className={style.link}>
             <img src={spanner} alt="Spanner" className={style.icon} />
-            Herramientas
+            Placas
+            </Link>
           </li>
           <li>
             <img src={report} alt="Report" className={style.icon} />

@@ -14,7 +14,7 @@ const PlacaPublicitaria = () => {
   });
   const [title, setTitle] = useState("LOTE EN VENTA");
   const [price, setPrice] = useState("U$D 230.000");
-  const [metros, setMetros] = useState("100 m2");
+  const [metros, setMetros] = useState("100 M2");
   const [location, setLocation] = useState("General Paz, Godoy Cruz");
   const [services, setServices] = useState("💡 💧 🔥");
 

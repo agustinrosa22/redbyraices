@@ -90,12 +90,14 @@
     justify-content: center;
     align-items: center;
     overflow: hidden;
-    width: 72%; /* Ocupa todo el ancho del contenedor padre */
-    height: 150px; /* Altura fija de cada imagen secundaria */
+    width: 95%; /* Ocupa todo el ancho del contenedor padre */
+    height: 200px; /* Altura fija de cada imagen secundaria */
     border: 1px solid #ccc; /* Borde para delimitar el espacio */
     position: absolute; /* Mantiene el posicionamiento absoluto */
     left: 50%; /* Centrado horizontalmente */
     transform: translateX(-50%); /* Ajusta para centrar */
+    padding: 2px;
+    padding-bottom: 10px;
 }
 
 .secondaryImage {
@@ -104,16 +106,17 @@
 }
 
 .secondaryImage2 {
-    top: 320px; /* Posición vertical específica */
+    top: 380px; /* Posición vertical específica */
     z-index: 1; /* Imagen detrás */
 }
 
 .secondaryImage img, .secondaryImage2 img {
-    width: 100%; /* Imagen ocupa todo el ancho del contenedor */
-    height: 100%; /* Imagen ocupa todo el alto del contenedor */
+    max-width: 100%; /* Ancho máximo que la imagen puede ocupar */
+    width: 100%; /* La imagen ocupa el ancho completo del contenedor */
+    height: 100%; /* La imagen ocupa todo el alto del contenedor */
     object-fit: cover; /* Ajusta la imagen sin deformarla */
-    display: block; /* Evita espacios alrededor */
-    border: none; /* Sin bordes para las imágenes */
+    display: block; /* Evita el espacio adicional alrededor */
+    border: none; /* Elimina el borde de la imagen si no es necesario */
 }
 
 /* 
@@ -130,9 +133,9 @@
 
 .price {
     background-color: #A83E52;
-    font-size: 28px;
+    font-size: 36px;
     font-weight: bold;
-    width: 20%;
+    width: 30%;
     color: white;
     margin-left: 15px;
     margin-top: 5px;
@@ -274,4 +277,5 @@
 .location{
     margin-top: 30px;
     font-weight: bold;
+    font-size: 26px;
 }
