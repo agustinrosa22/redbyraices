@@ -5,6 +5,7 @@ import logo from '../../Assets/tituloConFondo.png'
 import ubicacion from '../../Assets/ubicacion.png'
 import grifo from '../../Assets/agua-del-grifo.png'
 import zona from '../../Assets/zona.png'
+import PlacaCompleta from "./PlacaCompleta/PlacaCompleta";
 
 const PlacaPublicitaria = () => {
   const [images, setImages] = useState({
@@ -206,6 +207,7 @@ const PlacaPublicitaria = () => {
       <button onClick={downloadPlaca} className={style.downloadButton}>
         Descargar Placa
       </button>
+      <PlacaCompleta/>
     </div>
   );
 };
