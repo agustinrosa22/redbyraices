@@ -36,14 +36,24 @@
     width: 200px;
 }
 
+/* Tipo */
+.type {
+    font-size: 50px; /* Tamaño más grande */
+    font-weight: 900; /* Más grueso */
+    color: #A83E52; /* Color actual */
+    text-align: flex-start; /* Alineación a la izquierda */
+    line-height: 1.2; /* Incrementa la altura de línea para que sea más alto */
+    margin-bottom: 10px; /* Reduce el espacio debajo */
+}
+
 /* Título */
 .title {
-    font-size: 36px;
-    font-weight: bold;
-    color: #3e2f87;
-    margin-bottom: 20px;
-    font-weight: 800;   
-    text-align: flex-start;
+    font-size: 50px; /* Tamaño más grande */
+    font-weight: 800; /* Grueso */
+    color: #3e2f87; /* Color actual */
+    text-align: flex-start; /* Alineación a la izquierda */
+    line-height: 1.2; /* Espaciado ajustado entre líneas */
+    margin-top: -5px; /* Ajusta el espacio superior para que estén más cerca */
 }
 
 /* Contenido principal */
@@ -55,26 +65,44 @@
 }
 
 .mainImage {
-    padding: 3px; /* Espacio pequeño alrededor del contenedor */
+    padding: 0; /* Elimina el espacio alrededor del contenedor */
     width: 650px; /* Ancho fijo del contenedor */
     height: 400px; /* Alto fijo del contenedor */
     box-sizing: border-box; /* Incluye el padding en el tamaño total */
     display: flex; /* Centra la imagen si no cubre todo */
     justify-content: center;
     align-items: center;
-    background-color: #A83E52; /* Fondo visible incluso sin imagen */
+   
     overflow: hidden; /* Oculta partes que se salgan */
-    border: 1px solid #ccc; /* Borde para resaltar el área del contenedor */
+    border: 1px solid #000000; /* Borde para resaltar el área del contenedor */
+    border-radius: 15px; /* Bordes redondeados */
+    z-index: 1;
 }
 
 .mainImage img {
     max-width: 100%; /* Ancho máximo que la imagen puede ocupar */
     width: 100%; /* La imagen ocupa el ancho completo del contenedor */
-    height: 100%; /* La imagen ocupa todo el alto del contenedor */
+    height: 110%; /* La imagen ocupa todo el alto del contenedor */
     object-fit: cover; /* Ajusta la imagen sin deformarla */
     display: block; /* Evita el espacio adicional alrededor */
     border: none; /* Elimina el borde de la imagen si no es necesario */
 }
+
+
+.secondaryImage, .secondaryImage2, .secondaryImage3  {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden; /* Oculta partes que se salgan */
+    width: 100%; /* Ocupa todo el ancho del contenedor padre */
+    height: 200px; /* Altura fija de cada imagen secundaria */
+    border: 1px solid #000000; /* Borde para delimitar el espacio */
+    border-radius: 15px; /* Bordes redondeados */
+    background-color: #A83E52; /* Fondo visible incluso sin imagen */
+    position: relative; /* Mantiene la estructura */
+    z-index: 1;
+}
+
 .secondaryImages {
     width: 300px; /* Ancho fijo del contenedor principal */
     height: 400px; /* Alto fijo del contenedor principal */
@@ -82,38 +110,39 @@
     display: flex;
     flex-direction: column;
     gap: 20px;
+    z-index: 1;
 }
 
 .secondaryImage, .secondaryImage2 {
-    background-color: #3e2f87; /* Fondo visible incluso sin imagen */
+   
     display: flex;
     justify-content: center;
     align-items: center;
     overflow: hidden;
-    width: 95%; /* Ocupa todo el ancho del contenedor padre */
+    width: 100%; /* Ocupa todo el ancho del contenedor padre */
     height: 200px; /* Altura fija de cada imagen secundaria */
-    border: 1px solid #ccc; /* Borde para delimitar el espacio */
+    border: 1px solid #000000; /* Borde para delimitar el espacio */
     position: absolute; /* Mantiene el posicionamiento absoluto */
     left: 50%; /* Centrado horizontalmente */
     transform: translateX(-50%); /* Ajusta para centrar */
-    padding: 2px;
+
     padding-bottom: 10px;
 }
 
 .secondaryImage {
-    top: 150px; /* Posición vertical específica */
+    top: 0px; /* Posición vertical específica */
     z-index: 2; /* Imagen en el frente */
 }
 
 .secondaryImage2 {
-    top: 380px; /* Posición vertical específica */
+    top: 220px; /* Posición vertical específica */
     z-index: 1; /* Imagen detrás */
 }
 
-.secondaryImage img, .secondaryImage2 img {
+.secondaryImage img, .secondaryImage2 img, .secondaryImage3 img  {
     max-width: 100%; /* Ancho máximo que la imagen puede ocupar */
     width: 100%; /* La imagen ocupa el ancho completo del contenedor */
-    height: 100%; /* La imagen ocupa todo el alto del contenedor */
+    height: 110%; /* La imagen ocupa todo el alto del contenedor */
     object-fit: cover; /* Ajusta la imagen sin deformarla */
     display: block; /* Evita el espacio adicional alrededor */
     border: none; /* Elimina el borde de la imagen si no es necesario */
@@ -131,17 +160,23 @@
     margin-top: 20px;
     width: 65%; /* Ancho del 65% del contenedor padre */
 
-.price {
-    background-color: #A83E52;
-    font-size: 36px;
-    font-weight: bold;
-    width: 30%;
-    color: white;
-    margin-left: 15px;
-    margin-top: 5px;
-    border-radius: 15px;
-    text-align: center;
-}
+    .price {
+        position: absolute; /* Posicionamiento absoluto dentro de la placa */
+        bottom: 100px; /* Espaciado desde la parte inferior */
+        right: 0px; /* Espaciado desde la derecha */
+        background-color: #A83E52; /* Fondo */
+        font-size: 46px; /* Tamaño de fuente */
+        font-weight: bold;
+        color: white; /* Texto blanco */
+        padding: 10px 20px; /* Relleno alrededor del texto */
+        border-top-left-radius: 15px; /* Esquina superior izquierda redondeada */
+        border-bottom-left-radius: 15px; /* Esquina inferior izquierda redondeada */
+        border-top-right-radius: 0; /* Esquina superior derecha sin redondeo */
+        border-bottom-right-radius: 0; /* Esquina inferior derecha sin redondeo */
+        z-index: 10; /* Asegura que esté encima de otros elementos */
+        text-align: center;
+        min-width: 150px; /* Opcional: ancho mínimo */
+      }
 
 .details {
     text-align: right;
@@ -190,55 +225,30 @@
     max-width: 1080px;
     width: 100%;
     margin: 0 auto;
-  }
+    z-index: 1; /* Asegura que el contenido esté encima */
+    width: 100%
+}
   
-  /* Esquina inferior izquierda (forma de L) */
-  .secondPlaca::before {
+  
+
+  
+.placa::before {
     content: "";
     position: absolute;
-    bottom: 5px;
-    left: 5px;
-    background-color: #A83E52;
-    width: 500px; /* Horizontal */
-    height: 8px; /* Grosor */
-  }
-  
-  .secondPlaca::after {
-    content: "";
-    position: absolute;
-    bottom: 5px;
-    left: 5px;
-    background-color: #A83E52;
-    width: 8px; /* Grosor */
-    height: 450px; /* Vertical */
-  }
-  
-  /* Forma de L en la esquina superior derecha */
-  .placa::before {
-    content: "";
-    position: absolute;
-    top: 5px;
-    right: 5px;
+    top: 100px; /* Distancia desde la parte superior del contenedor */
+    left: 0; /* Inicia desde el borde izquierdo del contenedor */
     background-color: #3E2F87;
-    width: 500px; /* Horizontal */
-    height: 8px; /* Grosor */
-  }
-  
-  .placa::after{
-    content: "";
-    position: absolute;
-    top: 5px;
-    right: 5px;
-    background-color: #3E2F87;
-    width: 8px; /* Grosor */
-    height: 450px; /* Vertical */
-  }
-  
+    width: calc(100%); /* Asegura que ocupe todo el ancho del contenedor menos márgenes */
+    height: 280px; /* Grosor de la línea */
+    z-index: 0; /* Detrás del contenido */
+}
+
+
 
 .logo {
     position: absolute;
-    top: 10px; /* Ajusta según el espacio que desees */
-    right: 100px; /* Ajusta según el espacio que desees */
+    top: 400px; /* Ajusta según el espacio que desees */
+    right: 320px; /* Ajusta según el espacio que desees */
     width: 200px; /* Define el tamaño del logo */
     height: auto; /* Mantén las proporciones */
   }
@@ -258,7 +268,7 @@
     display: flex;
     align-items: center; /* Centra verticalmente los elementos */
     gap: 8px; /* Añade un pequeño espacio entre imagen y texto */
-    margin-top: -70px;
+  
     margin-left: 20px;
 }
 
@@ -274,26 +284,30 @@
     display: flex;
 }
 
-.location{
-    margin-top: 30px;
-    font-weight: bold;
-    font-size: 26px;
+
+.location {
+margin-top: 30px;
+  font-size: 26px; /* Tamaño de fuente */
+  font-weight: bold;
+  max-width: 100%; /* Asegura que el texto no exceda el ancho disponible */
+  word-break: break-word; /* Divide palabras largas si es necesario */
+  line-height: 1.4; /* Mejora la legibilidad con un espacio entre líneas */
+  text-align: left; /* Alinea el texto a la izquierda */
+  z-index: 1;
 }
 
-
 .secondaryImage3 {
-    background-color: #3e2f87;
     display: flex;
     justify-content: center;
     align-items: center;
     overflow: hidden;
-    width: 95%;
+    width: 100%;
     height: 200px;
-    border: 1px solid #ccc;
+    border: 1px solid #000000;
     position: absolute;
     left: 50%;
-    top: 550px; /* Ajuste de posición vertical */
+    top: 440px; /* Ajuste de posición vertical */
     transform: translateX(-50%);
     z-index: 0; /* Detrás de las demás imágenes */
   }
-  
+

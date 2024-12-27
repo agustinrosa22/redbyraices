@@ -5,6 +5,10 @@ import logo from '../../../Assets/tituloConFondo.png';
 import ubicacion from '../../../Assets/ubicacion.png';
 import grifo from '../../../Assets/agua-del-grifo.png';
 import zona from '../../../Assets/zona.png';
+import banera from '../../../Assets/banera.png'
+import cama from '../../../Assets/cama-matrimonial.png'
+import financiacion from '../../../Assets/ahorrar-dinero.png'
+import cocina from '../../../Assets/estufa-de-cocina.png'
 
 const PlacaCompleta = () => {
   const [images, setImages] = useState({
@@ -13,7 +17,7 @@ const PlacaCompleta = () => {
     secondaryImage2: null,
     secondaryImage3: null, // Nueva imagen secundaria
   });
-  const [title, setTitle] = useState("LOTE EN VENTA");
+  const [title, setTitle] = useState("EN VENTA");
   const [price, setPrice] = useState("U$D 230.000");
   const [metros, setMetros] = useState("100 M2");
   const [location, setLocation] = useState("General Paz, Godoy Cruz");
@@ -22,6 +26,7 @@ const PlacaCompleta = () => {
   const [rooms, setRooms] = useState("3 Habitaciones");
   const [kitchen, setKitchen] = useState("Cocina equipada");
   const [financing, setFinancing] = useState("Sí, apta financiación");
+  const [type, setType] = useState("DEPARTAMENTO");
 
   const placaRef = useRef(null);
 
@@ -38,7 +43,56 @@ const PlacaCompleta = () => {
 
   const downloadPlaca = () => {
     const element = placaRef.current;
-    html2canvas(element, { useCORS: true, scale: 2 }).then((canvas) => {
+  
+    html2canvas(element, {
+      useCORS: true,
+      scale: 2,
+      ignoreElements: (el) => el.classList.contains('no-download'),  // Asegura que no se descarguen ciertos elementos si es necesario
+      onclone: (clonedDoc) => {
+        // Crear un div real para reemplazar el pseudo-elemento .placa::before
+        const placaDiv = clonedDoc.createElement('div');
+        placaDiv.className = style.placa;
+   
+        placaDiv.style.top = '100px';
+        placaDiv.style.left = '0';
+        placaDiv.style.backgroundColor = '#3E2F87';
+        placaDiv.style.width = '100%';
+        placaDiv.style.height = '280px';
+        placaDiv.style.zIndex = '-1'; // Colocamos el div detrás de todo el contenido
+  
+        // Insertamos el div en el lugar del pseudo-elemento
+        clonedDoc.body.appendChild(placaDiv);
+  
+        // Manejo de las imágenes secundarias (secundaryImage, secondaryImage2, etc.)
+        const clonedSecondaryImages = clonedDoc.querySelectorAll(
+          `.${style.secondaryImage}, .${style.secondaryImage2}, .${style.secondaryImage3}`
+        );
+  
+        clonedSecondaryImages.forEach((img) => {
+          const computedStyle = window.getComputedStyle(img);
+          img.style.position = "absolute";
+          const originalTop = computedStyle.top;
+          img.style.top = originalTop; // Mantener la posición calculada por CSS
+          img.style.left = `auto`; // Eliminar cualquier valor left calculado previamente
+          img.style.right = '0'; // Colocar la imagen al borde derecho
+          img.style.transform = "none"; // Eliminar cualquier transformación que afecte la posición
+        });
+  
+        // La imagen principal debe estar encima del div de la línea azul
+        const mainImage = clonedDoc.querySelector(`.${style.mainImage}`);
+        if (mainImage) {
+          mainImage.style.position = "absolute";
+          mainImage.style.transform = "none"; // Eliminar cualquier transformación que afecte la posición
+          mainImage.style.zIndex = "1"; // Aseguramos que esté encima del div con la línea azul
+        }
+  
+        // Modificar el logo si es necesario
+        const logo = clonedDoc.querySelector(`.${style.logo}`);
+        if (logo) {
+          logo.style.zIndex = "2"; // Colocamos el logo encima de todos los elementos
+        }
+      },
+    }).then((canvas) => {
       const link = document.createElement("a");
       link.download = "placa_publicitaria.png";
       link.href = canvas.toDataURL("image/png");
@@ -51,11 +105,20 @@ const PlacaCompleta = () => {
       <div className={style.editControls}>
         {/* Controles de edición */}
         <label>
+          Tipo de inmueble:
+          <input
+            type="text"
+            value={type}
+            onChange={(e) => setTitle(e.target.value)}
+            className={style.input}
+          />
+        </label>
+        <label>
           Título:
           <input
             type="text"
             value={title}
-            onChange={(e) => setTitle(e.target.value)}
+            onChange={(e) => setType(e.target.value)}
             className={style.input}
           />
         </label>
@@ -135,10 +198,7 @@ const PlacaCompleta = () => {
 
       <div ref={placaRef} className={style.placa}>
         <div className={style.secondPlaca}>
-          <h1 className={style.title}>{title}</h1>
-          <div className={style.logo}>
-            <img src={logo} alt="Logo" />
-          </div>
+          
           <div className={style.content}>
             <div className={style.mainImage}>
               {images.mainImage ? (
@@ -209,7 +269,12 @@ const PlacaCompleta = () => {
               </div>
             </div>
           </div>
-          <div className={style.price}>{price}</div>
+          <h1 className={style.type}>{type}</h1>
+          <h1 className={style.title}>{title}</h1>
+          <div className={style.logo}>
+            <img src={logo} alt="Logo" />
+          </div>
+        
           <div className={style.info}>
             <div className={style.infoLeft}>
               <div className={`${style.containerUbicacion} left`}>
@@ -218,23 +283,32 @@ const PlacaCompleta = () => {
               </div>
 
               <div className={`${style.containerUbicacion} left`}>
+                <img src={banera} alt="" />
+                <p className={style.location}>{bathrooms}</p>
+              </div>
+              <div className={`${style.containerUbicacion} left`}>
                 <img src={ubicacion} alt="" />
                 <p className={style.location}>{location}</p>
               </div>
+            </div>
+            <div className={style.infoLeft}>
+            <div className={`${style.containerServicios} right`}>
+              <img src={cama} alt="" />
+              <p className={style.location}>{rooms}</p>
+            </div>
 
-              <div className={style.additionalInfo}>
-                <p>Baños: {bathrooms}</p>
-                <p>Habitaciones: {rooms}</p>
-                <p>Cocina: {kitchen}</p>
-              </div>
+            <div className={`${style.containerServicios} right`}>
+              <img src={financiacion} alt="" />
+              <p className={style.location}>{financing}</p>
             </div>
             <div className={`${style.containerServicios} right`}>
-              <img src={grifo} alt="" />
-              <p className={style.location}>Servicios: {services}</p>
-              <p>Apta Financiación: {financing}</p>
+              <img src={cocina} alt="" />
+              <p className={style.location}>{kitchen}</p>
+            </div>
             </div>
           </div>
-
+            
+          <div className={style.price}>{price}</div>
           <div className={style.footer}>
             <p>www.byraices.com</p>
             <p>Julieta Garcia C.C.P.I.M Mat 2009</p>
