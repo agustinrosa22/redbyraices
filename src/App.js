@@ -22,6 +22,7 @@ import CloseProperty from './Views/closeProperty/closeProperty';
 import Properties from './Views/Properties/Properties'
 import GenerarAlquiler from './Views/GenerarAlquiler/GenerarAlquiler';
 import PlacaPublicitaria from './Views/PlacaPublicitaria/PlacaPublicitaria'
+import ImageGenerator  from './Views/ImageGenerator/ImageGenerator'
 
 
 function App() {
@@ -60,6 +61,7 @@ function App() {
             <Route path="/properties" element={<Properties />} />
             <Route path="/generar-alquiler/:propertyId" element={<GenerarAlquiler />} />
             <Route path="/placas" element={<PlacaPublicitaria />} />
+            <Route path="/image" element={<ImageGenerator />} />
           </Routes>
         </div>
       </div>

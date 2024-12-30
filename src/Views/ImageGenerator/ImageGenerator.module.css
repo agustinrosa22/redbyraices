@@ -1,0 +1,48 @@
+/* Contenedor principal del generador */
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100vh;
+    background-color: #f9f9f9; /* Fondo claro para el área de trabajo */
+  }
+  
+  /* Área del contenido que se generará como imagen */
+  .content {
+    width: 300px;
+    height: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px dashed #ccc; /* Límites del área (dashed para visualizar mejor) */
+    background-color: transparent; /* Fondo transparente */
+  }
+  
+  /* Texto dentro del área generada */
+  .text {
+    font-size: 24px;
+    font-weight: bold;
+    color: black; /* Asegúrate de elegir un color contrastante */
+    text-align: center;
+  }
+  
+  /* Botón de descarga */
+  .downloadButton {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #007bff; /* Azul para el botón */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  /* Hover del botón */
+  .downloadButton:hover {
+    background-color: #0056b3; /* Azul más oscuro */
+  }
+  

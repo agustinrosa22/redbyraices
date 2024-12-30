@@ -1,7 +1,7 @@
 import React, { useState, useRef } from "react";
 import html2canvas from "html2canvas";
 import style from "./PlacaCompleta.module.css";
-import logo from '../../../Assets/tituloConFondo.png';
+import logo from '../../../Assets/sinFondo.png';
 import ubicacion from '../../../Assets/ubicacion.png';
 import grifo from '../../../Assets/agua-del-grifo.png';
 import zona from '../../../Assets/zona.png';
@@ -73,7 +73,7 @@ const PlacaCompleta = () => {
           img.style.position = "absolute";
           const originalTop = computedStyle.top;
           img.style.top = originalTop; // Mantener la posición calculada por CSS
-          img.style.left = `auto`; // Eliminar cualquier valor left calculado previamente
+          img.style.left = `665px`; // Eliminar cualquier valor left calculado previamente
           img.style.right = '0'; // Colocar la imagen al borde derecho
           img.style.transform = "none"; // Eliminar cualquier transformación que afecte la posición
         });
@@ -89,7 +89,7 @@ const PlacaCompleta = () => {
         // Modificar el logo si es necesario
         const logo = clonedDoc.querySelector(`.${style.logo}`);
         if (logo) {
-          logo.style.zIndex = "2"; // Colocamos el logo encima de todos los elementos
+          logo.style.zIndex = "-1"; // Colocamos el logo encima de todos los elementos
         }
       },
     }).then((canvas) => {
@@ -146,15 +146,6 @@ const PlacaCompleta = () => {
             type="text"
             value={metros}
             onChange={(e) => setMetros(e.target.value)}
-            className={style.input}
-          />
-        </label>
-        <label>
-          Servicios:
-          <input
-            type="text"
-            value={services}
-            onChange={(e) => setServices(e.target.value)}
             className={style.input}
           />
         </label>
@@ -271,40 +262,55 @@ const PlacaCompleta = () => {
           </div>
           <h1 className={style.type}>{type}</h1>
           <h1 className={style.title}>{title}</h1>
+          <h3 className={style.detalles}>DETALLES</h3>
           <div className={style.logo}>
             <img src={logo} alt="Logo" />
           </div>
         
           <div className={style.info}>
             <div className={style.infoLeft}>
+            {metros && (
               <div className={`${style.containerUbicacion} left`}>
                 <img src={zona} alt="" />
                 <p className={style.location}>{metros}</p>
               </div>
-
+                 )}
+              {bathrooms && (
               <div className={`${style.containerUbicacion} left`}>
                 <img src={banera} alt="" />
                 <p className={style.location}>{bathrooms}</p>
               </div>
+               )}
+              {location && (
               <div className={`${style.containerUbicacion} left`}>
                 <img src={ubicacion} alt="" />
                 <p className={style.location}>{location}</p>
               </div>
+              )}
             </div>
+            
             <div className={style.infoLeft}>
+              
+            {rooms && (
             <div className={`${style.containerServicios} right`}>
               <img src={cama} alt="" />
               <p className={style.location}>{rooms}</p>
             </div>
+              )}
 
-            <div className={`${style.containerServicios} right`}>
-              <img src={financiacion} alt="" />
-              <p className={style.location}>{financing}</p>
-            </div>
-            <div className={`${style.containerServicios} right`}>
-              <img src={cocina} alt="" />
-              <p className={style.location}>{kitchen}</p>
-            </div>
+            {financing && (
+  <div className={`${style.containerServicios} right`}>
+    <img src={financiacion} alt="" />
+    <p className={style.location}>{financing}</p>
+  </div>
+)}
+
+         {kitchen && (
+  <div className={`${style.containerServicios} right`}>
+    <img src={cocina} alt="" />
+    <p className={style.location}>{kitchen}</p>
+  </div>
+)}
             </div>
           </div>
             

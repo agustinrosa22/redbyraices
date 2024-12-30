@@ -55,6 +55,22 @@
     line-height: 1.2; /* Espaciado ajustado entre líneas */
     margin-top: -5px; /* Ajusta el espacio superior para que estén más cerca */
 }
+.detalles{
+    font-size: 30px; /* Tamaño más grande */
+    font-weight: 800; /* Grueso */
+    background-color: #3E2F87;
+    color: #fff;
+    width: 220px;
+    padding-right: 5px;
+    padding-left: 5px;
+    padding-top: 2px;
+    border-top-left-radius: 0; /* Esquina superior izquierda redondeada */
+    border-bottom-left-radius: 0; /* Esquina inferior izquierda redondeada */
+    border-top-right-radius: 15px; /* Esquina superior derecha sin redondeo */
+    border-bottom-right-radius: 15px; /* Esquina inferior derecha sin redondeo */
+    margin-left: -20px;
+    margin-top: 30px;
+}
 
 /* Contenido principal */
 .content {
@@ -72,7 +88,6 @@
     display: flex; /* Centra la imagen si no cubre todo */
     justify-content: center;
     align-items: center;
-   
     overflow: hidden; /* Oculta partes que se salgan */
     border: 1px solid #000000; /* Borde para resaltar el área del contenedor */
     border-radius: 15px; /* Bordes redondeados */
