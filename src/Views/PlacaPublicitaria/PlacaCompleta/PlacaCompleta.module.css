@@ -138,7 +138,7 @@
     height: 200px; /* Altura fija de cada imagen secundaria */
     border: 1px solid #000000; /* Borde para delimitar el espacio */
     position: absolute; /* Mantiene el posicionamiento absoluto */
-    left: 50%; /* Centrado horizontalmente */
+    left: 60%; /* Centrado horizontalmente */
     transform: translateX(-50%); /* Ajusta para centrar */
 
     padding-bottom: 10px;
@@ -163,17 +163,6 @@
     border: none; /* Elimina el borde de la imagen si no es necesario */
 }
 
-/* 
-.info {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: #3e2f87;
-    color: white;
-    padding: 10px 20px;
-    border-radius: 10px;
-    margin-top: 20px;
-    width: 65%; /* Ancho del 65% del contenedor padre */
 
     .price {
         position: absolute; /* Posicionamiento absoluto dentro de la placa */
@@ -238,10 +227,10 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     border-radius: 10px;
     max-width: 1080px;
-    width: 100%;
+    width: 1080px;
     margin: 0 auto;
     z-index: 1; /* Asegura que el contenido esté encima */
-    width: 100%
+    width: 1080px;
 }
   
   
@@ -295,9 +284,6 @@
     justify-content: flex-end; /* Alinea a la derecha */
 }
 
-.info{
-    display: flex;
-}
 
 
 .location {
@@ -305,6 +291,17 @@ margin-top: 30px;
   font-size: 26px; /* Tamaño de fuente */
   font-weight: bold;
   max-width: 100%; /* Asegura que el texto no exceda el ancho disponible */
+  word-break: break-word; /* Divide palabras largas si es necesario */
+  line-height: 1.4; /* Mejora la legibilidad con un espacio entre líneas */
+  text-align: left; /* Alinea el texto a la izquierda */
+  z-index: 1;
+}
+
+.locationTitle{
+    margin-top: 30px;
+  font-size: 26px; /* Tamaño de fuente */
+  font-weight: bold;
+  max-width: 400px; /* Asegura que el texto no exceda el ancho disponible */
   word-break: break-word; /* Divide palabras largas si es necesario */
   line-height: 1.4; /* Mejora la legibilidad con un espacio entre líneas */
   text-align: left; /* Alinea el texto a la izquierda */
@@ -320,9 +317,33 @@ margin-top: 30px;
     height: 200px;
     border: 1px solid #000000;
     position: absolute;
-    left: 50%;
+    left: 60%;
     top: 440px; /* Ajuste de posición vertical */
     transform: translateX(-50%);
     z-index: 0; /* Detrás de las demás imágenes */
   }
+
+  .info {
+    display: flex;
+    justify-content: space-between; /* Espacio fijo entre izquierda y derecha */
+    position: relative;
+  }
+  
+  .infoLeft {
+    width: 300px; /* Define un ancho fijo */
+  }
+  
+  .infoRight {
+    width: 300px; /* Define un ancho fijo */
+    margin-right: 390px; /* Espacio fijo entre los contenedores */
+    position: relative; /* Asegura que no dependa del contenido de la izquierda */
+  }
+  
+  .containerUbicacion,
+  .containerServicios {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem; /* Espacio entre iconos y texto */
+  }
+  
 

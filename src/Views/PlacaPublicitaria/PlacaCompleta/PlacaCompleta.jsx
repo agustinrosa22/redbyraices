@@ -73,7 +73,7 @@ const PlacaCompleta = () => {
           img.style.position = "absolute";
           const originalTop = computedStyle.top;
           img.style.top = originalTop; // Mantener la posición calculada por CSS
-          img.style.left = `665px`; // Eliminar cualquier valor left calculado previamente
+          img.style.left = `740px`; // Eliminar cualquier valor left calculado previamente
           img.style.right = '0'; // Colocar la imagen al borde derecho
           img.style.transform = "none"; // Eliminar cualquier transformación que afecte la posición
         });
@@ -105,23 +105,23 @@ const PlacaCompleta = () => {
       <div className={style.editControls}>
         {/* Controles de edición */}
         <label>
-          Tipo de inmueble:
-          <input
-            type="text"
-            value={type}
-            onChange={(e) => setTitle(e.target.value)}
-            className={style.input}
-          />
-        </label>
-        <label>
-          Título:
-          <input
-            type="text"
-            value={title}
-            onChange={(e) => setType(e.target.value)}
-            className={style.input}
-          />
-        </label>
+    Tipo de inmueble:
+    <input
+      type="text"
+      value={type}
+      onChange={(e) => setType(e.target.value)}
+      className={style.input}
+    />
+  </label>
+  <label>
+    Título:
+    <input
+      type="text"
+      value={title}
+      onChange={(e) => setTitle(e.target.value)}
+      className={style.input}
+    />
+  </label>
         <label>
           Precio:
           <input
@@ -191,73 +191,82 @@ const PlacaCompleta = () => {
         <div className={style.secondPlaca}>
           
           <div className={style.content}>
-            <div className={style.mainImage}>
-              {images.mainImage ? (
-                <img src={images.mainImage} alt="Principal" />
-              ) : (
-                <label>
-                  Cargar Imagen Principal
-                  <input
-                    type="file"
-                    accept="image/*"
-                    onChange={(e) => handleImageChange(e, "mainImage")}
-                    hidden
-                  />
-                </label>
-              )}
-            </div>
+          <div
+  className={style.mainImage}
+  onClick={() => document.getElementById('fileInputMain').click()} // Simula clic en input principal
+>
+  {images.mainImage ? (
+    <img src={images.mainImage} alt="Principal" />
+  ) : (
+    <p>Cargar Imagen Principal</p> // Texto de indicación
+  )}
+  <input
+    type="file"
+    id="fileInputMain" // Asociado al div mediante ID
+    accept="image/*"
+    onChange={(e) => handleImageChange(e, "mainImage")}
+    hidden
+  />
+</div>
 
             <div className={style.secondaryImages}>
               {/* Primera imagen secundaria */}
-              <div className={style.secondaryImage}>
-                {images.secondaryImage1 ? (
-                  <img src={images.secondaryImage1} alt="Secundaria 1" />
-                ) : (
-                  <label>
-                    Cargar Imagen 1
-                    <input
-                      type="file"
-                      accept="image/*"
-                      onChange={(e) => handleImageChange(e, "secondaryImage1")}
-                      hidden
-                    />
-                  </label>
-                )}
-              </div>
+              <div
+  className={style.secondaryImage}
+  onClick={() => document.getElementById('fileInput1').click()} // Simula clic en input 1
+>
+  {images.secondaryImage1 ? (
+    <img src={images.secondaryImage1} alt="Secundaria 1" />
+  ) : (
+    <p>Cargar Imagen 1</p> // Texto de indicación
+  )}
+  <input
+    type="file"
+    id="fileInput1" // Asociado al div mediante ID
+    accept="image/*"
+    onChange={(e) => handleImageChange(e, "secondaryImage1")}
+    hidden
+  />
+</div>
 
-              {/* Segunda imagen secundaria */}
-              <div className={style.secondaryImage2}>
-                {images.secondaryImage2 ? (
-                  <img src={images.secondaryImage2} alt="Secundaria 2" />
-                ) : (
-                  <label>
-                    Cargar Imagen 2
-                    <input
-                      type="file"
-                      accept="image/*"
-                      onChange={(e) => handleImageChange(e, "secondaryImage2")}
-                      hidden
-                    />
-                  </label>
-                )}
-              </div>
+{/* Segunda imagen secundaria */}
+<div
+  className={style.secondaryImage2}
+  onClick={() => document.getElementById('fileInput2').click()} // Simula clic en input 2
+>
+  {images.secondaryImage2 ? (
+    <img src={images.secondaryImage2} alt="Secundaria 2" />
+  ) : (
+    <p>Cargar Imagen 2</p> // Texto de indicación
+  )}
+  <input
+    type="file"
+    id="fileInput2" // Asociado al div mediante ID
+    accept="image/*"
+    onChange={(e) => handleImageChange(e, "secondaryImage2")}
+    hidden
+  />
+</div>
 
               {/* Nueva tercera imagen secundaria */}
-              <div className={style.secondaryImage3}>
-                {images.secondaryImage3 ? (
-                  <img src={images.secondaryImage3} alt="Secundaria 3" />
-                ) : (
-                  <label>
-                    Cargar Imagen 3
-                    <input
-                      type="file"
-                      accept="image/*"
-                      onChange={(e) => handleImageChange(e, "secondaryImage3")}
-                      hidden
-                    />
-                  </label>
-                )}
-              </div>
+              <div
+  className={style.secondaryImage3}
+  onClick={() => document.getElementById('fileInput3').click()} // Simula clic en input
+>
+  {images.secondaryImage3 ? (
+    <img src={images.secondaryImage3} alt="Secundaria 3" />
+  ) : (
+    <p>Cargar Imagen 3</p> // Texto de indicación
+  )}
+  <input
+    type="file"
+    id="fileInput3" // Asociado al div mediante ID
+    accept="image/*"
+    onChange={(e) => handleImageChange(e, "secondaryImage3")}
+    hidden
+  />
+</div>
+
             </div>
           </div>
           <h1 className={style.type}>{type}</h1>
@@ -284,12 +293,12 @@ const PlacaCompleta = () => {
               {location && (
               <div className={`${style.containerUbicacion} left`}>
                 <img src={ubicacion} alt="" />
-                <p className={style.location}>{location}</p>
+                <p className={style.locationTitle}>{location}</p>
               </div>
               )}
             </div>
             
-            <div className={style.infoLeft}>
+            <div className={style.infoRight}>
               
             {rooms && (
             <div className={`${style.containerServicios} right`}>
