@@ -73,7 +73,7 @@ const PlacaCompleta = () => {
           img.style.position = "absolute";
           const originalTop = computedStyle.top;
           img.style.top = originalTop; // Mantener la posición calculada por CSS
-          img.style.left = `740px`; // Eliminar cualquier valor left calculado previamente
+          img.style.left = `680px`; // Eliminar cualquier valor left calculado previamente
           img.style.right = '0'; // Colocar la imagen al borde derecho
           img.style.transform = "none"; // Eliminar cualquier transformación que afecte la posición
         });

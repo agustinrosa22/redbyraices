@@ -128,56 +128,65 @@ const PlacaPublicitaria = () => {
     <img src={logo} alt="Logo" />
   </div>
         <div className={style.content}>
-          <div className={style.mainImage}>
-            {images.mainImage ? (
-              <img src={images.mainImage} alt="Principal" />
-            ) : (
-              <label>
-                Cargar Imagen Principal
-                <input
-                  type="file"
-                  accept="image/*"
-                  onChange={(e) => handleImageChange(e, "mainImage")}
-                  hidden
-                />
-              </label>
-            )}
-          </div>
+        <div
+  className={style.mainImage}
+  onClick={() => document.getElementById('fileInputMain').click()} // Simula clic en input principal
+>
+  {images.mainImage ? (
+    <img src={images.mainImage} alt="Principal" />
+  ) : (
+    <p>Cargar Imagen Principal</p> // Texto de indicación
+  )}
+  <input
+    type="file"
+    id="fileInputMain" // Asociado al div mediante ID
+    accept="image/*"
+    onChange={(e) => handleImageChange(e, "mainImage")}
+    hidden
+  />
+</div>
+
 
           <div className={style.secondaryImages}>
             {/* Primera imagen secundaria */}
-            <div className={style.secondaryImage}>
-                {images.secondaryImage1 ? (
-                    <img src={images.secondaryImage1} alt="Secundaria 1" />
-                ) : (
-                    <label>
-                        Cargar Imagen 1
-                        <input
-                            type="file"
-                            accept="image/*"
-                            onChange={(e) => handleImageChange(e, "secondaryImage1")}
-                            hidden
-                        />
-                    </label>
-                )}
-            </div>
+            <div
+  className={style.secondaryImage}
+  onClick={() => document.getElementById('fileInputSecondary1').click()} // Simula clic en input secundario
+>
+  {images.secondaryImage1 ? (
+    <img src={images.secondaryImage1} alt="Secundaria 1" />
+  ) : (
+    <p>Cargar Imagen 1</p> // Texto de indicación
+  )}
+  <input
+    type="file"
+    id="fileInputSecondary1" // Asociado al div mediante ID
+    accept="image/*"
+    onChange={(e) => handleImageChange(e, "secondaryImage1")}
+    hidden
+  />
+</div>
+
 
             {/* Segunda imagen secundaria */}
-            <div className={style.secondaryImage2}>
-                {images.secondaryImage2 ? (
-                    <img src={images.secondaryImage2} alt="Secundaria 2" />
-                ) : (
-                    <label>
-                        Cargar Imagen 2
-                        <input
-                            type="file"
-                            accept="image/*"
-                            onChange={(e) => handleImageChange(e, "secondaryImage2")}
-                            hidden
-                        />
-                    </label>
-                )}
-            </div>
+            <div
+  className={style.secondaryImage2}
+  onClick={() => document.getElementById('fileInputSecondary2').click()} // Simula clic en input secundario 2
+>
+  {images.secondaryImage2 ? (
+    <img src={images.secondaryImage2} alt="Secundaria 2" />
+  ) : (
+    <p>Cargar Imagen 2</p> // Texto de indicación
+  )}
+  <input
+    type="file"
+    id="fileInputSecondary2" // Asociado al div mediante ID
+    accept="image/*"
+    onChange={(e) => handleImageChange(e, "secondaryImage2")}
+    hidden
+  />
+</div>
+
           </div>
         </div>
         <div className={style.price}>{price}</div>

@@ -4,9 +4,10 @@
     flex-direction: column;
     align-items: center;
     max-width: 1080px;
-    margin: 20px auto;
+    width: 100%; /* Se adapta al ancho del contenedor padre */
+    transform: scale(0.98); /* Escala del 80% */
+    transform-origin: top left; /* Ajusta el origen del escalado */
     background-color: #fff;
-    border: 2px solid #ccc;
     padding: 20px;
     font-family: Arial, sans-serif;
 }
@@ -55,22 +56,22 @@
 }
 
 .mainImage {
-    padding: 3px; /* Espacio pequeño alrededor del contenedor */
+    padding: 0; /* Elimina el espacio alrededor del contenedor */
     width: 650px; /* Ancho fijo del contenedor */
     height: 400px; /* Alto fijo del contenedor */
     box-sizing: border-box; /* Incluye el padding en el tamaño total */
     display: flex; /* Centra la imagen si no cubre todo */
     justify-content: center;
     align-items: center;
-    background-color: #A83E52; /* Fondo visible incluso sin imagen */
     overflow: hidden; /* Oculta partes que se salgan */
-    border: 1px solid #ccc; /* Borde para resaltar el área del contenedor */
+    border: 5px solid #A83E52; /* Borde para resaltar el área del contenedor */
+    z-index: 1;
 }
 
 .mainImage img {
     max-width: 100%; /* Ancho máximo que la imagen puede ocupar */
     width: 100%; /* La imagen ocupa el ancho completo del contenedor */
-    height: 100%; /* La imagen ocupa todo el alto del contenedor */
+    height: 110%; /* La imagen ocupa todo el alto del contenedor */
     object-fit: cover; /* Ajusta la imagen sin deformarla */
     display: block; /* Evita el espacio adicional alrededor */
     border: none; /* Elimina el borde de la imagen si no es necesario */
@@ -85,19 +86,17 @@
 }
 
 .secondaryImage, .secondaryImage2 {
-    background-color: #3e2f87; /* Fondo visible incluso sin imagen */
+    background-color: #ffffff; /* Fondo visible incluso sin imagen */
     display: flex;
     justify-content: center;
     align-items: center;
     overflow: hidden;
     width: 95%; /* Ocupa todo el ancho del contenedor padre */
     height: 200px; /* Altura fija de cada imagen secundaria */
-    border: 1px solid #ccc; /* Borde para delimitar el espacio */
+    border: 5px solid #3e2f87; /* Borde para delimitar el espacio */
     position: absolute; /* Mantiene el posicionamiento absoluto */
     left: 50%; /* Centrado horizontalmente */
     transform: translateX(-50%); /* Ajusta para centrar */
-    padding: 2px;
-    padding-bottom: 10px;
 }
 
 .secondaryImage {
@@ -113,7 +112,7 @@
 .secondaryImage img, .secondaryImage2 img {
     max-width: 100%; /* Ancho máximo que la imagen puede ocupar */
     width: 100%; /* La imagen ocupa el ancho completo del contenedor */
-    height: 100%; /* La imagen ocupa todo el alto del contenedor */
+    height: 110%; /* La imagen ocupa todo el alto del contenedor */
     object-fit: cover; /* Ajusta la imagen sin deformarla */
     display: block; /* Evita el espacio adicional alrededor */
     border: none; /* Elimina el borde de la imagen si no es necesario */
