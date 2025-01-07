@@ -193,7 +193,7 @@ const PlacaCompleta = () => {
           <div className={style.content}>
           <div
   className={style.mainImage}
-  onClick={() => document.getElementById('fileInputMain').click()} // Simula clic en input principal
+  onClick={() => document.getElementById('fileInputMain1').click()} // Simula clic en input principal
 >
   {images.mainImage ? (
     <img src={images.mainImage} alt="Principal" />
@@ -202,7 +202,7 @@ const PlacaCompleta = () => {
   )}
   <input
     type="file"
-    id="fileInputMain" // Asociado al div mediante ID
+    id="fileInputMain1" // Asociado al div mediante ID
     accept="image/*"
     onChange={(e) => handleImageChange(e, "mainImage")}
     hidden
