@@ -42,6 +42,19 @@ const CloseProperty = () => {
   const handleChange = (e) => {
     const { name, value, type } = e.target;
 
+    // Validación para el campo "precioCierre" prohibiendo el uso de "."
+    if (name === "cerrado.precioCierre") {
+      const sanitizedValue = value.replace(/[^0-9]/g, ""); // Permite solo números
+      setPropertyData((prevData) => ({
+        ...prevData,
+        cerrado: {
+          ...prevData.cerrado,
+          precioCierre: sanitizedValue,
+        },
+      }));
+      return;
+    }
+
     if (name.includes("cerrado.")) {
       const field = name.split(".")[1];
       setPropertyData((prevData) => ({
@@ -82,36 +95,35 @@ const CloseProperty = () => {
       </p>
       <form onSubmit={handleSubmit} className={style.form}>
         {/* Campos de cerrado */}
-        <fieldset className={style.fieldset}> 
+        <fieldset className={style.fieldset}>
           <div className={`${style.formGroup}`}>
-  <h2 className={`${style.title}`}>Precio</h2>
-  <select
- name="cerrado.currencyCierre"
- className={`${style.selectInput}`}
- value={propertyData.cerrado.currencyCierre || ""}
- onChange={handleChange}
-  >
-    <option value="USD">USD</option>
-    <option value="ARG">ARG</option>
-  </select>
-  <input
-   type="text"
-   name="cerrado.precioCierre"
-   className={style.inputNumber}
-   value={propertyData.cerrado.precioCierre || ""}
-   onChange={handleChange}
-      />
-      </div>
-          
-      <h2 className={`${style.title}`}>Fecha de Cierre:</h2>
+            <h2 className={`${style.title}`}>Precio</h2>
+            <select
+              name="cerrado.currencyCierre"
+              className={`${style.selectInput}`}
+              value={propertyData.cerrado.currencyCierre || ""}
+              onChange={handleChange}
+            >
+              <option value="USD">USD</option>
+              <option value="ARG">ARG</option>
+            </select>
             <input
-              type="date"
-              name="cerrado.fecha"
-              className={style.fecha}
-              value={propertyData.cerrado.fecha || ""}
+              type="text"
+              name="cerrado.precioCierre"
+              className={style.inputNumber}
+              value={propertyData.cerrado.precioCierre || ""}
               onChange={handleChange}
             />
-        
+          </div>
+
+          <h2 className={`${style.title}`}>Fecha de Cierre:</h2>
+          <input
+            type="date"
+            name="cerrado.fecha"
+            className={style.fecha}
+            value={propertyData.cerrado.fecha || ""}
+            onChange={handleChange}
+          />
         </fieldset>
 
         <button type="submit" className={style.button}>

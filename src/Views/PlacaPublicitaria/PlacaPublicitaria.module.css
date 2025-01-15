@@ -2,7 +2,7 @@
 .container {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: flex-start;
     max-width: 1080px;
     width: 100%; /* Se adapta al ancho del contenedor padre */
     transform: scale(0.98); /* Escala del 80% */
@@ -10,6 +10,7 @@
     background-color: #fff;
     padding: 20px;
     font-family: Arial, sans-serif;
+    
 }
 
 /* Controles de edición */
@@ -164,6 +165,7 @@
 
 .downloadButton {
     margin-top: 20px;
+    margin-left: 0; /* Alinea al margen izquierdo */
     padding: 10px 20px;
     font-size: 16px;
     font-weight: bold;
@@ -178,6 +180,8 @@
 .downloadButton:hover {
     background-color: #6a1b9a;
 }
+
+
 
 .placa {
     position: relative;
