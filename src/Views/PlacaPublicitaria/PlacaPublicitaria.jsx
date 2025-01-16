@@ -190,20 +190,25 @@ const PlacaPublicitaria = () => {
           </div>
         </div>
         <div className={style.price}>{price}</div>
-<div className={style.info}>
+        <div className={style.info}>
   <div className={style.infoLeft}>
-<div className={`${style.containerUbicacion} left`}>
-    <img src={zona} alt="" /><p className={style.location}>{metros}</p>
+    <div className={`${style.containerUbicacion} left`}>
+      <img src={zona} alt="" />
+      <p className={style.location}>{metros}</p>
+    </div>
+
+    <div className={`${style.containerUbicacion} left`}>
+      <img src={ubicacion} alt="" />
+      <p className={style.location}>{location}</p>
+    </div>
+  </div>
+  <div className={`${style.containerServicios}`}>
+    <img src={grifo} alt="" />
+    <p className={style.location}>Servicios: {services}</p>
+  </div>
 </div>
 
-<div className={`${style.containerUbicacion} left`}>
-    <img src={ubicacion} alt="" /><p className={style.location}>{location}</p>
-</div>
-</div>
-<div className={`${style.containerServicios} right`}>
-    <img src={grifo} alt="" /><p className={style.location}>Servicios: {services}</p>
-</div>
-</div>
+
 
         <div className={style.footer}>
           <p>www.byraices.com</p>
