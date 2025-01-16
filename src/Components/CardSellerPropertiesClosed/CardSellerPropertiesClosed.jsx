@@ -2,10 +2,24 @@ import React from 'react';
 import style from './CardSellerPropertiesClosed.module.css';
 
 const CardSellerPropertiesClosed = ({ property }) => {
-  // Calcula la diferencia porcentual entre precio publicado y cerrado
-  const publishedPrice = property?.price || 0;
-  const closedPrice = property?.cerrado?.precioCierre || 0;
+  // Función para eliminar puntos y convertir a número
+  const parsePrice = (price) => {
+    if (typeof price === 'string') {
+      return parseFloat(price.replace(/\./g, '')) || 0;
+    }
+    return price || 0;
+  };
 
+  // Formatea un número como moneda con puntos
+  const formatPrice = (price) => {
+    return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+  };
+
+  // Obtener precios sin puntos para cálculo
+  const publishedPrice = parsePrice(property?.price);
+  const closedPrice = parsePrice(property?.cerrado?.precioCierre);
+
+  // Calcular la diferencia porcentual entre precios
   let percentageChange = 0;
   if (publishedPrice > 0) {
     percentageChange = ((closedPrice - publishedPrice) / publishedPrice) * 100;
@@ -24,7 +38,7 @@ const CardSellerPropertiesClosed = ({ property }) => {
       <div className={style.cardContent}>
         <h5 className={style.cardTitle}>{property.title}</h5>
         <h5 className={style.cardTitle}>
-          Publicado: $ {property.currency} {property.price} / Cerrado: $ {property?.cerrado?.currencyCierre} {property?.cerrado?.precioCierre}
+          Publicado: $ {property.currency} {formatPrice(publishedPrice)} / Cerrado: $ {property?.cerrado?.currencyCierre} {formatPrice(closedPrice)}
         </h5>
         <p className={style.percentageChange}>
           Cambio: 
