@@ -13,6 +13,7 @@ import loadingGif from '../../Assets/carga.gif';
 
 const CreateProperty = () => {
   const dispatch = useDispatch();
+  const [isLoading, setIsLoading] = useState(false);
   const sellerId = useSelector(state => state.userId);
   const user = useSelector(state => state.user);
   // const users = useSelector(state => state.users);
@@ -326,7 +327,7 @@ const CreateProperty = () => {
   const [displayPrice, setDisplayPrice] = useState('');
   const [photo, setPhotos] = useState([]);
   const [documentation, setDocumentation] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
+
  
   const detailLabels = {
     exclusiveContract: 'Contrato Exclusivo',
@@ -1012,9 +1013,13 @@ const handleFileReorder = (type, fromIndex, toIndex) => {
 
  
     
-    const handleSubmit = async (e) => {
+    const handleSubmit = (e) => {
       e.preventDefault();
-      setIsLoading(true); // Activa el indicador de carga
+      setIsLoading(true); // Activar indicador de carga inmediatament
+    
+      // Usar un setTimeout para introducir un retraso visible
+      setTimeout(async () => {
+
       // Crear un nuevo FormData para enviar archivos y otros datos
       const formDataToSend = new FormData();
     
@@ -1107,7 +1112,6 @@ const handleFileReorder = (type, fromIndex, toIndex) => {
       try {
         // Si estás usando Redux, puedes disparar una acción:
         dispatch(createProperty(formDataToSend));
-    
         // Si no usas Redux, puedes hacer la solicitud directamente con axios:
         /*
         const config = {
@@ -1122,8 +1126,10 @@ const handleFileReorder = (type, fromIndex, toIndex) => {
         console.error('Error al enviar el formulario:', error);
         alert('Error al crear la propiedad');
       }  finally {
-        setIsLoading(false); // Desactiva el indicador de carga al finalizar
+       
+        setIsLoading(false); // Desactiva el indicador de carga
       }
+    }, 3000); // Retraso de 1 segundo
     };
     
 
@@ -1136,10 +1142,17 @@ const handleKeyPress = (e) => {
 };
 
   return (
+    <div className={style.formContainer}>
+   {isLoading && console.log('Mostrando indicador de carga')}
+{isLoading && (
+  <div className={style.loadingOverlay}>
+    <img src={loadingGif} alt="Cargando..." className={style.loadingGif} />
+  </div>
+)}
     <form className={style.form} onSubmit={handleSubmit} onKeyPress={handleKeyPress}>
          <div className={style.formGroup}>
 
-         {isLoading && <img src={loadingGif} alt="Cargando..." className={style.loadingGif} />}
+       
    {/* <h2 className={style.title}>Clientes</h2>
          <div className={style.centeredContainer}>
   <div className={style.userListContainer}>
@@ -1669,10 +1682,15 @@ const handleKeyPress = (e) => {
         accept="application/pdf"
         multiple={true}
       />
-    <button type="submit" disabled={isLoading}>
-          {isLoading ? 'Enviando...' : 'Submit'}
-        </button>
+    <button 
+  type="submit" 
+  disabled={isLoading} 
+className={style.submit}
+>
+  {isLoading ? 'Enviando...' : 'Crear Propiedad'}
+</button>
   </form>
+  </div>
   );
 };
 

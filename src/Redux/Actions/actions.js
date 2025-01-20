@@ -134,6 +134,7 @@ export const createProperty = (formData) => async (dispatch) => {
 
       // Muestra mensaje de éxito o redirige a otra página si es necesario
       alert('Propiedad creada exitosamente!');
+      window.location.href = '/home';
   } catch (error) {
       dispatch({
           type: 'CREATE_PROPERTY_FAIL',
