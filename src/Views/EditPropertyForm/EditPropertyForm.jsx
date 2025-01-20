@@ -125,7 +125,10 @@ const EditPropertyForm = () => {
     isForRent: false,
     isFinished: false,
     isUnderDevelopment: false,
-    photo: []
+    photo: [],
+    ownerName: '',
+    ownerPhone: '',
+    ownerEmail: '',
   });
   const [loading, setLoading] = useState(true);
 

@@ -8,6 +8,7 @@ import logoEmpresa from '../../Assets/favicon-byraices.png';
 import axios from 'axios';
 import FileUploader from '../../Components/MultiplesImagenes/MultiplesImagenes';
 import Documentacion from '../../Components/Documents/Documentacion';
+import loadingGif from '../../Assets/carga.gif';
 
 
 const CreateProperty = () => {
@@ -315,6 +316,9 @@ const CreateProperty = () => {
     martillerId: null,
     sellerId: null,
     userId: "1",
+    ownerName: '',
+    ownerPhone: '',
+    ownerEmail: '',
    
   });
 
@@ -322,6 +326,7 @@ const CreateProperty = () => {
   const [displayPrice, setDisplayPrice] = useState('');
   const [photo, setPhotos] = useState([]);
   const [documentation, setDocumentation] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
  
   const detailLabels = {
     exclusiveContract: 'Contrato Exclusivo',
@@ -1009,7 +1014,7 @@ const handleFileReorder = (type, fromIndex, toIndex) => {
     
     const handleSubmit = async (e) => {
       e.preventDefault();
-    
+      setIsLoading(true); // Activa el indicador de carga
       // Crear un nuevo FormData para enviar archivos y otros datos
       const formDataToSend = new FormData();
     
@@ -1054,6 +1059,9 @@ const handleFileReorder = (type, fromIndex, toIndex) => {
       formDataToSend.append('bathrooms', formData.bathrooms);
       formDataToSend.append('toilettes', formData.toilettes);
       formDataToSend.append('garages', formData.garages);
+      formDataToSend.append('ownerName', formData.ownerName);
+      formDataToSend.append('ownerPhone', formData.ownerPhone);
+      formDataToSend.append('ownerEmail', formData.ownerEmail);
       if (formData.martillerId !== null) {
         formDataToSend.append('martillerId', formData.martillerId);
       }
@@ -1113,6 +1121,8 @@ const handleFileReorder = (type, fromIndex, toIndex) => {
       } catch (error) {
         console.error('Error al enviar el formulario:', error);
         alert('Error al crear la propiedad');
+      }  finally {
+        setIsLoading(false); // Desactiva el indicador de carga al finalizar
       }
     };
     
@@ -1128,6 +1138,8 @@ const handleKeyPress = (e) => {
   return (
     <form className={style.form} onSubmit={handleSubmit} onKeyPress={handleKeyPress}>
          <div className={style.formGroup}>
+
+         {isLoading && <img src={loadingGif} alt="Cargando..." className={style.loadingGif} />}
    {/* <h2 className={style.title}>Clientes</h2>
          <div className={style.centeredContainer}>
   <div className={style.userListContainer}>
@@ -1239,6 +1251,39 @@ const handleKeyPress = (e) => {
           <h2 className={style.title}>Fecha de vencimiento</h2>
       <input type="date" name="expirationDate" value={formData.expirationDate} onChange={handleChange} />
  </div>
+
+ <div className={style.formGroup}>
+  <h2 className={style.title}>Nombre del Dueño</h2>
+  <input
+    type="text"
+    name="ownerName"
+    value={formData.ownerName}
+    onChange={handleChange}
+    className={style.inputText}
+  />
+</div>
+
+<div className={style.formGroup}>
+  <h2 className={style.title}>Numero Telefonico del Dueño</h2>
+  <input
+    type="text"
+    name="ownerPhone"
+    value={formData.ownerPhone}
+    onChange={handleChange}
+    className={style.inputText}
+  />
+</div>
+
+<div className={style.formGroup}>
+  <h2 className={style.title}>Email del Dueño</h2>
+  <input
+    type="text"
+    name="ownerEmail"
+    value={formData.ownerEmail}
+    onChange={handleChange}
+    className={style.inputText}
+  />
+</div>
 
  <div className={style.formUbication}>
       <h2 className={style.title}>Ubicación</h2>
@@ -1624,7 +1669,9 @@ const handleKeyPress = (e) => {
         accept="application/pdf"
         multiple={true}
       />
-    <button type="submit">Submit</button>
+    <button type="submit" disabled={isLoading}>
+          {isLoading ? 'Enviando...' : 'Submit'}
+        </button>
   </form>
   );
 };
