@@ -68,6 +68,22 @@
     justify-content:end; /* Centra ambos botones horizontalmente */
     gap: 10px; /* Añade espacio entre los botones */
   }
+
+  .greenArrow {
+    color: green;
+    font-weight: bold;
+  }
+  
+  .redArrow {
+    color: red;
+    font-weight: bold;
+  }
+  
+  .percentageChange {
+    font-size: 1rem;
+    margin-top: 0.5rem;
+  }
+  
     /* Estilos Responsivos */
 @media (max-width: 768px) {
   .card {

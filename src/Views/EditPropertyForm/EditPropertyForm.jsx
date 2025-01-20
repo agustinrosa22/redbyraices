@@ -4,7 +4,6 @@ import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import { editProperty } from '../../Redux/Actions/actions';
 import style from './EditPropertyForm.module.css';
-import MultiplesImagenes from '../../Components/MultiplesImagenes/MultiplesImagenes';
 import { GoogleMap, LoadScript, Marker, StandaloneSearchBox  } from '@react-google-maps/api';
 import logoEmpresa from '../../Assets/titulo.png'
 
@@ -1001,6 +1000,7 @@ const handleServiceOptionChange = (service) => {
     </label>
  </div>
  <div className={style.formGroup}>
+  <h1>Imagenes</h1>
  <input type="file" multiple onChange={handlePhotoChange} />
 <h2 className={style.title}>
 Video Link

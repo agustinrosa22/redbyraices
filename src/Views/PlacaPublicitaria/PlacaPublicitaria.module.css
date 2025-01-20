@@ -2,7 +2,7 @@
 .container {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: flex-start;
     max-width: 1080px;
     width: 100%; /* Se adapta al ancho del contenedor padre */
     transform: scale(0.98); /* Escala del 80% */
@@ -10,6 +10,7 @@
     background-color: #fff;
     padding: 20px;
     font-family: Arial, sans-serif;
+    
 }
 
 /* Controles de edición */
@@ -164,6 +165,7 @@
 
 .downloadButton {
     margin-top: 20px;
+    margin-left: 0; /* Alinea al margen izquierdo */
     padding: 10px 20px;
     font-size: 16px;
     font-weight: bold;
@@ -178,6 +180,8 @@
 .downloadButton:hover {
     background-color: #6a1b9a;
 }
+
+
 
 .placa {
     position: relative;
@@ -247,31 +251,53 @@
     height: auto;
   }
 
+
   .containerUbicacion {
     display: flex;
-    align-items: center; /* Centra verticalmente los elementos */
-    gap: 8px; /* Añade un pequeño espacio entre imagen y texto */
-}
-
-.containerServicios{
+    align-items: center;
+    gap: 8px;
+    white-space: nowrap; /* Evita que el texto se parta en varias líneas */
+    overflow: hidden; /* Oculta el desbordamiento del texto */
+    text-overflow: ellipsis; /* Añade "..." al final si el texto es muy largo */
+  }
+  
+  .containerServicios {
     display: flex;
-    align-items: center; /* Centra verticalmente los elementos */
-    gap: 8px; /* Añade un pequeño espacio entre imagen y texto */
-    margin-top: -70px;
-    margin-left: 20px;
+    align-items: center;
+    gap: 8px;
+    margin-left: 400px; /* Asegura que los servicios estén fijos a la derecha */
+    white-space: nowrap;
+    position: absolute;
+    flex-shrink: 0; /* Evita que este elemento se reduzca */
+  }
+  
+
+  .containerUbicacion.left .location {
+    white-space: nowrap; /* Evita saltos de línea */
+    overflow: hidden; /* Oculta el contenido que excede */
+    text-overflow: ellipsis; /* Muestra puntos suspensivos si es demasiado largo */
+    flex-shrink: 1; /* Permite que este elemento reduzca su espacio si es necesario */
 }
 
-.containerUbicacion.left {
-    justify-content: flex-start; /* Alinea a la izquierda */
-}
-
-.containerUbicacion.right {
-    justify-content: flex-end; /* Alinea a la derecha */
-}
-
-.info{
+.info {
     display: flex;
+    justify-content: space-between; /* Mantiene los elementos distribuidos correctamente */
+    align-items: center; /* Alinea verticalmente */
 }
+
+.infoLeft {
+    display: flex;
+    flex-direction: column; /* Organiza los elementos en columna */
+    gap: 10px; /* Espaciado entre los elementos hijos */
+}
+
+.info {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start; /* Asegura que los elementos no se alineen al centro */
+  }
+
+ 
 
 .location{
     margin-top: 30px;
