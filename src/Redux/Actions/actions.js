@@ -295,9 +295,9 @@ export const getPendingProperties = () => async (dispatch) => {
   }
 };
 
-export const getListProperties = () => async (dispatch) => {
+export const getListProperties = (endpoint) => async (dispatch) => {
   try {
-    const response = await axios.get('/properties/active');
+    const response = await axios.get(endpoint); // Usar el endpoint dinámico
     console.log(response);
     dispatch({
       type: GET_PROPERTIES_LIST_SUCCESS,
@@ -306,12 +306,11 @@ export const getListProperties = () => async (dispatch) => {
   } catch (error) {
     console.error('Error al obtener propiedades activas:', error);
     dispatch({
-      type:  GET_PROPERTIES_LIST_FAIL,
+      type: GET_PROPERTIES_LIST_FAIL,
       payload: 'Error al obtener propiedades activas',
     });
   }
 };
-
 
 export const createUserSeller = (userData) => async (dispatch) => {
   try {

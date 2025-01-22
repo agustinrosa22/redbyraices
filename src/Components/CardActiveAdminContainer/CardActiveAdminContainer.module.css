@@ -1,0 +1,39 @@
+.filterButtons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px; /* Espacio entre los botones */
+    margin: 20px 0; /* Espaciado superior e inferior del contenedor de botones */
+  }
+  
+  .buttonFilter {
+    background-color: #3D2F87; /* Color celeste */
+    color: white; /* Texto blanco */
+    border: none; /* Sin bordes */
+    border-radius: 5px; /* Bordes redondeados */
+    padding: 10px 20px; /* Espaciado interno */
+    font-size: 16px; /* Tamaño de la fuente */
+    cursor: pointer; /* Cursor pointer para que parezca clickeable */
+    transition: background-color 0.3s ease; /* Efecto de transición */
+  }
+  
+  .buttonFilter:hover {
+    background-color: #A83E52; /* Color más oscuro al pasar el mouse */
+  }
+  
+  .buttonFilter:active {
+    background-color: #005f99; /* Color aún más oscuro al hacer clic */
+  }
+  
+  @media (max-width: 768px) {
+    .filterButtons {
+      flex-direction: column; /* Botones en columna en pantallas pequeñas */
+      gap: 10px; /* Espacio reducido entre los botones */
+    }
+  
+    .buttonFilter {
+      width: 80%; /* Botones más grandes en pantallas pequeñas */
+      text-align: center; /* Centrar texto dentro de los botones */
+    }
+  }
+  
