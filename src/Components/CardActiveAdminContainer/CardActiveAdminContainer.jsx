@@ -5,7 +5,7 @@ import CardActiveAdmin from '../CardActiveAdmin/CardActiveAdmin';
 import style from './CardActiveAdminContainer.module.css'
 
 const CardActiveAdminContainer = ({ activeProperties, getListProperties }) => {
-  const [filter, setFilter] = useState('/properties/active'); // Estado para controlar el filtro actual
+  const [filter, setFilter] = useState('/properties/active?cerrado=false'); // Estado para controlar el filtro actual
 
   useEffect(() => {
     getListProperties(filter);
