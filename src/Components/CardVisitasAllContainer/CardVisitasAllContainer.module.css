@@ -1,0 +1,147 @@
+.title {
+    text-align: center; /* Centra el texto horizontalmente */
+    color: #3D2F87; /* Cambia el color a azul */
+    font-size: 44px; /* Ajusta el tamaño del texto si es necesario */
+    margin: 20px 0; /* Agrega un poco de espacio arriba y abajo */
+  }
+
+  .gustoContainer {
+    border: 2px solid #3D2F87; /* Borde azul */
+    border-radius: 8px; /* Bordes redondeados */
+    padding: 16px; /* Espaciado interno */
+    margin: 20px 0; /* Separación entre secciones */
+    background-color: #f9f9f9; /* Fondo ligero */
+  }
+  
+  .flexContainer {
+    display: flex;
+    justify-content: space-between; /* Separar estadísticas y círculo */
+    align-items: center; /* Alinear verticalmente */
+  }
+  
+  .stats {
+    display: flex;
+    flex-direction: column; /* Alinear título y datos en columna */
+  }
+  
+  .stats h4 {
+    margin: 0 0 8px; /* Espaciado inferior para el título */
+    font-size: 1.2rem;
+    color: #3D2F87; /* Mismo color azul */
+  }
+  
+  .stats p {
+    margin: 4px 0; /* Espaciado entre líneas */
+    font-size: 1rem;
+  }
+  
+  .circularProgress {
+    width: 100px;
+    height: 100px;
+    position: relative;
+  }
+  
+  .circularSvg {
+    width: 100%;
+    height: 100%;
+  }
+  
+  .circleBackground {
+    fill: none;
+    stroke: #e6e6e6;
+    stroke-width: 3;
+  }
+  
+  .circleProgress {
+    fill: none;
+    stroke: #3D2F87; /* Color del progreso */
+    stroke-width: 3;
+    stroke-linecap: round; /* Bordes redondeados */
+    transition: stroke-dasharray 0.3s ease;
+  }
+  
+  .percentageText {
+    font-size: 0.5rem; /* Tamaño del texto */
+    fill: #3D2F87; /* Color del texto */
+    font-weight: bold;
+  }
+
+.estadisticasGeneral{
+  text-align: center;
+}
+
+.circularProgressContainer {
+  display: flex;
+  justify-content: center; /* Centra el círculo horizontalmente */
+  align-items: center; /* Asegura que el contenido esté alineado verticalmente */
+  position: relative;
+}
+
+.circularProgress {
+  position: relative;
+  width: 120px; /* Ajusta el tamaño del círculo */
+  height: 120px;
+}
+
+/* Responsivo para dispositivos medianos */
+@media (max-width: 768px) {
+  .title {
+    font-size: 32px; /* Tamaño más pequeño */
+  }
+
+  .flexContainer {
+    flex-direction: column; /* Ajustar los elementos en columna */
+    align-items: center;
+  }
+
+  .stats h4 {
+    font-size: 1rem; /* Reducir tamaño del título */
+  }
+
+  .stats p {
+    font-size: 0.9rem;
+  }
+
+  .circularProgress {
+    width: 90px; /* Reducir tamaño del círculo */
+    height: 90px;
+  }
+
+  .percentageText {
+    font-size: 0.4rem; /* Ajustar el tamaño del texto */
+  }
+}
+
+/* Responsivo para dispositivos pequeños */
+@media (max-width: 480px) {
+  .title {
+    font-size: 24px; /* Texto aún más pequeño */
+  }
+
+  .gustoContainer {
+    padding: 12px;
+    margin: 16px 0;
+  }
+
+  .flexContainer {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .stats h4 {
+    font-size: 0.9rem;
+  }
+
+  .stats p {
+    font-size: 0.8rem;
+  }
+
+  .circularProgress {
+    width: 80px;
+    height: 80px;
+  }
+
+  .percentageText {
+    font-size: 0.35rem;
+  }
+}

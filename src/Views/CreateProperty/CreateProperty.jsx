@@ -45,7 +45,7 @@ const CreateProperty = () => {
     currency: 'USD',
     price: '',
     currencyExpenses: 'USD',
-    expenses: '',
+    expenses: '0',
     totalSquareMeters: '',
     coveredSquareMeters: '',
     semiCoveredSquareMeters: '',
@@ -54,8 +54,8 @@ const CreateProperty = () => {
     age: '',
     commissionSellerType: '%',
     commissionBuyerType: '%',
-    sellerCommission: '',
-    buyerCommission: '',
+    sellerCommission: '3',
+    buyerCommission: '3',
     availableDate: '',
     expirationDate: '',
     location: [],
@@ -1103,12 +1103,11 @@ const handleFileReorder = (type, fromIndex, toIndex) => {
       formDataToSend.append('photo', fileObj.file);
     });
   }
-    
-      // Añadir archivos de documentación al FormData
-      for (let i = 0; i < documentation.length; i++) {
-        formDataToSend.append('documentation', documentation[i]);
-      }
-    
+  if (Array.isArray(documentation) && documentation.length > 0) {
+    documentation.forEach((fileObj) => {
+      formDataToSend.append('documentation', fileObj.file);
+    });
+  }
       try {
         // Si estás usando Redux, puedes disparar una acción:
         dispatch(createProperty(formDataToSend));
@@ -1300,6 +1299,7 @@ const handleKeyPress = (e) => {
 
  <div className={style.formUbication}>
       <h2 className={style.title}>Ubicación</h2>
+      <p className={style.subtitleText}>Rellene todos los campos y despues busque por google maps la ubicacion de su propiedad de forma directa o clickeando sobre el mapa. En caso de que su propiedad no posea los campos "Barrio" o "Barrio privado" dejar estos vacios. </p>
   <div className={style.formRow}>
     <div className={style.formColumn}>
       <div className={style.inputGroup}>
@@ -1431,6 +1431,7 @@ const handleKeyPress = (e) => {
 
 
 <div className={style.formGroup}>
+<p className={style.subtitleText}>En caso de no tener el dato colocar "0". </p>
   <h2 className={style.title}>Ambientes</h2>
   <input
     type="number"
@@ -1487,6 +1488,7 @@ const handleKeyPress = (e) => {
 
 
     <h2 className={style.title}>Superficie</h2>
+    <p className={style.subtitleText}>Completar todos los datos con su respectivo metraje y en caso de no poseer colocar "0" y en caso de ser terreno rellenar el metraje en "Descubierto y "Terreno".</p>
 <div className={style.formGroupMedidas}>
   <div className={style.inputGroup}>
     <div className={style.inputContainer}>
@@ -1540,6 +1542,7 @@ const handleKeyPress = (e) => {
 
 <div className={style.formGroup}>
       <h2 className={style.title}>Antiguedad</h2>
+      <p className={style.subtitleText}>En caso de anotar 0 la propiedad a figurar en "A estrenar". Puede colocar la  fecha de construccion de la propiedad o los años de antiguedad que posea.</p>
       <input className={style.inputAge} type="number" name="age" placeholder='Ej: 2010' value={formData.age} onChange={handleChange} />
     </div>
 
@@ -1623,7 +1626,7 @@ const handleKeyPress = (e) => {
 
     <label>
      <h2 className={style.title}>Titulo</h2>
-      <input className={style.inputText} type="text" name="title" placeholder='Ingrese un titulo' value={formData.title} onChange={handleChange} />
+      <input className={style.inputText} type="text" name="title" placeholder='Ej: Venta casa ciudad' value={formData.title} onChange={handleChange} />
     </label>
  </div>
  <div className={style.formGroup}>
@@ -1634,7 +1637,8 @@ const handleKeyPress = (e) => {
     </label>
  </div>
 
- <h2>Fotos</h2>
+ <h2 className={style.title}>Fotos</h2>
+ <p className={style.subtitleText}>Se puede subir hasta un maximo de de 30 imagenes.</p>
 <FileUploader name="photo" handleFileChange={handleFileChange} accept="image/*" multiple={true} files={photo} onFileDelete={(id) => handleFileDelete(id, 'photo')} />
 
 <ul>
@@ -1676,12 +1680,14 @@ const handleKeyPress = (e) => {
       <input className={style.inputText} type="text" name="videoLink" placeholder='Link de YouTube' value={formData.videoLink} onChange={handleChange} />
    
     </div>
+    <h2 className={style.title}>Documentacion</h2>
+    <p className={style.subtitleText}>Se puede subir hasta un maximo de de 10 imagenes o pdf de bajo tamaño.</p>
     <FileUploader
-        name="documentation"
-        handleFileChange={handleFileChange}
-        accept="application/pdf"
-        multiple={true}
-      />
+  name="documentation"
+  handleFileChange={handleFileChange}
+  accept="image/*,application/pdf" // Acepta imágenes y PDFs
+  multiple={true}
+/>
     <button 
   type="submit" 
   disabled={isLoading} 

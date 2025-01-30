@@ -17,12 +17,13 @@ import ListAdmin from './Views/ListAdmin/ListAdmin';
 import Sellers from './Views/Sellers/Sellers'
 import EditSellerForm from './Components/EditSellerForm/EditSellerForm'
 import VisitaForm from './Views/VisitaForm/VisitaForm'
-import CardContainerVisitas from './Components/CardContainerVisitas/CardContainerVisitas';
+import CardContainerVisitas from './Components/CardVisitasContainer/CardContainerVisitas';
 import CloseProperty from './Views/closeProperty/closeProperty';
 import Properties from './Views/Properties/Properties'
 import GenerarAlquiler from './Views/GenerarAlquiler/GenerarAlquiler';
 import PlacaPublicitaria from './Views/PlacaPublicitaria/PlacaPublicitaria'
 import ImageGenerator  from './Views/ImageGenerator/ImageGenerator'
+import CardVisitasAllContainer from './Components/CardVisitasAllContainer/CardVisitasAllContainer'
 
 
 function App() {
@@ -57,6 +58,7 @@ function App() {
             <Route path="/edit-seller/:id" element={<EditSellerForm />} />
             <Route path="/visita/:id" element={<VisitaForm />} />
             <Route path="/historial/visitas/:id" element={<CardContainerVisitas />} />
+            <Route path="/visitas" element={<CardVisitasAllContainer />} />
             <Route path="/cierre-property/:id" element={<CloseProperty />} />
             <Route path="/properties" element={<Properties />} />
             <Route path="/generar-alquiler/:propertyId" element={<GenerarAlquiler />} />

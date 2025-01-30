@@ -17,6 +17,7 @@ import menuIcon from '../../Assets/comentario.png';
 import usuarios from '../../Assets/agregar-usuario.png'
 import lista from '../../Assets/lista-de-verificacion.png'
 import aprobar from '../../Assets/aprobar.png'
+import visita from '../../Assets/marcador-de-posicion.png'
 
 const allowedEmails = [
   'arosa@byraices.com',
@@ -125,6 +126,16 @@ const Sidebar = () => {
               </Link>
             </li>
           )}
+
+          {showApproveButton && (
+            <li>
+              <Link to="/visitas" className={style.link}>
+                <img src={visita} alt="Visitas" className={style.icon} />
+                Visitas
+              </Link>
+            </li>
+          )}
+          
             {showApproveButton && (
             <li>
               <Link to="/usuarios" className={style.link}>

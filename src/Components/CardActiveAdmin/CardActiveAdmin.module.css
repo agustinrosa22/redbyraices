@@ -99,6 +99,10 @@
     transform: translateY(-2px);
   }
 
+  .id{
+    color: #A83E52;
+  }
+
   /* Estilos Responsivos */
 @media (max-width: 768px) {
   .card {
