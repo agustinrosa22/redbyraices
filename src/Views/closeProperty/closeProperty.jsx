@@ -27,7 +27,18 @@ const CloseProperty = () => {
     const fetchProperty = async () => {
       try {
         const response = await axios.get(`/property/${id}`);
-        setPropertyData(response.data.data);
+        const data = response.data.data;
+  
+        setPropertyData((prevData) => ({
+          ...prevData,
+          ...data,
+          cerrado: {
+            ...prevData.cerrado,
+            precioCierre: prevData.cerrado.precioCierre || data.price || "",
+            currencyCierre: prevData.cerrado.currencyCierre || data.currency || "",
+          },
+        }));
+  
         setLoading(false);
       } catch (err) {
         console.error("Error al obtener la propiedad:", err);
@@ -35,9 +46,10 @@ const CloseProperty = () => {
         setLoading(false);
       }
     };
-
+  
     fetchProperty();
   }, [id]);
+  
 
   const handleChange = (e) => {
     const { name, value, type } = e.target;

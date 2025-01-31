@@ -81,6 +81,7 @@ const EditPropertyForm = () => {
   const dispatch = useDispatch();
   const user = useSelector(state => state.user);
   const [selectedPhotos, setSelectedPhotos] = useState([]);
+  const [selectedDocuments, setSelectedDocuments] = useState([]);
   const sellerId = useSelector(state => state.userId);
 
   const [formData, setFormData] = useState({
@@ -125,6 +126,7 @@ const EditPropertyForm = () => {
     isFinished: false,
     isUnderDevelopment: false,
     photo: [],
+    documentation: [],  
     ownerName: '',
     ownerPhone: '',
     ownerEmail: '',
@@ -186,7 +188,8 @@ const EditPropertyForm = () => {
           characteristics: propertyData.characteristics || {},
           detailsProperty: propertyData.detailsProperty || {},
           statusProperty: false,
-          photo: propertyData.photo
+          photo: propertyData.photo,
+          documentation: propertyData.documentation,
         });
         setLoading(false);
       } catch (error) {
@@ -482,6 +485,10 @@ const handleServiceOptionChange = (service) => {
     setSelectedPhotos([...e.target.files]);
   };
 
+  const handleDocumentationChange = (e) => {
+    setSelectedDocuments([...e.target.files]);
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
   
@@ -556,7 +563,11 @@ const handleServiceOptionChange = (service) => {
     for (const photo of selectedPhotos) {
       formDataToSend.append('photo', photo);
     }
-  
+
+   // 📄 Agregar documentos correctamente
+for (const documentation of selectedDocuments) {
+  formDataToSend.append('documentation', documentation);  // Asegurar array en la solicitud
+}
     try {
       // Usando Redux para editar la propiedad
       await dispatch(editProperty(id, formDataToSend));
@@ -1007,7 +1018,8 @@ Video Link
 </h2>
    
     <input className={style.inputText} type="text" name="videoLink" placeholder='Link de YouTube' value={formData.videoLink} onChange={handleChange} />
- 
+    <h1>Documentacion</h1>
+    <input type="file" multiple onChange={handleDocumentationChange} />
   </div>
  
         <button type="submit">Guardar Cambios</button>

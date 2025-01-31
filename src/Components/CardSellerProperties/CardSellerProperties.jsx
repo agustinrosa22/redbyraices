@@ -3,6 +3,12 @@ import { Link } from 'react-router-dom';
 import style from './CardSellerProperties.module.css';
 
 const CardSellerProperties = ({ property }) => {
+
+  const formatPrice = (price) => {
+    return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+  };
+
+
   return (
     <div className={style.card}>
       <div className={style.imageContainer}>
@@ -12,7 +18,7 @@ const CardSellerProperties = ({ property }) => {
       </div>
       <div className={style.cardContent}>
         <h5 className={style.cardTitle}>{property.title}</h5>
-        <h5 className={style.cardTitle}>$ {property.currency} {property.price}</h5>
+        <h5 className={style.cardTitle}>$ {property.currency} {formatPrice(property.price)}</h5>
         <p className={style.cardText}>{property.description}</p>
         <div className={style.buttonContainer}>
         <Link to={`/historial/visitas/${property.id}`} className={style.detailsLink}>
