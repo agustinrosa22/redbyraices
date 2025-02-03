@@ -1638,7 +1638,7 @@ const handleKeyPress = (e) => {
  </div>
 
  <h2 className={style.title}>Fotos</h2>
- <p className={style.subtitleText}>Se puede subir hasta un maximo de de 30 imagenes.</p>
+ <p className={style.subtitleText}>Se puede subir hasta un maximo de de 30 imagenes y un minimo de 5 imagenes.</p>
 <FileUploader name="photo" handleFileChange={handleFileChange} accept="image/*" multiple={true} files={photo} onFileDelete={(id) => handleFileDelete(id, 'photo')} />
 
 <ul>
@@ -1681,7 +1681,7 @@ const handleKeyPress = (e) => {
    
     </div>
     <h2 className={style.title}>Documentacion</h2>
-    <p className={style.subtitleText}>Se puede subir hasta un maximo de de 10 imagenes o pdf de bajo tamaño.</p>
+    <p className={style.subtitleText}>Se puede subir hasta un maximo de 10 imagenes o pdf de bajo tamaño. La documentacion principal Escritura, boleto de compra venta, Documento de identidad, Planos, Impuestos inmibiliarios y otros.</p>
     <FileUploader
   name="documentation"
   handleFileChange={handleFileChange}
