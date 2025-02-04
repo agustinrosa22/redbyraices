@@ -100,32 +100,59 @@ const CloseProperty = () => {
 
   const calculateTotalComission = (data) => {
     const { precioCierre, buyingTip, selleringTip } = data.cerrado;
-
-    let totalComission = 0;
-
+  
     if (isNaN(precioCierre) || precioCierre === "") return "0.00";
+  
+    const price = parseFloat(precioCierre);
+  
+    if (data.isForRent) {
+      // Si es para alquiler, asignamos las comisiones de la nueva forma
+      data.cerrado.sellerCommision = price.toFixed(2); // 100% del precio de cierre
+      data.cerrado.officeComission = (price * 0.92).toFixed(2); // 92% del precio de cierre
+      data.cerrado.franquiciaComission = (price * 0.08).toFixed(2); // 8% del precio de cierre
+      data.cerrado.martillerComission = (data.cerrado.officeComission * 0.03).toFixed(2); // 3% de officeComission
+  
+      // Activamos los checkboxes automáticamente
+      data.cerrado.buyingTip = true;
+      data.cerrado.selleringTip = true;
 
-    if (buyingTip) {
-      totalComission += parseFloat(precioCierre) * 0.03;
+    
+      // console.log(data.cerrado.sellerCommision);
+      // console.log(data.cerrado.officeComission);
+      // console.log(data.cerrado.franquiciaComission);
+      // console.log(data.cerrado.martillerComission);
+      
+      return price.toFixed(2);
     }
-    if (selleringTip) {
-      totalComission += parseFloat(precioCierre) * 0.03;
-    }
-
-    // Calculamos las comisiones específicas para seller y office.
-    const sellerCommission = (totalComission * 0.57).toFixed(2); // 57% del total
-    const officeCommission = (totalComission * 0.35).toFixed(2); // 35% del total
-    const franquiciaComission = (totalComission * 0.08).toFixed(2); // 8% del total
-    const martillerComission = (officeCommission * 0.03).toFixed(2); // 3% del total
-
-    // Actualizamos las comisiones de vendedor y oficina
+  
+    // Si es una venta normal, se mantiene el cálculo anterior
+    let totalComission = 0;
+    const sellerComm = parseFloat(data.sellerCommission) / 100 || 0;
+    const buyerComm = parseFloat(data.buyerCommission) / 100 || 0;
+  
+    if (buyingTip) totalComission += price * buyerComm;
+    if (selleringTip) totalComission += price * sellerComm;
+  
+    const sellerCommission = (totalComission * 0.57).toFixed(2);
+    const officeCommission = (totalComission * 0.35).toFixed(2);
+    const franquiciaComission = (totalComission * 0.08).toFixed(2);
+    const martillerComission = (officeCommission * 0.03).toFixed(2);
+  
     data.cerrado.sellerCommision = sellerCommission;
     data.cerrado.officeComission = officeCommission;
     data.cerrado.franquiciaComission = franquiciaComission;
     data.cerrado.martillerComission = martillerComission;
 
+    console.log(totalComission);
+    console.log(data.cerrado.sellerCommision);
+    console.log(data.cerrado.officeComission);
+    console.log(data.cerrado.franquiciaComission);
+    console.log(data.cerrado.martillerComission);
+  
     return totalComission.toFixed(2);
   };
+  
+
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -242,3 +269,4 @@ const CloseProperty = () => {
 };
 
 export default CloseProperty;
+

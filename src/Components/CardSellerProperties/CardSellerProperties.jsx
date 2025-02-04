@@ -30,9 +30,18 @@ const CardSellerProperties = ({ property }) => {
   <Link to={`/detalles/${property.id}`} className={style.detailsLink}>
     <button className={style.detailsButton}>Ver detalles</button>
   </Link>
-  <Link to={`https://byraices.com/detail/${property.id}`} className={style.detailsLink}>
-          <button className={style.detailsButton}>Ver en pagina web</button>
-        </Link>
+  <Link 
+  to={`https://byraices.com/detail/${property.id}`} 
+  className={style.detailsLink}
+>
+  <button 
+    className={`${style.detailsButton} ${!property.statusProperty ? style.disabledButton : ""}`}
+    disabled={!property.statusProperty}
+    title={!property.statusProperty ? "Propiedad no aprobada" : ""}
+  >
+    Ver en página web
+  </button>
+</Link>
   <Link to={`/cierre-property/${property.id}`} className={style.detailsLink}>
             <button className={style.closeButton}>Cerrar Propiedad</button>
           </Link>

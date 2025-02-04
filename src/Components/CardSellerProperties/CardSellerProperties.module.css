@@ -59,6 +59,18 @@
     transition: background-color 0.2s ease;
   }
 
+  .disabledButton {
+    background-color: #ccc; /* Gris */
+    cursor: not-allowed; /* Cambia el cursor a "no permitido" */
+    color: #666; /* Texto gris oscuro */
+    border: 1px solid #aaa;
+  }
+
+  .disabledButton:hover {
+    background-color: #ccc !important; /* Evita el hover */
+    color: #666 !important;
+  }
+  
   .closeButton{
     background-color: #A83E52;
     color: white;
