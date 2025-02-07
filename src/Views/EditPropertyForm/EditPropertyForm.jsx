@@ -130,6 +130,9 @@ const EditPropertyForm = () => {
     ownerName: '',
     ownerPhone: '',
     ownerEmail: '',
+    propertyState: "",
+    cantidad: '',
+    
   });
   const [loading, setLoading] = useState(true);
 
@@ -190,6 +193,9 @@ const EditPropertyForm = () => {
           statusProperty: false,
           photo: propertyData.photo,
           documentation: propertyData.documentation,
+          propertyState: propertyData.propertyState,
+          cantidad: propertyData.cantidad,
+         
         });
         setLoading(false);
       } catch (error) {
@@ -535,6 +541,10 @@ const handleServiceOptionChange = (service) => {
     formDataToSend.append('bathrooms', formData.bathrooms);
     formDataToSend.append('toilettes', formData.toilettes);
     formDataToSend.append('garages', formData.garages);
+    formDataToSend.append('propertyState', formData.propertyState);
+    formDataToSend.append('cantidad', formData.cantidad);
+    
+
  
     // Guardar la ubicación como un array de coordenadas (latitud, longitud)
 
@@ -670,6 +680,19 @@ for (const documentation of selectedDocuments) {
           </select>
         </label>
         <div  className={style.formGroup}>
+        {["departamento", "ph", "local", "terrenos y lotes", "cochera", "oficina", "otros"].includes(formData.propertyType) && (
+  <div className={style.formGroup}>
+    <h2 className={style.title}>Cantidad</h2>
+    <input
+      type="number"
+      name="cantidad"
+      value={formData.cantidad}
+      onChange={(e) => setFormData({ ...formData, cantidad: e.target.value })}
+      className={style.inputText}
+    />
+  </div>
+)}
+
         <h2 className={`${style.title}`}>Precio</h2>
   <select
     id="currency"
@@ -863,6 +886,38 @@ for (const documentation of selectedDocuments) {
     className={style.inputText}
   />
 </div>
+
+<div className={style.formGroup}>
+  <h2 className={style.title}>Pisos</h2>
+  <input
+    type="number"
+    name="floorPlans"
+    value={formData.floorPlans}
+    onChange={handleChange}
+    className={style.inputText}
+  />
+</div>
+
+<div className={style.formGroup}>
+  <h2 className={style.title}>Estado de la Propiedad</h2>
+  <select
+    name="propertyState"
+    value={formData.propertyState}
+    onChange={handleChange}
+    className={style.inputText}
+  >
+    <option value="">Selecciona una opción</option>
+    <option value="aEstrenar">A Estrenar</option>
+    <option value="enConstruccion">En Construcción</option>
+    <option value="refaccionado">Refaccionado</option>
+    <option value="aRefaccionar">A Refaccionar</option>
+    <option value="excelente">Excelente</option>
+    <option value="muyBueno">Muy Bueno</option>
+    <option value="bueno">Bueno</option>
+    <option value="regular">Regular</option>
+  </select>
+</div>
+
 <h2 className={style.title}>Superficie</h2>
 <div className={style.formGroupMedidas}>
   <div className={style.inputGroup}>

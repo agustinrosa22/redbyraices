@@ -187,7 +187,6 @@ const CreateProperty = () => {
     },
     title: '',
     description: '',
-    floorPlans: '',
     isForSale: false,
     isForRent: false,
     isFinished: false,
@@ -321,7 +320,8 @@ const CreateProperty = () => {
     ownerPhone: '',
     ownerEmail: '',
     propertyState: "",
-      cantidad: '1',
+    cantidad: '1',
+    floorPlans: '1'
    
   });
 
@@ -1072,6 +1072,8 @@ const handleFileReorder = (type, fromIndex, toIndex) => {
       formDataToSend.append('propertyState', formData.propertyState);
       formDataToSend.append('cantidad', formData.cantidad);
 
+      
+
       if (formData.martillerId !== null) {
         formDataToSend.append('martillerId', formData.martillerId);
       }
@@ -1500,6 +1502,17 @@ const handleKeyPress = (e) => {
     type="number"
     name="garages"
     value={formData.garages}
+    onChange={handleChange}
+    className={style.inputText}
+  />
+</div>
+
+<div className={style.formGroup}>
+  <h2 className={style.title}>Pisos</h2>
+  <input
+    type="number"
+    name="floorPlans"
+    value={formData.floorPlans}
     onChange={handleChange}
     className={style.inputText}
   />
