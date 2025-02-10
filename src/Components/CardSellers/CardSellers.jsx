@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import styles from './CardSellers.module.css';
 
 const CardSellers = ({ seller, propertiesCount }) => {
-  const { name, last_name, mail, phone_number, photo, type, status, officeId } = seller;
+  const { name, last_name, mail, phone_number, photo, type, status, officeId, createdAt } = seller;
   const navigate = useNavigate();
 
   const handleEditClick = () => {
@@ -28,7 +28,7 @@ const CardSellers = ({ seller, propertiesCount }) => {
         <p><strong>Email:</strong> {mail}</p>
         <p><strong>Teléfono:</strong> {phone_number}</p>
         <p><strong>Estado:</strong> {status ? 'Activo' : 'Inactivo'}</p>
-        <p><strong>Oficina ID:</strong> {officeId}</p>
+        <p><strong>Habilitado:</strong> {new Date(createdAt).toLocaleDateString('es-ES')}</p>
         <p><strong>Cantidad de Propiedades:</strong> {propertiesCount}</p> {/* Mostrar cantidad de propiedades */}
       </div>
     </div>

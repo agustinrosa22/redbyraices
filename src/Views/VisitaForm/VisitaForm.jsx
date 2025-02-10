@@ -4,15 +4,15 @@ import { useParams, useNavigate } from 'react-router-dom';
 import style from './VisitaForm.module.css';
 
 const VisitaForm = () => {
-  const { id } = useParams(); // Obtener el propertyId de los parámetros de la URL
-  const navigate = useNavigate(); // useNavigate hook
+  const { id } = useParams();
+  const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
     visitante: '',
     agente: '',
     fecha: '',
     descripcion: '',
-    propertyId: '', // Campo para propertyId
+    propertyId: '',
     gusto: { yes: false, no: false },
     calificacionUbicacion: { excelente: false, buena: false, regular: false, mala: false },
     espaciosYComodidades: { muySatisfactorio: false, satisfactorio: false, insatisfactorio: false },
@@ -21,28 +21,32 @@ const VisitaForm = () => {
     general: { excelente: false, muyBuena: false, buena: false, regular: false, mala: false },
     comprar: { yes: false, no: false },
     verOtras: { yes: false, no: false, maybe: false },
-    
   });
 
-  // Usar useEffect para cargar el propertyId en el formData cuando el componente se monte
   useEffect(() => {
-    setFormData((prevFormData) => ({
-      ...prevFormData,
-      propertyId: id, // Asignar el id de los parámetros a propertyId
-    }));
+    if (id) {
+      setFormData((prevFormData) => ({
+        ...prevFormData,
+        propertyId: id,
+      }));
+    }
   }, [id]);
 
   const handleInputChange = (e) => {
     const { name, value, type, checked } = e.target;
   
-    if (name.includes('.')) {
+    if (type === 'date') {
+      setFormData((prev) => ({
+        ...prev,
+        [name]: value, // Guarda la fecha tal como se introduce sin modificar
+      }));
+    } else if (name.includes('.')) {
       const [section, field] = name.split('.');
-      
       setFormData((prev) => ({
         ...prev,
         [section]: {
-          ...Object.fromEntries(Object.keys(prev[section]).map((key) => [key, false])), // Desmarcar todos
-          [field]: checked, // Marcar el seleccionado
+          ...Object.fromEntries(Object.keys(prev[section]).map((key) => [key, false])),
+          [field]: checked,
         },
       }));
     } else {
@@ -52,22 +56,24 @@ const VisitaForm = () => {
       });
     }
   };
+  
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+  
     try {
-      // Enviar los datos de la visita al backend
-      const response = await axios.post('/visita', formData);
-
-      // Manejar el éxito
+      const response = await axios.post('/visita', {
+        ...formData,
+        fecha: formData.fecha, // Se envía tal cual el usuario lo ingresó
+      });
+  
       console.log('Visita creada:', response.data);
-      navigate(`/home`); // Redireccionar a la página de inicio o donde desees
+      navigate(`/home`);
     } catch (error) {
       console.error('Error al crear la visita:', error);
     }
   };
-
+  
   return (
     <div className={style.visitaFormContainer}>
       <h2 className={style.title}>Anotar Visita para la propiedad</h2>

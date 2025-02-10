@@ -24,6 +24,7 @@ import GenerarAlquiler from './Views/GenerarAlquiler/GenerarAlquiler';
 import PlacaPublicitaria from './Views/PlacaPublicitaria/PlacaPublicitaria'
 import ImageGenerator  from './Views/ImageGenerator/ImageGenerator'
 import CardVisitasAllContainer from './Components/CardVisitasAllContainer/CardVisitasAllContainer'
+import ACMReport from './Views/ACM/ACMReport'
 
 
 function App() {
@@ -64,6 +65,7 @@ function App() {
             <Route path="/generar-alquiler/:propertyId" element={<GenerarAlquiler />} />
             <Route path="/placas" element={<PlacaPublicitaria />} />
             <Route path="/image" element={<ImageGenerator />} />
+            <Route path="/acm" element={<ACMReport />} />
           </Routes>
         </div>
       </div>
