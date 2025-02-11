@@ -1,54 +1,115 @@
+/* Contenedor General */
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+}
 
-/* ACMStyles.css */
-.acm-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 20px;
-  }
-  
-  .print-button {
-    margin-bottom: 20px;
-    padding: 10px 20px;
-    font-size: 16px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    cursor: pointer;
-  }
-  
-  .acm-report {
-    width: 210mm;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-  
-  .page {
-    width: 210mm;
-    height: 297mm;
-    background: white;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-    margin-bottom: 20px;
-    padding: 20px;
-  }
-  
-  .title {
-    text-align: center;
-    font-size: 24px;
-    margin-bottom: 20px;
-  }
-  
-  .section {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-  }
-  
-  input {
-    width: 100%;
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-  }
-  
+/* Contenedor de Inputs */
+.inputContainer {
+  width: 80%;
+  max-width: 600px;
+  padding: 20px;
+  background: #f8f9fa;
+  border-radius: 10px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+}
+
+.inputContainer h2 {
+  text-align: center;
+  color: #333;
+}
+
+.inputContainer label {
+  font-weight: bold;
+  display: block;
+  margin-top: 10px;
+}
+
+.inputContainer input,
+.inputContainer textarea {
+  width: 100%;
+  padding: 8px;
+  margin-top: 5px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.inputContainer textarea {
+  height: 100px;
+}
+
+.printButton {
+  width: 100%;
+  padding: 10px;
+  margin-top: 15px;
+  background: #007bff;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+.printButton:hover {
+  background: #0056b3;
+}
+
+/* Reporte */
+.report {
+  display: flex;
+  flex-direction: column;
+
+}
+
+/* Páginas con tamaño A4 */
+.page {
+  width: 794px;
+  height: 1120px;
+  page-break-before: auto; /* Solo hace salto de página si es necesario */
+  page-break-after: always; /* Forzar el salto de página después de cada página */
+  border: 1px solid #ff0000;
+  background: rgb(255, 255, 255);
+  background-image: url("../../Assets/fondoACM.png"); /* Imagen de fondo */
+  background-size: contain; /* Ajusta la imagen para que quepa dentro sin desbordarse */
+  background-position: center; /* Centra la imagen */
+  background-repeat: no-repeat; /* Evita repeticiones */
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Primera página en blanco */
+.blankPage {
+  background: white;
+  border: none;
+  box-shadow: none;
+}
+
+/* Estilos del texto */
+.title {
+  text-align: center;
+  font-size: 24px;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.sectionTitle {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+p {
+  font-size: 16px;
+  margin-bottom: 8px;
+  text-align: center;
+}
+
+.imgPortada {
+  max-width: 100%; /* Ancho máximo que la imagen puede ocupar */
+  width: 794px;
+}

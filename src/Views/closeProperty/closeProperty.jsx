@@ -143,11 +143,11 @@ const CloseProperty = () => {
     data.cerrado.franquiciaComission = franquiciaComission;
     data.cerrado.martillerComission = martillerComission;
 
-    console.log(totalComission);
-    console.log(data.cerrado.sellerCommision);
-    console.log(data.cerrado.officeComission);
-    console.log(data.cerrado.franquiciaComission);
-    console.log(data.cerrado.martillerComission);
+    // console.log(totalComission);
+    // console.log(data.cerrado.sellerCommision);
+    // console.log(data.cerrado.officeComission);
+    // console.log(data.cerrado.franquiciaComission);
+    // console.log(data.cerrado.martillerComission);
   
     return totalComission.toFixed(2);
   };
