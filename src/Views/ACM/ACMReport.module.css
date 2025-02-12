@@ -1,3 +1,12 @@
+/* Importar Open Sans */
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap');
+
+/* Estilos generales */
+* {
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 700; /* Negrita para todo el texto */
+}
+
 /* Contenedor General */
 .container {
   display: flex;
@@ -70,16 +79,15 @@
   height: 1120px;
   page-break-before: auto; /* Solo hace salto de página si es necesario */
   page-break-after: always; /* Forzar el salto de página después de cada página */
-  border: 1px solid #ff0000;
-  background: rgb(255, 255, 255);
+  border: 1px solid #000000;
+
   background-image: url("../../Assets/fondoACM.png"); /* Imagen de fondo */
   background-size: contain; /* Ajusta la imagen para que quepa dentro sin desbordarse */
   background-position: center; /* Centra la imagen */
   background-repeat: no-repeat; /* Evita repeticiones */
-  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
 }
 
@@ -90,12 +98,16 @@
   box-shadow: none;
 }
 
-/* Estilos del texto */
 .title {
   text-align: center;
-  font-size: 24px;
+  font-size: 36px;
   margin-bottom: 20px;
   color: #333;
+  margin-top: 100px;
+  background-color: #cccccc77;
+  padding: 10px;
+  border-radius: 100px;
+  font-weight: bold;
 }
 
 .sectionTitle {

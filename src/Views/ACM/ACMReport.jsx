@@ -76,7 +76,7 @@ const ACMReport = () => {
 
         {/* Página 2 - Datos Generales */}
         <div className={style.page}>
-          <h1 className={style.title}>Análisis Comparativo de Mercado (ACM)</h1>
+          <h1 className={style.title}>DATOS GENERALES</h1>
           <h2 className={style.sectionTitle}>Datos Generales</h2>
           <p><strong>Propietario:</strong> {formData.propietario}</p>
           <p><strong>Ubicación:</strong> {formData.ubicacion}</p>
