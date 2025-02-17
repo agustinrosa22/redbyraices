@@ -69,44 +69,65 @@ const ACMReport = () => {
       {/* Contenido del Reporte */}
       <div className={style.report} ref={reportRef}>
         {/* Página 1 - En blanco */}
-        <div className={style.page}>
+        <div className={style.pagePortada}>
 
-          <img className={style.imgPortada} src={portada} alt="" />
+          {/* <img className={style.imgPortada} src={portada} alt="" /> */}
         </div>
 
-        {/* Página 2 - Datos Generales */}
-        <div className={style.page}>
-          <h1 className={style.title}>DATOS GENERALES</h1>
-          <h2 className={style.sectionTitle}>Datos Generales</h2>
-          <p><strong>Propietario:</strong> {formData.propietario}</p>
-          <p><strong>Ubicación:</strong> {formData.ubicacion}</p>
-          <p><strong>Tipo de Inmueble:</strong> {formData.tipoInmueble}</p>
-          <p><strong>Zona:</strong> {formData.zona}</p>
-          
+    {/* Página 2 - Datos Generales */}
+<div className={style.page}>
+  <h1 className={style.title}>DATOS GENERALES</h1>
+  <div className={style.ContainerDateGeneral}>
+    <p className={style.text}>Propietario: {formData.propietario}</p>
+    <p className={style.text}>Ubicación: {formData.ubicacion}</p>
+    <p className={style.text}>Tipo de Inmueble: {formData.tipoInmueble}</p>
+    <p className={style.text}>Zona:{formData.zona}</p>
+  </div>
+</div>
 
-        </div>
 
         {/* Página 3 - Detalle de la Construcción */}
         <div className={style.page}>
-          <h2 className={style.sectionTitle}>Detalle de la Construcción</h2>
-          <p><strong>Dimensiones:</strong> {formData.dimensiones}</p>
-          <p><strong>Antigüedad:</strong> {formData.antiguedad}</p>
-          <p><strong>Estado de Conservación:</strong> {formData.estadoConservacion}</p>
-          <p><strong>Servicios:</strong> {formData.servicios}</p>
-          
+          <h2 className={style.title}>Detalle de la Construcción</h2>
+          <div className={style.ContainerDateGeneral}>
+          <p className={style.text}>Dimensiones: {formData.dimensiones}</p>
+          <p className={style.text}>Antigüedad: {formData.antiguedad}</p>
+          <p className={style.text}>Estado de Conservación: {formData.estadoConservacion}</p>
+          <p className={style.text}>Servicios: {formData.servicios}</p>
+          </div>
 
         </div>
 
         {/* Página 4 - Comparación de Mercado */}
         <div className={style.page}>
-          <h2 className={style.sectionTitle}>Comparación de Mercado</h2>
-          <p>{formData.comparacion}</p>
+        <h2 className={style.title}>Método</h2>
+        <div className={style.ContainerDateGeneral}>
+          <p className={style.text}>Método comparativo</p>
+          <p className={style.text}>Mapa de ubicación de Inmuebles</p>
+          <p className={style.text}>Planilla de Comparables</p>
+          <p className={style.text}>Fotografías de Inmuebles Comparables</p>
+          <p className={style.text}>Apreciaciones de interés: 
+-Se busco inmuebles en similares condiciones de construcción 
+-Se dio especial valor a la ubicación, servicios, construcción y su antigüedad</p>
+          <p className={style.text}>ANALISIS FODA (Fortalezas, Oportunidades, Debilidades, Amenazas)
+          </p>
+          </div>
+          
         </div>
 
         
         {/* Página 5 - Comparación de Mercado */}
         <div className={style.page}>
-
+        <h2 className={style.title}>Método Comparativo</h2>
+        <div className={style.ContainerTextMetodoComparativo}>
+        <p className={style.textMetodoComparativo}>Para establecer el valor adecuado de tu
+propiedad, realizaremos un Análisis Comparativo del Mercado (ACM).
+Esta herramienta nos permite evaluar y comparar propiedades
+similares en el mercado. Analizaremos diversos factores, incluyendo la
+ubicación, el tamaño, las comodidades, el estado de la propiedad y
+otros elementos importantes, con el fin de determinar el valor más
+preciso para tu propiedad.</p>
+</div>
 </div>
 
 

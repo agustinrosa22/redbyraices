@@ -13,20 +13,20 @@ const CardVisitasAllContainer = () => {
       try {
         const response = await axios.get(`/visitas`);
         const data = response.data;
-
-        // Agrupar visitas por fecha
+  
+        // Agrupar visitas por fecha sin desajuste de zona horaria
         const groupedVisitas = data.reduce((acc, visita) => {
-          // Ajustar la fecha al formato dd/mm/yyyy
-          const fechaOriginal = new Date(visita.fecha); // Convertir la fecha a objeto Date
-          const fechaFormateada = `${fechaOriginal.getDate().toString().padStart(2, '0')}/${
-            (fechaOriginal.getMonth() + 1).toString().padStart(2, '0')
-          }/${fechaOriginal.getFullYear()}`; // Formato dd/mm/yyyy
-
-          if (!acc[fechaFormateada]) acc[fechaFormateada] = []; // Inicializar un array vacío si no existe
-          acc[fechaFormateada].push(visita); // Agregar la visita al array correspondiente
+          // Dividir la fecha manualmente en partes (YYYY-MM-DD)
+          const [year, month, day] = visita.fecha.split('-');
+  
+          // Formatear correctamente sin alterar la zona horaria
+          const fechaFormateada = `${day}/${month}/${year}`;
+  
+          if (!acc[fechaFormateada]) acc[fechaFormateada] = [];
+          acc[fechaFormateada].push(visita);
           return acc;
         }, {});
-
+  
         setVisitas(groupedVisitas);
         setLoading(false);
       } catch (err) {
@@ -34,10 +34,10 @@ const CardVisitasAllContainer = () => {
         setLoading(false);
       }
     };
-
+  
     fetchVisitas();
   }, []);
-
+  
   return (
     <div className={style.container}>
       {loading && <p>Cargando visitas...</p>}

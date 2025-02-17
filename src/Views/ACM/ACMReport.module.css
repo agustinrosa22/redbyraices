@@ -1,11 +1,6 @@
 /* Importar Open Sans */
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap');
 
-/* Estilos generales */
-* {
-  font-family: 'Open Sans', sans-serif;
-  font-weight: 700; /* Negrita para todo el texto */
-}
 
 /* Contenedor General */
 .container {
@@ -72,7 +67,24 @@
   flex-direction: column;
 
 }
+.pagePortada {
+  width: 794px;
+  height: 1120px;
+  page-break-before: auto; /* Solo hace salto de página si es necesario */
+  page-break-after: always; /* Forzar el salto de página después de cada página */
+  border: 1px solid #000000;
 
+  background-image: url("../../Assets/Boceto\ ACM.png"); /* Imagen de fondo */
+  background-size: contain; /* Ajusta la imagen para que quepa dentro sin desbordarse */
+  background-position: center; /* Centra la imagen */
+  background-repeat: no-repeat; /* Evita repeticiones */
+
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: flex-start;
+  position: relative;
+}
 /* Páginas con tamaño A4 */
 .page {
   width: 794px;
@@ -88,7 +100,9 @@
 
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
+  text-align: flex-start;
+  position: relative;
 }
 
 /* Primera página en blanco */
@@ -99,26 +113,64 @@
 }
 
 .title {
+  left: 50%;
+  transform: translate(-50%);
+  width: 75%;
+  position: absolute;
   text-align: center;
-  font-size: 36px;
+  align-items: center;
+  font-size: 26px;
   margin-bottom: 20px;
-  color: #333;
+  color: #000000;
   margin-top: 100px;
-  background-color: #cccccc77;
+  background-color: #cccccc2a;
   padding: 10px;
+  
   border-radius: 100px;
   font-weight: bold;
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 700; /* Negrita para todo el texto */
 }
 
-.sectionTitle {
-  font-size: 18px;
-  margin-bottom: 10px;
+.ContainerDateGeneral{
+  text-align: start;
+  align-items: start;
+  position: absolute;
+  top: 220px;
+  margin-left: 0px;
+  
 }
 
-p {
-  font-size: 16px;
+.ContainerTextMetodoComparativo{
+  text-align: center;
+  align-items: center;
+  position: absolute;
+  top: 220px;
+  margin-left: 0px;
+  
+}
+
+.textMetodoComparativo{
+  font-size: 26px;
   margin-bottom: 8px;
   text-align: center;
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 700;
+ margin-bottom: 100px;
+ margin-left: 10px;
+ margin-right: 10px;
+ 
+}
+/* Estilos para los párrafos */
+.text {
+  font-size: 26px;
+  margin-bottom: 8px;
+  text-align: left;
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 700;
+ margin-bottom: 100px;
+ margin-left: 20px;
+ 
 }
 
 .imgPortada {
