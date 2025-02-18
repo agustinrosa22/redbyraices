@@ -1,4 +1,5 @@
 import React, { useRef, useState } from "react";
+import { useSelector} from 'react-redux';
 import style from "./ACMReport.module.css";
 import portada from "../../Assets/Boceto ACM.png";
 import fondoACM from "../../Assets/fondoACM.png";
@@ -9,9 +10,12 @@ import logoInmoup from '../../Assets/LogoInmoupACM.png'
 import logoZopaprop from '../../Assets/LogoZonapropACM.png'
 
 const ACMReport = () => {
+   const user = useSelector(state => state.user);
   const reportRef = useRef();
   const [images, setImages] = useState([null, null, null]); // Imágenes de la primera página
   const [imagesII, setImagesII] = useState([null, null, null]); // Imágenes de la segunda página
+  console.log(user);
+  
 
   const handleDownloadPDF = () => {
     const options = {
@@ -341,6 +345,26 @@ preciso para tu propiedad.</p>
 
         {/* Página 13 - Comparación de Mercado */}
 <div className={style.page}>
+<h2 className={style.title}>¿CUALES SON NUESTRAS CONDICIONES DE TRABAJO?</h2>
+
+
+<div className={style.containerCondiciones}>
+  <h3>Requerimos fotocopias de:</h3>
+
+  <div className={style.itemCondiciones}>
+  <h4>Escritura, boleto compra-venta o cesión de derecho</h4>
+  <h4>DNI de todos los propietarios</h4>
+  <h4>Planos de mensura</h4>
+
+  </div>
+
+  <h3>Honorarios Profesionales</h3>
+
+  <div className={style.itemCondiciones}>
+  <h4>En caso de venta: 3% IVA sobre el precio de cierre.
+  En caso de no venderse la propiedad, toda la inversión publicitaria corre a cuenta y riesgo de la inmobiliaria</h4>
+  </div>
+</div>
 
 
 </div>
@@ -348,23 +372,34 @@ preciso para tu propiedad.</p>
 
         {/* Página 14 - Comparación de Mercado */}
 <div className={style.page}>
+<h2 className={style.title}>CONTACTO</h2>
+<div className={style.containerContacto}>
 
+<div className={style.infoContacto}>
+<img src={user?.user?.photo} alt="a" /> <h3>{user?.user?.name}  {user?.user?.last_name}</h3>
+</div>
+
+
+<div className={style.infoContacto}>
+<img src={user?.user?.photo} alt="a" /> <h3>{user?.user?.phone_number}</h3>
+</div>
+
+
+<div className={style.infoContacto}>
+<img src={user?.user?.photo} alt="a" /> <h3>{user?.user?.mail}</h3>
+</div>
+
+
+
+<div className={style.infoContacto}>
+<img src={user?.user?.photo} alt="a" /> <h3>Peltier 50 Piso 1 Oficina 11,
+Ciudad Mendoza.</h3>
+</div>
 
 </div>
 
 
-        {/* Página 15 - Comparación de Mercado */}
-<div className={style.page}>
-
 </div>
-
-
-        {/* Página 16 - Comparación de Mercado */}
-<div className={style.page}>
-
-
-</div>
-
 
 
       </div>

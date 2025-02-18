@@ -410,3 +410,85 @@
   border-radius: 5px;
 }
 
+.containerContacto {
+  position: absolute; /* Posición absoluta para centrar */
+  top: 450px;
+  left: 50%;
+  transform: translate(-50%, -30%); /* Ajuste preciso para centrar */
+  flex-direction: column;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px; /* Espacio entre imágenes */
+}
+
+.infoContacto {
+  display: flex;
+  align-items: center; /* Alinea verticalmente la imagen y el texto */
+  gap: 15px; /* Espaciado entre la imagen y el texto */
+  padding: 15px;
+  border-radius: 10px; /* Bordes redondeados */
+  max-width: 600px;
+  width: 100%;
+
+}
+
+.infoContacto img {
+  width: 150px; /* Ajusta el tamaño de la imagen */
+  height: 150px;
+  border-radius: 50%; /* Hace la imagen circular */
+  object-fit: cover; /* Asegura que la imagen cubra bien el espacio */
+}
+
+.infoContacto h3 {
+  font-size: 36px;
+  color: #333;
+  margin: 0;
+  max-width: 300px;
+  width: 100%;
+}
+
+
+.containerCondiciones {
+  position: absolute; /* Posición absoluta para centrar */
+  top: 450px;
+  left: 50%;
+  transform: translate(-50%, -30%); /* Ajuste preciso para centrar */
+ flex-direction: column;
+ text-align: center;
+ align-items: center;
+  padding: 20px;
+  border-radius: 10px;
+  max-width: 600px; /* Limita el ancho para una mejor legibilidad */
+  width: 100%;
+  gap: 150px;
+}
+
+.itemCondiciones{
+  background-color: #cccccc2a;
+ padding-top:50px;
+ padding-bottom: 50px;
+  border-radius:50px;
+
+}
+
+.containerCondiciones h2 {
+  font-size: 24px;
+  margin-bottom: 15px;
+}
+
+.containerCondiciones h3 {
+  font-size: 36;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+.containerCondiciones h4 {
+  font-size: 18px;
+  margin-bottom: 8px;
+}
+
+.itemCondiciones {
+  margin-top: 10px;
+}
+
