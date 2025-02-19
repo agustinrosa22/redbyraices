@@ -8,6 +8,10 @@ import mapa from '../../Assets/IlustracionDeMapaGoogleMaps.png'
 import logoByraices from '../../Assets/LogoByraicesACM.png'
 import logoInmoup from '../../Assets/LogoInmoupACM.png'
 import logoZopaprop from '../../Assets/LogoZonapropACM.png'
+import telefonoLogo from '../../Assets/logoTelefonoACM.png'
+import mailLogo from '../../Assets/LogoMailACM.png'
+import ubicacionLogo from '../../Assets/LogoUbicacionACM.png'
+
 
 const ACMReport = () => {
    const user = useSelector(state => state.user);
@@ -76,6 +80,30 @@ const ACMReport = () => {
     }
   };
 
+  const formatPhoneNumber = (phone) => {
+    if (!phone) return ""; // Si no hay número, devolver vacío
+  
+    // Eliminar caracteres no numéricos, pero conservar el "+"
+    let cleanNumber = phone.replace(/[^\d+]/g, "");
+  
+    // Verificar si comienza con "+54"
+    if (cleanNumber.startsWith("+54")) {
+      // Extraer partes del número
+      let restOfNumber = cleanNumber.slice(3); // Eliminar el "+54"
+      
+      // Verificar si ya tiene el "9"
+      if (!restOfNumber.startsWith("9")) {
+        restOfNumber = "9" + restOfNumber; // Agregar el "9" si no está
+      }
+  
+      // Aplicar formato +54 9 XXX XXX XXXX
+      return `+54 9 ${restOfNumber.slice(1, 4)} ${restOfNumber.slice(4, 7)} ${restOfNumber.slice(7)}`;
+    }
+  
+    // Si el número no tiene "+54", devolverlo sin formato
+    return phone;
+  };
+  
   return (
     <div className={style.container}>
       {/* Controles de Entrada */}
@@ -381,18 +409,19 @@ preciso para tu propiedad.</p>
 
 
 <div className={style.infoContacto}>
-<img src={user?.user?.photo} alt="a" /> <h3>{user?.user?.phone_number}</h3>
+<img src={telefonoLogo} alt="a" /> <h3>{formatPhoneNumber(user?.user?.phone_number)}</h3>
+
 </div>
 
 
 <div className={style.infoContacto}>
-<img src={user?.user?.photo} alt="a" /> <h3>{user?.user?.mail}</h3>
+<img src={mailLogo} alt="a" /> <h3>{user?.user?.mail}</h3>
 </div>
 
 
 
 <div className={style.infoContacto}>
-<img src={user?.user?.photo} alt="a" /> <h3>Peltier 50 Piso 1 Oficina 11,
+<img src={ubicacionLogo} alt="a" /> <h3>Peltier 50 Piso 1 Oficina 11,
 Ciudad Mendoza.</h3>
 </div>
 
