@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { useSelector} from 'react-redux';
 import style from "./ACMReport.module.css";
 import portada from "../../Assets/Boceto ACM.png";
@@ -18,13 +18,15 @@ const ACMReport = () => {
   const reportRef = useRef();
   const [images, setImages] = useState([null, null, null]); // Imágenes de la primera página
   const [imagesII, setImagesII] = useState([null, null, null]); // Imágenes de la segunda página
+  const [valorPretendido, setValorPretendido] = useState(0);
+   const [isUserEditing, setIsUserEditing] = useState(false);
   const [fodaText, setFodaText] = useState({
     fortalezas: "Muy buena ubicación de la propiedad...",
     oportunidades: "Posibles inversores pueden comprar la propiedad...",
     debilidades: "Debido a su antigüedad puede que presente algunas falencias...",
     amenazas: "No presenta",
   });
-  console.log(user);
+
   
 
   const handleDownloadPDF = () => {
@@ -47,16 +49,40 @@ const ACMReport = () => {
     tipoInmueble: "",
     zona: "",
     dimensiones: "",
+    cubierta: "",
     antiguedad: "",
     estadoConservacion: "",
     servicios: "",
-    comparacion: "",
+    m2: "",
+    valorACM: ""
   });
 
+  useEffect(() => {
+    if (!isUserEditing) {
+      const m2Value = parseFloat(formData.m2) || 0;
+      const cubiertaValue = parseFloat(formData.cubierta) || 0;
+      setFormData((prev) => ({ ...prev, valorACM: m2Value * cubiertaValue }));
+    }
+  }, [formData.m2, formData.cubierta, isUserEditing]);
+
+  // Manejar cambios en los inputs
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+
+    // Si el usuario está escribiendo en valorACM, evitar que se sobrescriba
+    if (name === "valorACM") {
+      setIsUserEditing(true);
+    }
+
+    setFormData({ ...formData, [name]: value });
   };
 
+  // Si el usuario borra el input de valorACM, volver a calcularlo automáticamente
+  const handleBlur = () => {
+    if (formData.valorACM === "") {
+      setIsUserEditing(false); // Permitir que vuelva a calcularse
+    }
+  };
 
    // Manejo de cambio de imagen para la primera página
    const handleImageChange = (event, index) => {
@@ -144,6 +170,7 @@ const handleTextChange = (e, key) => {
   }
 };
 
+
   
   return (
     <div className={style.container}>
@@ -159,15 +186,26 @@ const handleTextChange = (e, key) => {
         <label>Zona:</label>
         <input type="text" name="zona" onChange={handleChange} placeholder="Ejemplo: Urbana, Residencial" />
         <label>Dimensiones:</label>
+        Superficie de terreno:
         <input type="text" name="dimensiones" onChange={handleChange} placeholder="Metros cuadrados" />
+        Superficie construida:
+        <input type="text" name="cubierta" onChange={handleChange} placeholder="Metros cuadrados" />
         <label>Antigüedad:</label>
         <input type="text" name="antiguedad" onChange={handleChange} placeholder="Años" />
         <label>Estado de Conservación:</label>
         <input type="text" name="estadoConservacion" onChange={handleChange} placeholder="Ejemplo: Bueno, Excelente" />
         <label>Servicios:</label>
         <input type="text" name="servicios" onChange={handleChange} placeholder="Ejemplo: Luz, Agua, Gas" />
-        <label>Comparación de Mercado:</label>
-        <textarea name="comparacion" onChange={handleChange} placeholder="Añadir detalles comparativos"></textarea>
+        <label>Valor del m2</label>
+        <input name="m2" onChange={handleChange} placeholder="Añadir valor del metro cuadrado"></input>
+        <label>Valor del inmueble</label>
+      <input
+        name="valorACM"
+        value={formData.valorACM}
+        onChange={handleChange}
+        onBlur={handleBlur} // Si se vacía, recalcula
+        placeholder="Añadir valor del metro cuadrado"
+      />
 
         <button onClick={handleDownloadPDF} className={style.printButton}>
           Descargar PDF
@@ -198,7 +236,7 @@ const handleTextChange = (e, key) => {
         <div className={style.page}>
           <h2 className={style.title}>Detalle de la Construcción</h2>
           <div className={style.ContainerDateGeneral}>
-          <p className={style.text}>Dimensiones: {formData.dimensiones}</p>
+          <p className={style.text}>Dimensiones: Superficie de terreno: {formData.dimensiones} m2 / Superficie Construida: {formData.cubierta} m2</p>
           <p className={style.text}>Antigüedad: {formData.antiguedad}</p>
           <p className={style.text}>Estado de Conservación: {formData.estadoConservacion}</p>
           <p className={style.text}>Servicios: {formData.servicios}</p>
@@ -427,6 +465,16 @@ preciso para tu propiedad.</p>
         {/* Página 11 - Comparación de Mercado */}
 <div className={style.page}>
 <h2 className={style.title}>RESULTADO  DEL ANALISIS DE MERCADO</h2>
+<div className={style.containerAnalisis}>
+
+<h3>TIPO DE PRECIO ESTIMADO</h3>
+
+<h3>VALOR M2: U$D {formData.m2}</h3>
+
+<h3>VALOR PRETENDIDO</h3>
+
+<h2>U$D {formData.valorACM}</h2>
+</div>
 
 </div>
 
