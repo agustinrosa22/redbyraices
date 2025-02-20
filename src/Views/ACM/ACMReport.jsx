@@ -11,7 +11,7 @@ import logoZopaprop from '../../Assets/LogoZonapropACM.png'
 import telefonoLogo from '../../Assets/logoTelefonoACM.png'
 import mailLogo from '../../Assets/LogoMailACM.png'
 import ubicacionLogo from '../../Assets/LogoUbicacionACM.png'
-
+import comercializacion from '../../Assets/Comercializacion.png'
 
 const ACMReport = () => {
    const user = useSelector(state => state.user);
@@ -434,6 +434,7 @@ preciso para tu propiedad.</p>
         {/* Página 12 - Comparación de Mercado */}
 <div className={style.page}>
 <h2 className={style.title}>¿COMO AYUDARTE CON LA COMERCIALIZACIÓN DE TU PROPIEDAD?</h2>
+<img className={style.comercializacion} src={comercializacion} alt="" />
 
 </div>
 
