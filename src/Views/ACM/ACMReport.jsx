@@ -473,7 +473,7 @@ preciso para tu propiedad.</p>
 
 <h3>VALOR PRETENDIDO</h3>
 
-<h2>U$D {formData.valorACM}</h2>
+<h2 className={style.priceACM}>U$D {formData.valorACM}</h2>
 </div>
 
 </div>
