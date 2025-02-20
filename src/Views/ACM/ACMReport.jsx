@@ -18,6 +18,12 @@ const ACMReport = () => {
   const reportRef = useRef();
   const [images, setImages] = useState([null, null, null]); // Imágenes de la primera página
   const [imagesII, setImagesII] = useState([null, null, null]); // Imágenes de la segunda página
+  const [fodaText, setFodaText] = useState({
+    fortalezas: "Muy buena ubicación de la propiedad...",
+    oportunidades: "Posibles inversores pueden comprar la propiedad...",
+    debilidades: "Debido a su antigüedad puede que presente algunas falencias...",
+    amenazas: "No presenta",
+  });
   console.log(user);
   
 
@@ -103,6 +109,41 @@ const ACMReport = () => {
     // Si el número no tiene "+54", devolverlo sin formato
     return phone;
   };
+
+
+  const textRefs = {
+    fortalezas: useRef(null),
+    oportunidades: useRef(null),
+    debilidades: useRef(null),
+    amenazas: useRef(null),
+  };
+
+  const maxCharacters = 250;
+  
+
+// FUNCION PARA MANEJAR CAMBIOS EN LOS TEXTOS Y MANTENER EL CURSOR
+const handleTextChange = (e, key) => {
+  const selection = window.getSelection(); // Guardar selección actual
+  const range = selection.getRangeAt(0); // Obtener la posición del cursor
+  const cursorPosition = range.startOffset; // Guardar la posición exacta del cursor
+
+  const newText = e.target.innerText;
+  if (newText.length <= maxCharacters) {
+    setFodaText((prev) => ({ ...prev, [key]: newText }));
+
+    // Restaurar la posición del cursor
+    setTimeout(() => {
+      const newRange = document.createRange();
+      newRange.setStart(e.target.childNodes[0] || e.target, cursorPosition);
+      newRange.collapse(true);
+      selection.removeAllRanges();
+      selection.addRange(newRange);
+    }, 0);
+  } else {
+    e.target.innerText = fodaText[key]; // Evita que se pase del límite
+  }
+};
+
   
   return (
     <div className={style.container}>
@@ -224,37 +265,63 @@ preciso para tu propiedad.</p>
 
         {/* Página 7 - Comparación de Mercado */}
 <div className={style.page}>
-<h2 className={style.title}>F.O.D.A</h2>
+ <h2 className={style.title}>F.O.D.A</h2>
 
-<div className={style.itemFodaF}>
+      {/* Fortalezas */}
+      <div className={style.itemFodaF}>
+        <h3 className={style.titleFodaF}>FORTALEZAS</h3>
+        <div
+          className={style.textFoda}
+          contentEditable
+          suppressContentEditableWarning
+          ref={textRefs.fortalezas}
+          onInput={(e) => handleTextChange(e, "fortalezas")}
+        >
+          {fodaText.fortalezas}
+        </div>
+      </div>
 
-<h3 className={style.titleFodaF}>FORTALEZAS</h3>
-<p className={style.textFoda}>Muy buena ubicacion de la propiedad. Cercanias a distintos tipos de comercios. Como calle principal se destaca la calle housay de facil salida a accesos rapidos. </p>
+      {/* Oportunidades */}
+      <div className={style.itemFodaO}>
+        <h3 className={style.titleFodaO}>OPORTUNIDADES</h3>
+        <div
+          className={style.textFoda}
+          contentEditable
+          suppressContentEditableWarning
+          ref={textRefs.oportunidades}
+          onInput={(e) => handleTextChange(e, "oportunidades")}
+        >
+          {fodaText.oportunidades}
+        </div>
+      </div>
 
-</div>
+      {/* Debilidades */}
+      <div className={style.itemFodaD}>
+        <h3 className={style.titleFodaD}>DEBILIDADES</h3>
+        <div
+          className={style.textFoda}
+          contentEditable
+          suppressContentEditableWarning
+          ref={textRefs.debilidades}
+          onInput={(e) => handleTextChange(e, "debilidades")}
+        >
+          {fodaText.debilidades}
+        </div>
+      </div>
 
-<div className={style.itemFodaO}>
-
-<h3 className={style.titleFodaO}>OPORTUNIDADES</h3>
-<p className={style.textFoda}>  Posibles inversores pueden comprar la propiedad, y haciendos sus distintos arreglos pueden obtener una rentabilidad futura; eso hara que la mirada sea distinta hacia la propiedad.  </p>
-
-</div>
-
-
-<div className={style.itemFodaD}>
-
-<h3 className={style.titleFodaD}>DEBILIDADES</h3>
-<p className={style.textFoda}>Debido a su antiguedad puede que presente algunas falencias, que a simple vista no se pueden apreciar.</p>
-
-</div>
-
-<div className={style.itemFodaA}>
-
-<h3 className={style.titleFodaA}>AMENAZAS</h3>
-<p className={style.textFoda}>no presenta</p>
-
-</div>
-
+      {/* Amenazas */}
+      <div className={style.itemFodaA}>
+        <h3 className={style.titleFodaA}>AMENAZAS</h3>
+        <div
+          className={style.textFoda}
+          contentEditable
+          suppressContentEditableWarning
+          ref={textRefs.amenazas}
+          onInput={(e) => handleTextChange(e, "amenazas")}
+        >
+          {fodaText.amenazas}
+        </div>
+      </div>
 
 
 </div>
