@@ -12,12 +12,49 @@ import telefonoLogo from '../../Assets/logoTelefonoACM.png'
 import mailLogo from '../../Assets/LogoMailACM.png'
 import ubicacionLogo from '../../Assets/LogoUbicacionACM.png'
 import comercializacion from '../../Assets/Comercializacion.png'
+import { QRCodeSVG } from "qrcode.react";
+import logoByRaices from "../../Assets/logoByraices.png";
+import QRCodeStyling from "qr-code-styling";
+
+
+const QRCustom = ({ value, color1, color2, size = 150 }) => {
+  return (
+    <div className={style.qrBox}>
+      <QRCodeSVG
+        value={value}
+        size={size}
+        bgColor="#ffffff"
+        fgColor={color1}
+        level="H" // Alto nivel de corrección de errores para que se vea el logo
+        includeMargin={true}
+        imageSettings={{
+          src: logoByRaices, // Logo en el centro del QR
+          x: undefined,
+          y: undefined,
+          height: 40, // Tamaño del logo
+          width: 30,
+          excavate: true, // Hace que el logo no bloquee el código QR
+        }}
+      />
+    </div>
+  );
+};
+
 
 const ACMReport = () => {
    const user = useSelector(state => state.user);
   const reportRef = useRef();
   const [images, setImages] = useState([null, null, null]); // Imágenes de la primera página
   const [imagesII, setImagesII] = useState([null, null, null]); // Imágenes de la segunda página
+  const [link1, setLink1] = useState("");
+  const [link2, setLink2] = useState("");
+
+    // Colores de la empresa (rojo y azul)
+    const colors = ["#a83e52", "#3D2F87"];
+
+    // Función para obtener un color aleatorio
+    const getRandomColor = () => colors[Math.floor(Math.random() * colors.length)];
+
   const [valorPretendido, setValorPretendido] = useState(0);
    const [isUserEditing, setIsUserEditing] = useState(false);
   const [fodaText, setFodaText] = useState({
@@ -34,7 +71,7 @@ const ACMReport = () => {
       margin:       0,
       filename:     'ACM_Report.pdf',
       image:        { type: 'png', quality: 0.98 },
-      html2canvas:  { dpi: 192, letterRendering: true, scale: 1 },
+      html2canvas:  { dpi: 192, letterRendering: true, scale: 2 },
       jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait', putOnlyUsedFonts: true }
     };
     html2pdf()
@@ -199,6 +236,15 @@ const handleTextChange = (e, key) => {
         <label>Valor del m2</label>
         <input name="m2" onChange={handleChange} placeholder="Añadir valor del metro cuadrado"></input>
         <label>Valor del inmueble</label>
+
+        <div className={style.inputContainer}>
+        <label>Ingrese primer link:</label>
+        <input type="text" value={link1} onChange={(e) => setLink1(e.target.value)} placeholder="https://ejemplo.com" />
+
+        <label>Ingrese segundo link:</label>
+        <input type="text" value={link2} onChange={(e) => setLink2(e.target.value)} placeholder="https://ejemplo.com" />
+      </div>
+
       <input
         name="valorACM"
         value={formData.valorACM}
@@ -541,11 +587,49 @@ preciso para tu propiedad.</p>
 Ciudad Mendoza.</h3>
 </div>
 
-</div>
 
 
 </div>
 
+
+</div>
+
+
+      {/* Página 15 - Comparación de Mercado */}
+<div className={style.page}>
+      <h2 className={style.title}>REFERENCIAS</h2>
+
+     {/* Contenedor de QR */}
+     <div className={style.qrContainer}>
+        {link1 && (
+          <div className={style.qrBox}>
+            <QRCustom value={link1} color1="#3D2F87" color2="#3D2F87" size={200} />
+            <p>Primer comparable</p>
+          </div>
+        )}
+
+        {link2 && (
+          <div className={style.qrBox}>
+            <QRCustom value={link2} color1="#3D2F87" color2="#3D2F87" size={200} />
+            <p>Segundo comparable</p>
+          </div>
+        )}
+
+        {/* QR estático de ByRaices */}
+        <div className={style.qrBox}>
+          <QRCustom value="https://byraices.com" color1="#a83e52" color2="#a83e52" size={200} />
+          <p>By Raices</p>
+
+        </div>
+          <div className={style.containerInfoMartillero}>
+            <h3 className={style.tituloMartiller}>CORREDOR PÚBLICO INMOBILIARO</h3>
+            <h3 className={style.nombreMartiller}>JULIETA GARCIA C.C.P.I.M. Mat.2009</h3>
+
+            <p className={style.leyes}>En cumplimiento de las leyes vigentes que regulan el corretaje inmobiliario, Ley Nacional 25.028, Ley 22.802 de Lealtad Comercial, Ley 24.240 de Defensa al Consumidor, las normas del Código Civil y Comercial de la Nación y Constitucionales, los agentes/gestores NO ejercen el corretaje inmobiliario. Todas las operaciones inmobiliarias son objeto de intermediación y conclusión por parte del corredor público inmobiliario colegiado a cargo de la publicación, cuyos datos se exhiben en la presente.</p>
+
+          </div>
+      </div>
+    </div>
 
       </div>
     </div>

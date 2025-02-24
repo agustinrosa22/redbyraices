@@ -534,3 +534,61 @@
   font-size: 56px;
   font-weight: bold;
 }
+
+
+/* Contenedor de los QR */
+.qrContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 35px; /* Espacio entre los QR */
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -70%); /* Centra el contenido */
+}
+
+/* Estilos de cada QR */
+.qrBox {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 5px;
+  border-radius: 15px;
+  background: white;
+  width: 180px; /* Espacio fijo para evitar que el texto lo empuje */
+}
+
+.qrBox p {
+  margin-top: 10px;
+  font-size: 18px;
+  font-weight: bold;
+  color: #333;
+  white-space: nowrap; /* Evita que el texto rompa líneas y mueva el QR */
+}
+
+
+.containerInfoMartillero{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  flex-wrap: wrap;
+  gap: 15px; /* Espacio entre los QR */
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, 130%); /* Centra el contenido */
+  width: 700px;
+}
+
+.tituloMartiller{
+  font-family: "Open Sans", sans-serif; /* Usa una fuente elegante y delgada */
+  font-weight: 300; /* Hace que la letra sea más fina */
+  font-size: 24px; /* Ajusta el tamaño según necesidad */
+  letter-spacing: 0.5px; /* Espaciado ligero entre letras */
+  color: #333; /* Color oscuro para mejor lectura */
+}
