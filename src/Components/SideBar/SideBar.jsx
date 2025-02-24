@@ -88,8 +88,10 @@ const Sidebar = () => {
             Clientes
           </li>
           <li>
+          <Link to="/acm" className={style.link}>
             <img src={price} alt="Price" className={style.icon} />
             ACM
+            </Link>
           </li>
           <li>
             <img src={feed} alt="Feed" className={style.icon} />
