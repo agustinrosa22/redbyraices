@@ -48,6 +48,7 @@ const ACMReport = () => {
   const [imagesII, setImagesII] = useState([null, null, null]); // Imágenes de la segunda página
   const [link1, setLink1] = useState("");
   const [link2, setLink2] = useState("");
+  const [agentPhotoBase64, setAgentPhotoBase64] = useState(null);
 
     // Colores de la empresa (rojo y azul)
     const colors = ["#a83e52", "#3D2F87"];
@@ -93,6 +94,25 @@ const ACMReport = () => {
     m2: "",
     valorACM: ""
   });
+
+
+  useEffect(() => {
+    const convertImageToBase64 = async () => {
+      if (user?.user?.photo) {
+        try {
+          const response = await fetch(user.user.photo);
+          const blob = await response.blob();
+          const reader = new FileReader();
+          reader.onloadend = () => setAgentPhotoBase64(reader.result);
+          reader.readAsDataURL(blob);
+        } catch (error) {
+          console.error("Error al convertir la imagen a Base64:", error);
+        }
+      }
+    };
+  
+    convertImageToBase64();
+  }, [user?.user?.photo]);
 
   useEffect(() => {
     if (!isUserEditing) {
@@ -566,7 +586,7 @@ preciso para tu propiedad.</p>
 <div className={style.containerContacto}>
 
 <div className={style.infoContacto}>
-<img src={user?.user?.photo} alt="a" /> <h3>{user?.user?.name}  {user?.user?.last_name}</h3>
+<img src={agentPhotoBase64 || user?.user?.photo} alt="Agente" /> <h3>{user?.user?.name}  {user?.user?.last_name}</h3>
 </div>
 
 
