@@ -17,7 +17,30 @@ import logoByRaices from "../../Assets/logoByraices.png";
 import QRCodeStyling from "qr-code-styling";
 
 
+
 const QRCustom = ({ value, color1, color2, size = 150 }) => {
+
+  
+const [logoQRBase64, setLogoQRBase64] = useState("");
+
+useEffect(() => {
+  const convertToBase64 = async () => {
+    try {
+      const response = await fetch(logoByRaices); // Ruta de la imagen del logo
+      const blob = await response.blob();
+      const reader = new FileReader();
+      
+      reader.onloadend = () => setLogoQRBase64(reader.result);
+      reader.readAsDataURL(blob);
+    } catch (error) {
+      console.error("Error al convertir la imagen a Base64:", error);
+    }
+  };
+
+  convertToBase64();
+}, []);
+
+
   return (
     <div className={style.qrBox}>
       <QRCodeSVG
@@ -28,7 +51,7 @@ const QRCustom = ({ value, color1, color2, size = 150 }) => {
         level="H" // Alto nivel de corrección de errores para que se vea el logo
         includeMargin={true}
         imageSettings={{
-          src: logoByRaices, // Logo en el centro del QR
+          src: logoQRBase64, // Logo en el centro del QR
           x: undefined,
           y: undefined,
           height: 40, // Tamaño del logo
@@ -72,7 +95,7 @@ const ACMReport = () => {
       margin:       0,
       filename:     'ACM_Report.pdf',
       image:        { type: 'png', quality: 0.98 },
-      html2canvas:  { dpi: 192, letterRendering: true, scale: 2 },
+      html2canvas:  { dpi: 192, letterRendering: true, scale: 1.5 },
       jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait', putOnlyUsedFonts: true }
     };
     html2pdf()
