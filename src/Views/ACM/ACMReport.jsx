@@ -264,7 +264,7 @@ const handleTextChange = (e, key) => {
         <label>Ingrese segundo link:</label>
         <input type="text" value={link2} onChange={(e) => setLink2(e.target.value)} placeholder="https://ejemplo.com" />
       </div>
-
+      <label>Valor del inmueble:</label>
       <input
         name="valorACM"
         value={formData.valorACM}
