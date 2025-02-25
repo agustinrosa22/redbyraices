@@ -232,6 +232,23 @@ const handleTextChange = (e, key) => {
   return (
     <div className={style.container}>
       {/* Controles de Entrada */}
+
+      <div className={style.containerInstructivo}>
+        <h3>Instructivo</h3>
+
+       <p> Los valores a completar en la sección inferior corresponden a los datos del inmueble que posee el agente inmobiliario. Estos datos permitirán comparar la propiedad con otras similares en diversos aspectos, incluida su ubicación.</p>
+
+   <p> El valor sugerido por el ACM se calculará automáticamente multiplicando el metraje construido por el valor del metro cuadrado. Este cálculo se realizará de forma automática una vez que se completen los campos correspondientes. Sin embargo, en caso de que el valor obtenido no sea el deseado, podrá editarse manualmente.</p>
+
+ <p> Posteriormente, se deberán ingresar los enlaces de las propiedades utilizadas como comparables.</p>
+
+ <p> En la sección F.O.D.A, se debe hacer clic en el apartado que se desea completar y escribir el contenido correspondiente, con un máximo de 250 caracteres por campo.</p>
+
+<p> En la tabla de comparables, cada celda debe completarse individualmente, ingresando los datos en cada recuadro.</p>
+
+ <p> Las imágenes deben subirse en formato vertical y se ajustarán automáticamente al centro del recuadro asignado.</p>
+
+      </div>
       <div className={style.inputContainer}>
         <h2>Información del Inmueble</h2>
         <label>Propietario:</label>
@@ -277,6 +294,8 @@ const handleTextChange = (e, key) => {
           Descargar PDF
         </button>
       </div>
+
+      
 
       {/* Contenido del Reporte */}
       <div className={style.report} ref={reportRef}>

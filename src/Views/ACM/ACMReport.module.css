@@ -10,6 +10,15 @@
   padding: 20px;
 }
 
+.containerInstructivo h3{
+  font-size: 46px;
+  border-bottom: 1px solid #a83e52;
+}
+
+.containerInstructivo p{
+  color: #666;
+}
+
 /* Contenedor de Inputs */
 .inputContainer {
   width: 80%;
