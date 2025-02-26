@@ -25,6 +25,7 @@ import PlacaPublicitaria from './Views/PlacaPublicitaria/PlacaPublicitaria'
 import ImageGenerator  from './Views/ImageGenerator/ImageGenerator'
 import CardVisitasAllContainer from './Components/CardVisitasAllContainer/CardVisitasAllContainer'
 import ACMReport from './Views/ACM/ACMReport'
+import Balance from './Views/Balance/Balance';
 
 
 function App() {
@@ -66,6 +67,7 @@ function App() {
             <Route path="/placas" element={<PlacaPublicitaria />} />
             <Route path="/image" element={<ImageGenerator />} />
             <Route path="/acm" element={<ACMReport />} />
+            <Route path="/balance" element={<Balance />} />
           </Routes>
         </div>
       </div>

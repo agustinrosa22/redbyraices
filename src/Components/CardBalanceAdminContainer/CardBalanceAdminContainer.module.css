@@ -1,0 +1,82 @@
+.filterButtons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px; /* Espacio entre los botones */
+    margin: 20px 0; /* Espaciado superior e inferior del contenedor de botones */
+  }
+  
+  .buttonFilter {
+    background-color: #3D2F87; /* Color celeste */
+    color: white; /* Texto blanco */
+    border: none; /* Sin bordes */
+    border-radius: 5px; /* Bordes redondeados */
+    padding: 10px 20px; /* Espaciado interno */
+    font-size: 16px; /* Tamaño de la fuente */
+    cursor: pointer; /* Cursor pointer para que parezca clickeable */
+    transition: background-color 0.3s ease; /* Efecto de transición */
+  }
+  
+  .buttonFilter:hover {
+    background-color: #A83E52; /* Color más oscuro al pasar el mouse */
+  }
+  
+  .buttonFilter:active {
+    background-color: #005f99; /* Color aún más oscuro al hacer clic */
+  }
+
+  .searchBar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px; /* Espaciado inferior */
+  }
+  
+  .searchInput {
+    width: 300px; /* Ancho del campo de búsqueda */
+    padding: 10px 15px; /* Espaciado interno */
+    border: 1px solid #ccc; /* Borde de color gris claro */
+    border-radius: 5px; /* Bordes redondeados */
+    font-size: 16px; /* Tamaño de fuente */
+    outline: none; /* Eliminar el contorno predeterminado */
+    transition: border 0.3s ease-in-out; /* Transición suave al interactuar */
+  }
+  
+  .searchInput:focus {
+    border-color: #3D2F87; /* Cambiar color del borde al hacer foco */
+    box-shadow: 0 0 5px rgba(#5944c4); /* Sombra ligera */
+  }
+  
+  .searchButton {
+    margin-left: 10px; /* Espaciado entre el botón y el campo */
+    padding: 10px 20px; /* Espaciado interno */
+    background-color: #3D2F87; /* Fondo azul */
+    color: #fff; /* Texto blanco */
+    border: none; /* Sin borde */
+    border-radius: 5px; /* Bordes redondeados */
+    font-size: 16px; /* Tamaño de fuente */
+    cursor: pointer; /* Cambiar cursor al puntero */
+    transition: background-color 0.3s ease-in-out; /* Transición suave al interactuar */
+  }
+  
+  .searchButton:hover {
+    background-color: #A83E52; /* Fondo más oscuro al pasar el cursor */
+  }
+  
+  .searchButton:active {
+    background-color: #A83E52; /* Fondo más oscuro al hacer clic */
+    transform: scale(0.98); /* Ligero efecto de reducción */
+  }
+  
+  @media (max-width: 768px) {
+    .filterButtons {
+      flex-direction: column; /* Botones en columna en pantallas pequeñas */
+      gap: 10px; /* Espacio reducido entre los botones */
+    }
+  
+    .buttonFilter {
+      width: 80%; /* Botones más grandes en pantallas pequeñas */
+      text-align: center; /* Centrar texto dentro de los botones */
+    }
+  }
+  
