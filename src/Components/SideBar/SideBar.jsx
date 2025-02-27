@@ -26,7 +26,10 @@ const allowedEmails = [
   'jgarcia@byraices.com'
 ];
 
-const listButtonEmail = 'lyunes@byraices.com';
+const allowedAdmin = [
+  'arosa@byraices.com',
+  'dsanesteban@byraices.com',
+];
 
 const Sidebar = () => {
   const [isExpanded, setIsExpanded] = useState(false);
@@ -57,8 +60,9 @@ const Sidebar = () => {
   };
 
   const showApproveButton = user && user.user && user.user.mail && allowedEmails.includes(user.user.mail);
-  const showListButton = user && user.user && user.user.mail === listButtonEmail;
+  const showAllowedAdmin = user && user.user && user.user.mail && allowedAdmin.includes(user.user.mail);
 
+  
   return (
     <div>
       {/* Botón de menú solo visible en pantallas pequeñas */}
@@ -154,14 +158,15 @@ const Sidebar = () => {
               </Link>
             </li>
           )}
-          {showListButton && (
+  {showAllowedAdmin && (
             <li>
-              <Link to="/lista" className={style.link}>
-                <img src={lista} alt="List" className={style.icon} />
-                Lista
+              <Link to="/balance" className={style.link}>
+                <img src={lista} alt="Approve" className={style.icon} />
+                Balance
               </Link>
             </li>
           )}
+          
         </ul>
         {user && user.user && (
           <div className={style['user-details']}>

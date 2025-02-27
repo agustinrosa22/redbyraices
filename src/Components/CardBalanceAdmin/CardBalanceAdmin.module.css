@@ -148,6 +148,20 @@
     box-shadow: 0px 0px 10px rgba(#ff002f);
   }
   
+  .greenArrow {
+    color: green;
+    font-weight: bold;
+  }
+  
+  .redArrow {
+    color: red;
+    font-weight: bold;
+  }
+  
+  .percentageChange {
+    font-size: 1rem;
+    margin-top: 0.5rem;
+  }
 
   /* Estilos Responsivos */
 @media (max-width: 768px) {

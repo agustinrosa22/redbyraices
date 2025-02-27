@@ -89,6 +89,13 @@ const CardAprobar = ({ property }) => {
         <h5 className={style.cardTitle}>{property.id}</h5>
         <h5 className={style.cardTitle}>$ {property.currency} {property.price}</h5>
         <p className={style.cardText}>{property.description}</p>
+        <p>
+  {property.ownerName && <span>{property.ownerName}</span>}
+  {property.ownerName && property.ownerPhone && " / "}
+  {property.ownerPhone && <span>{property.ownerPhone}</span>}
+  {property.ownerPhone && property.ownerEmail && " / "}
+  {property.ownerEmail && <span>{property.ownerEmail}</span>}
+</p>
 
         {hasDocumentation && (
           <div className={style.downloadSection}>
