@@ -1,19 +1,19 @@
 import React, { useRef, useState, useEffect } from "react";
 import { useSelector} from 'react-redux';
-import style from "./ACMReport.module.css";
-import portada from "../../Assets/Boceto ACM.png";
-import fondoACM from "../../Assets/fondoACM.png";
+import style from "./ACMReportTerrenos.module.css";
+import portada from "../../../Assets/Boceto ACM.png";
+import fondoACM from "../../../Assets/fondoACM.png";
 import html2pdf from 'html2pdf.js';
-import mapa from '../../Assets/IlustracionDeMapaGoogleMaps.png'
-import logoByraices from '../../Assets/LogoByraicesACM.png'
-import logoInmoup from '../../Assets/LogoInmoupACM.png'
-import logoZopaprop from '../../Assets/LogoZonapropACM.png'
-import telefonoLogo from '../../Assets/logoTelefonoACM.png'
-import mailLogo from '../../Assets/LogoMailACM.png'
-import ubicacionLogo from '../../Assets/LogoUbicacionACM.png'
-import comercializacion from '../../Assets/Comercializacion.png'
+import mapa from '../../../Assets/IlustracionDeMapaGoogleMaps.png'
+import logoByraices from '../../../Assets/LogoByraicesACM.png'
+import logoInmoup from '../../../Assets/LogoInmoupACM.png'
+import logoZopaprop from '../../../Assets/LogoZonapropACM.png'
+import telefonoLogo from '../../../Assets/logoTelefonoACM.png'
+import mailLogo from '../../../Assets/LogoMailACM.png'
+import ubicacionLogo from '../../../Assets/LogoUbicacionACM.png'
+import comercializacion from '../../../Assets/Comercializacion.png'
 import { QRCodeSVG } from "qrcode.react";
-import logoByRaices from "../../Assets/logoByraices.png";
+import logoByRaices from "../../../Assets/logoByraices.png";
 import QRCodeStyling from "qr-code-styling";
 
 
@@ -64,7 +64,7 @@ useEffect(() => {
 };
 
 
-const ACMReport = () => {
+const ACMReportTerrenos = () => {
    const user = useSelector(state => state.user);
   const reportRef = useRef();
   const [images, setImages] = useState([null, null, null]); // Imágenes de la primera página
@@ -141,10 +141,10 @@ const ACMReport = () => {
   useEffect(() => {
     if (!isUserEditing) {
       const m2Value = parseFloat(formData.m2) || 0;
-      const cubiertaValue = parseFloat(formData.cubierta) || 0;
+      const cubiertaValue = parseFloat(formData.dimensiones) || 0;
       setFormData((prev) => ({ ...prev, valorACM: m2Value * cubiertaValue }));
     }
-  }, [formData.m2, formData.cubierta, isUserEditing]);
+  }, [formData.m2, formData.dimensiones, isUserEditing]);
 
   // Manejar cambios en los inputs
   const handleChange = (e) => {
@@ -262,7 +262,7 @@ const handleTextChange = (e, key) => {
 
        <p> Los valores a completar en la sección inferior corresponden a los datos del inmueble que posee el agente inmobiliario. Estos datos permitirán comparar la propiedad con otras similares en diversos aspectos, incluida su ubicación.</p>
 
-   <p> El valor sugerido por el ACM se calculará automáticamente multiplicando el metraje construido por el valor del metro cuadrado. Este cálculo se realizará de forma automática una vez que se completen los campos correspondientes. Sin embargo, en caso de que el valor obtenido no sea el deseado, podrá editarse manualmente.</p>
+   <p> El valor sugerido por el ACM se calculará automáticamente multiplicando el metraje por el valor del metro cuadrado. Este cálculo se realizará de forma automática una vez que se completen los campos correspondientes. Sin embargo, en caso de que el valor obtenido no sea el deseado, podrá editarse manualmente.</p>
 
  <p> Posteriormente, se deberán ingresar los enlaces de las propiedades utilizadas como comparables.</p>
 
@@ -286,8 +286,6 @@ const handleTextChange = (e, key) => {
         <label>Dimensiones:</label>
         Superficie de terreno:
         <input type="text" name="dimensiones" onChange={handleChange} placeholder="Metros cuadrados" />
-        Superficie construida:
-        <input type="text" name="cubierta" onChange={handleChange} placeholder="Metros cuadrados" />
         <label>Antigüedad:</label>
         <input type="text" name="antiguedad" onChange={handleChange} placeholder="Años" />
         <label>Estado de Conservación:</label>
@@ -500,11 +498,10 @@ preciso para tu propiedad.</p>
     <tbody>
       {[
         "DIRECCIÓN",
-        "METROS CUBIERTOS",
-        "METROS CON ESPACIOS COMUNES",
-        "DORMITORIOS",
-        "ANTIGÜEDAD",
-        "ESTADO DE CONSERVACIÓN",
+        "METRAJE",
+        "VALOR M2",
+        "SERVICIOS",
+        "BARRIO PRIVADO",
         "VALOR DE PUBLICACIÓN"
 
       ].map((rowTitle, rowIndex) => (
@@ -588,7 +585,7 @@ preciso para tu propiedad.</p>
 
 <h3>VALOR M2: U$D {formData.m2}</h3>
 
-<h3>VALOR PRETENDIDO</h3>
+<h3>VALOR DE MERCADO</h3>
 
 <h2 className={style.priceACM}>U$D {Number(formData.valorACM).toLocaleString("es-ES",  { useGrouping: true })}</h2>
 
@@ -719,4 +716,4 @@ Ciudad Mendoza.</h3>
   );
 };
 
-export default ACMReport;
+export default ACMReportTerrenos;

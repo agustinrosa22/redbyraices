@@ -83,7 +83,7 @@
   page-break-after: always; /* Forzar el salto de página después de cada página */
   border: 1px solid #000000;
 
-  background-image: url("../../Assets/Boceto\ ACM.png"); /* Imagen de fondo */
+  background-image: url("../../../Assets/Boceto\ ACM.png"); /* Imagen de fondo */
   background-size: contain; /* Ajusta la imagen para que quepa dentro sin desbordarse */
   background-position: center; /* Centra la imagen */
   background-repeat: no-repeat; /* Evita repeticiones */
@@ -102,7 +102,7 @@
   page-break-after: always; /* Forzar el salto de página después de cada página */
   border: 1px solid #000000;
 
-  background-image: url("../../Assets/fondoACM.png"); /* Imagen de fondo */
+  background-image: url("../../../Assets/fondoACM.png"); /* Imagen de fondo */
   background-size: contain; /* Ajusta la imagen para que quepa dentro sin desbordarse */
   background-position: center; /* Centra la imagen */
   background-repeat: no-repeat; /* Evita repeticiones */

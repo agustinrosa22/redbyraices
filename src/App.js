@@ -24,9 +24,10 @@ import GenerarAlquiler from './Views/GenerarAlquiler/GenerarAlquiler';
 import PlacaPublicitaria from './Views/PlacaPublicitaria/PlacaPublicitaria'
 import ImageGenerator  from './Views/ImageGenerator/ImageGenerator'
 import CardVisitasAllContainer from './Components/CardVisitasAllContainer/CardVisitasAllContainer'
-import ACMReport from './Views/ACM/ACMReport'
+import ACMReport from './Views/ACM/ACMReport/ACMReport'
 import Balance from './Views/Balance/Balance';
-
+import ACMLandingPage from './Views/ACM/ACMLandingPage/ACMLandingPage';
+import ACMReportTerrenos from './Views/ACM/ACMTerrenosYLotes/ACMReportTerrenos';
 
 function App() {
   const location = useLocation();
@@ -66,7 +67,9 @@ function App() {
             <Route path="/generar-alquiler/:propertyId" element={<GenerarAlquiler />} />
             <Route path="/placas" element={<PlacaPublicitaria />} />
             <Route path="/image" element={<ImageGenerator />} />
-            <Route path="/acm" element={<ACMReport />} />
+            <Route path="/acm" element={<ACMLandingPage />} />
+            <Route path="/acm-inmuebles" element={<ACMReport />} />
+            <Route path="/acm-terrenos" element={<ACMReportTerrenos />} />
             <Route path="/balance" element={<Balance />} />
           </Routes>
         </div>
