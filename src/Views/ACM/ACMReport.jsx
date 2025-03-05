@@ -115,7 +115,8 @@ const ACMReport = () => {
     estadoConservacion: "",
     servicios: "",
     m2: "",
-    valorACM: ""
+    valorACM: "",
+    valorSugerido: "",
   });
 
 
@@ -295,7 +296,6 @@ const handleTextChange = (e, key) => {
         <input type="text" name="servicios" onChange={handleChange} placeholder="Ejemplo: Luz, Agua, Gas" />
         <label>Valor del m2</label>
         <input name="m2" onChange={handleChange} placeholder="Añadir valor del metro cuadrado"></input>
-        <label>Valor del inmueble</label>
 
         <div className={style.inputContainer}>
         <label>Ingrese primer link:</label>
@@ -310,7 +310,16 @@ const handleTextChange = (e, key) => {
         value={formData.valorACM}
         onChange={handleChange}
         onBlur={handleBlur} // Si se vacía, recalcula
-        placeholder="Añadir valor del metro cuadrado"
+        placeholder="Añadir valor del inmueble"
+      />
+
+<label>Valor Sugerido del inmueble:</label>
+      <input
+        name="valorSugerido"
+        value={formData.valorSugerido}
+        onChange={handleChange}
+        onBlur={handleBlur} // Si se vacía, recalcula
+        placeholder="Añadir valor del inmueble"
       />
 
         <button onClick={handleDownloadPDF} className={style.printButton}>
@@ -581,7 +590,19 @@ preciso para tu propiedad.</p>
 
 <h3>VALOR PRETENDIDO</h3>
 
-<h2 className={style.priceACM}>U$D {formData.valorACM}</h2>
+<h2 className={style.priceACM}>U$D {Number(formData.valorACM).toLocaleString("es-ES",  { useGrouping: true })}</h2>
+
+{formData.valorSugerido && (
+  <div className={style.containerValorSugerido}>
+    <h3>VALOR SUGERIDO</h3>
+    <h2 className={style.priceACMSugerido}>
+      U$D {Number(formData.valorSugerido).toLocaleString("es-ES", { useGrouping: true })}
+    </h2>
+  </div>
+)}
+
+
+
 </div>
 
 </div>
