@@ -148,6 +148,12 @@
     box-shadow: 0px 0px 10px rgba(#ff002f);
   }
   
+  .dateInfo {
+    font-size: 16px;
+    color: #A83E52;
+    margin-top: 5px;
+  }
+  
 
   /* Estilos Responsivos */
 @media (max-width: 768px) {
