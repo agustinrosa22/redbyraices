@@ -77,6 +77,29 @@ const CardAprobar = ({ property }) => {
 
   const hasDocumentation = property.documentation?.length > 0;
 
+
+  
+    // Calcular días publicados
+    const getDaysPublished = () => {
+      if (!property.createdAt) return "Fecha desconocida";
+  
+      const createdAtDate = new Date(property.createdAt);
+      const currentDate = new Date();
+      const differenceInTime = currentDate.getTime() - createdAtDate.getTime();
+      const differenceInDays = Math.floor(differenceInTime / (1000 * 3600 * 24)); // Convertir ms a días
+  
+      return differenceInDays === 1 ? "1 día publicado" : `${differenceInDays} días publicados`;
+    };
+  
+    const getFormattedDate = (dateString) => {
+      if (!dateString) return "Fecha desconocida";
+    
+      const options = { year: 'numeric', month: 'long', day: 'numeric' };
+      return new Date(dateString).toLocaleDateString("es-ES", options);
+    };
+  
+    
+
   return (
     <div className={`${style.card} ${!hasDocumentation ? style.borderOrange : ''}`}>
       <div className={style.imageContainer}>
@@ -89,6 +112,11 @@ const CardAprobar = ({ property }) => {
         <h5 className={style.cardTitle}>{property.id}</h5>
         <h5 className={style.cardTitle}>$ {property.currency} {property.price}</h5>
         <p className={style.cardText}>{property.description}</p>
+                 {/* Fecha de creación y días publicados */}
+<p className={style.dateInfo}>
+  Creado el <strong>{getFormattedDate(property.createdAt)}</strong> - {getDaysPublished()}
+</p>
+
         <p>
   {property.ownerName && <span>{property.ownerName}</span>}
   {property.ownerName && property.ownerPhone && " / "}

@@ -8,6 +8,27 @@ const CardSellerProperties = ({ property }) => {
     return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
   };
 
+    // Calcular días publicados
+    const getDaysPublished = () => {
+      if (!property.createdAt) return "Fecha desconocida";
+  
+      const createdAtDate = new Date(property.createdAt);
+      const currentDate = new Date();
+      const differenceInTime = currentDate.getTime() - createdAtDate.getTime();
+      const differenceInDays = Math.floor(differenceInTime / (1000 * 3600 * 24)); // Convertir ms a días
+  
+      return differenceInDays === 1 ? "1 día publicado" : `${differenceInDays} días publicados`;
+    };
+  
+    const getFormattedDate = (dateString) => {
+      if (!dateString) return "Fecha desconocida";
+    
+      const options = { year: 'numeric', month: 'long', day: 'numeric' };
+      return new Date(dateString).toLocaleDateString("es-ES", options);
+    };
+  
+    
+
 
   return (
     <div className={style.card}>
@@ -19,6 +40,11 @@ const CardSellerProperties = ({ property }) => {
       <div className={style.cardContent}>
         <h5 className={style.cardTitle}>{property.title}</h5>
         <h5 className={style.cardTitle}>$ {property.currency} {formatPrice(property.price)}</h5>
+              {/* Fecha de creación y días publicados */}
+<p className={style.dateInfo}>
+  Creado el <strong>{getFormattedDate(property.createdAt)}</strong> - {getDaysPublished()}
+</p>
+
         <p className={style.cardText}>{property.description}</p>
         <div className={style.buttonContainer}>
         <Link to={`/historial/visitas/${property.id}`} className={style.detailsLink}>
